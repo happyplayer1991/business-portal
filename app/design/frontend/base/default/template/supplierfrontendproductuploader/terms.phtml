@@ -1,0 +1,26 @@
+<div class="container main-container vendor-container">
+    <h1 class="text-left"><?php echo $this->__('Terms of Service Update.'); ?></h1>
+    <div class="row">
+        <div class="col-md-12 container form-container">
+            <?php $termsPageUrl = Mage::helper('supplierfrontendproductuploader')->getTermsPageUrl(); ?>
+            <?php echo $this->__('A change in our Terms of Service has been made. Please read them carefully <a href="%s" target="_blank">here</a>.', $termsPageUrl); ?>
+            <form action="<?php echo $this->getActionUrl(); ?>" method="post" class="form-horizontal scaffold-form"
+                  id="termsForm" accept-charset="utf-8">
+                <div class="field">
+                    <input name="terms" type="checkbox" id="terms"
+                           class="input-checkbox required-entry">
+                    <label for="terms" class="control-label required">
+                        <?php echo $this->__('I agree') ?>
+                    </label>
+                </div>
+                <br/>
+                <div class="form-actions buttons-set">
+                    <button type="submit" class="button btn btn-large btn-primary">
+                        <span><span><?php echo $this->__('Continue'); ?></span></span></button>
+                    <button type="button" class="button btn btn-large"
+                            onclick="setLocation('<?php echo Mage::getBaseUrl(); ?>')">
+                        <span><span><?php echo $this->__('Decline'); ?></span></span></button>
+                </div>
+            </form>
+        </div>
+    </div>

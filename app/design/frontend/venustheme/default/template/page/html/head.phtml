@@ -1,0 +1,89 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+$ves = Mage::helper('themesettings');
+$default_skin = Mage::helper('themesettings')->getConfig('general/default_skin');
+
+if($default_skin == 'default'){
+	$this->addCss('css/styles.css');
+}else{
+	$this->removeItem('skin_css','css/styles.css');
+	$package_name = Mage::getSingleton('core/design_package')->getPackageName();
+	$theme = Mage::getSingleton('core/design_package')->getTheme('template');
+	$skinDir = Mage::getBaseDir('skin'). DS . 'frontend' . DS . $package_name . DS . $theme . DS . 'css' . DS .'skins' . DS . $default_skin . DS;
+	$skinFiles = glob($skinDir . '*.css');
+	foreach ($skinFiles as $k => $file) {
+		$file = str_replace($skinDir, "", $file);
+		Mage::log($file);
+		$this->addCss('css/skins/'. $default_skin . '/' .$file);
+	}
+}
+$custom_css = $ves->getConfig('customization/custom_css');
+?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<title><?php echo $this->getTitle() ?></title>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<!--[if lt IE 7]>
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<?php echo $this->getCssJsHtml() ?>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+
+<?php //Include Google Fonts
+$amp = '&amp;';
+$charSubset = '';
+if ($subsets = $ves->getCfgDesign('font/primary_char_subset'))
+{
+	$charSubset = "{$amp}subset={$subsets}";
+}
+$enable_custom_font_size = $ves->getCfgDesign('font/enable_custom_font_size');
+
+$fontWeight = '';
+if ($weight = $ves->getCfgDesign('font/primary_font_weight'))
+{
+	$fontWeight = ':' . $weight;
+}
+?>
+<?php if ($enable_custom_font_size && $ves->getCfgDesign('font/primary_font_family_group') == 'google'):  ?>
+	<link href='http://fonts.googleapis.com/css?family=<?php echo str_replace(' ', '+', $ves->getCfgDesign('font/primary_font_family')); 
+	echo $fontWeight; echo $charSubset; ?>' rel='stylesheet' type='text/css' />
+<?php endif; ?>
+
+<style type="text/css">
+	<?php if($custom_css){
+		echo $custom_css;
+	} ?>
+</style>

@@ -1,0 +1,20 @@
+<?php
+$ves = Mage::helper('themesettings');
+$enable_footer_bottom = $ves->getConfig('footer/enable_footer_bottom');
+$html = '';
+if(Mage::helper("themesettings")->checkModuleInstalled("Ves_BlockBuilder") && $enable_footer_bottom) {
+	$blockId = $ves->getConfig('footer/bottom_layout');
+	$blockBuilder = Mage::getModel("ves_blockbuilder/block")->load($blockId);
+	$processor = Mage::helper('cms')->getPageTemplateProcessor();
+	$html = $processor->filter($blockBuilder->getShortcode());
+}
+$footer_bottom_html = $this->getChildHtml();
+?>
+<?php if( $enable_footer_bottom && ($footer_bottom_html || $html)){ ?>
+<div class="footer-bottom">
+	<div class="wrap-container">
+		<?php echo $html; ?>
+		<?php echo $footer_bottom_html ?>
+	</div>
+</div>
+<?php } ?>

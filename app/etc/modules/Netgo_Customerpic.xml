@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/***************************************
+ *** Customer Photo Crop Extension ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_Customerpic
+ * @author 		Vipin
+ * @dev			77vips@gmail.com
+ *
+ */
+-->
+<config>
+    <modules>
+        <Netgo_Customerpic>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Core />
+             </depends>
+        </Netgo_Customerpic>
+    </modules>
+</config>

@@ -1,0 +1,95 @@
+<?php
+$ratings = array(
+            5 => array("total" => 0, "percent" => 0),
+            4 => array("total" => 0, "percent" => 0),
+            3 => array("total" => 0, "percent" => 0),
+            2 => array("total" => 0, "percent" => 0),
+            1 => array("total" => 0, "percent" => 0),
+            );
+if ($this->getReviewsCount()) {
+    $productId = $this->getProduct()->getId();
+    $reviews = Mage::getModel('review/review')
+                ->getResourceCollection()
+                ->addStoreFilter(Mage::app()->getStore()->getId())
+                ->addEntityFilter('product', $productId)
+                ->addStatusFilter(Mage_Review_Model_Review::STATUS_APPROVED)
+                ->setDateOrder()
+                ->addRateVotes();
+
+    if (count($reviews) > 0) {
+        $total_ratings = 0;
+        foreach ($reviews->getItems() as $review) {
+            foreach( $review->getRatingVotes() as $vote ) {
+                if(!isset($ratings[$vote->getValue()])) {
+                    $ratings[$vote->getValue()] = array("total" => 0, "percent" => 0);
+                }
+                $ratings[$vote->getValue()]['total'] += 1;
+                $total_ratings += 1;
+            }
+        }
+        if($total_ratings) {
+            foreach($ratings as $key => $item ) {
+                $ratings[$key]['percent'] = round((($item['total'] / $total_ratings) * 100), 2);
+            }
+        }
+        
+    }
+
+}
+
+?>
+<div class="review-average-info">
+    <div class="average-rating">            
+        <?php if ($this->getReviewsCount()): ?>
+            <div class="ratings">
+                <?php if ($this->getRatingSummary()):?>
+                    <div class="rating-box">
+                        <div class="rating" style="width:<?php echo $this->getRatingSummary() ?>%"></div>
+                    </div>
+                <?php endif;?>
+                <div class="rating-links">
+                    <a href="javascript:;"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <?php elseif ($this->getDisplayIfEmpty()): ?>
+            <div class="ratings">
+                <div class="rating-box">
+                    <div class="rating"></div>
+                </div>
+                <div class="rating-links">
+                    <a href="javascript:;"><?php echo $this->__('0 Review') ?></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="ratings-and-size">
+        <div class="review-right">
+            <div class="separate-rating">
+                <?php
+                    if($ratings){ 
+                        foreach($ratings as $key => $item) {
+                            ?>
+                            <div class="mark-rating">
+                                <div class="rating-box">
+                                    <div class="rating"><span><?php echo $this->__("%s star", $key);?></span></div>
+                                </div>
+                                <div class="scroll-box">
+                                    <div class="scroll-rating" style="width:<?php echo $item['percent']; ?>%;"></div>
+                                </div>
+                                <div class="rating-percent">
+                                    <span><?php echo $item['total']; ?></span>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                ?>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+<div class="clearfix"></div>

@@ -1,0 +1,332 @@
+<?php /** @var Cminds_Supplierfrontendproductuploader_Block_Product_Associated $this */ ?>
+<?php $attributes = $this->getAttributes(); ?>
+<?php $notAssociatedProducts = $this->getNotAssociatedProducts(); ?>
+<?php $associatedProducts = $this->getChildrenProducts(); ?>
+<?php $associatedCount = count($associatedProducts); ?>
+<?php $product = $this->getConfigurable(); ?>
+<div class="container-fluid main-container vendor-container">
+    <div class="page-header">
+        <h2>
+            <?php echo $this->__("Associated Products") ?>
+            <small><?php echo $this->__(
+                    "for  %s",
+                    "<a href='".$this->getEditConfigurableUrl()."'>" . $this->getConfigurable()->getSku() . "</a>"
+                ) ?></small>
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 form-container">
+            <form name="product_create_form" id="product_create_form"
+                  action="<?php echo Mage::getUrl('supplier/product/saveAssociatedProduct') ?>"
+                  method="post" enctype="multipart/form-data">
+                <div class="container-fluid">
+                    <div class="col-md-6">
+                        <input type="hidden" name="super_product_id"
+                               value="<?php echo $this->getProductId(); ?>">
+                        <div class="cold-md-5">
+                            <?php if (count($notAssociatedProducts) > 0) : ?>
+                                <div class="container form-group">
+                                    <div class="col-md-6 label-container">
+                                        <label for="name">
+                                            <?php echo $this->getLabel( 'Existing Product',
+                                                'Existing Product', false ); ?>:
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 input-container">
+                                        <select name="product_id"
+                                                id="product_id">
+                                            <option value="0">----------</option>
+                                            <?php foreach ($notAssociatedProducts as $product) : ?>
+                                                <?php ; ?>
+                                                <option
+                                                    value="<?php echo $product->getId(); ?>" <?php echo $this->areOptionsExists( $product ) ? "disabled" : ""; ?> ><?php echo $product->getName(); ?>
+                                                    , <?php echo $this->__( 'SKU' ); ?>
+                                                    : <?php echo $product->getSku(); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <div class="container form-group">
+                                <div class="col-md-6 label-container">
+                                    <label for="name">
+                                        <?php echo $this->getLabel('name', 'Name', false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-6 input-container">
+                                    <input type="text" id="name" name="name"
+                                           class="input-text form-control required-entry"
+                                           value="<?php echo(isset($data['name']) ? $data['name'] : ''); ?>"/>
+                                </div>
+                            </div>
+                            <div class="container form-group">
+                                <div class="col-md-6 label-container">
+                                    <label for="qty">
+                                        <?php echo $this->getLabel('qty', 'QTY Available', false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-6 input-container">
+                                    <input type="text" id="new_qty" name="new_qty"
+                                           value="<?php echo( isset( $data['new_qty'] ) ? number_format($data['new_qty']) : 0 ); ?>"
+                                           class="input-text form-control required-entry validate-number"/>
+                                </div>
+                            </div>
+                            <?php if ($this->canManageStock()) : ?>
+                                <div class="container form-group">
+                                    <div class="col-md-6 label-container">
+                                        <label for="in_stock">
+                                            <?php echo $this->getLabel('manage_stock', $this->__('Stock Availability'), false); ?>
+                                            <span class="required">*</span>:
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 input-container">
+                                        <select name="in_stock"
+                                                id="in_stock"
+                                                class="input-text form-control ">
+                                            <option value="1"><?php echo $this->__("Yes"); ?></option>
+                                            <option value="0"><?php echo $this->__("No"); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($this->canGenerateSku()) : ?>
+                                <div class="container form-group">
+                                    <div class="col-md-6 label-container">
+                                        <label for="sku">
+                                            <?php echo $this->getLabel('sku', 'Sku', false); ?>
+                                            <span class="required">*</span>:
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 input-container">
+                                        <input type="text" id="sku" name="sku"
+                                               class="input-text form-control required-entry"/>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <div class="container form-group">
+                                <div class="col-md-6 label-container">
+                                    <label for="sku">
+                                        <?php echo $this->getLabel('weight', 'Product Weight', false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-6 input-container">
+                                    <input type="text" id="weight" name="weight"
+                                           value="<?php echo( isset( $data['weight'] ) ? $data['weight'] : $product->getWeight() ); ?>"
+                                           class="input-text form-control required-entry validate-number"/>
+                                </div>
+                            </div>
+                            <div class="custom-attributes">
+                                <?php foreach ($attributes as $attribute) : ?>
+                                    <?php $attributeObj = Mage::getSingleton( 'eav/config' )->getAttribute( Mage_Catalog_Model_Product::ENTITY,
+                                        $attribute['attribute_code'] ); ?>
+
+                                    <?php if ($attributeObj->getData('is_user_defined') == 1) : ?>
+                                        <?php $attributeFrontend = $attributeObj->getFrontend(); ?>
+                                        <?php if (!$attributeObj->getData('is_configurable')) {
+                                            continue;
+                                        } ?>
+                                        <?php $isRequired = $attributeFrontend->getAttribute()->getIsRequired(); ?>
+                                        <input type="hidden"
+                                               name="options[<?php echo $attributeObj->getAttributeCode(); ?>][id]"
+                                               value="<?php echo $attribute['id'] ?>"
+                                               style=""/>
+                                        <input type="hidden"
+                                               name="options[<?php echo $attributeObj->getAttributeCode(); ?>][attribute_id]"
+                                               value="<?php echo $attributeObj->getAttributeId(); ?>"
+                                               style=""/>
+                                        <div class="container form-group">
+                                            <div
+                                                class="col-md-6 label-container">
+                                                <label
+                                                    for="<?php echo $attributeObj->getAttributeCode() ?>">
+                                                    <?php echo $this->escapeHtml( $this->getLabel( $attributeObj ) ); ?>
+                                                    <?php if ( $isRequired == 1 ): ?>
+                                                        <span
+                                                            class="required">*</span> <?php endif; ?>
+                                                    :
+                                                </label>
+                                            </div>
+                                            <div
+                                                class="col-md-6 input-container">
+                                                <?php echo $this->getAttributeHtml( $attributeObj,
+                                                    array() ); ?>
+                                                <div class="priceContainer"
+                                                     style="display:none;">
+                                                    <label><?php echo $this->__( "Price" ); ?></label>
+                                                    <input type="text"
+                                                           name="options[<?php echo $attributeObj->getAttributeCode(); ?>][price]"
+                                                           class="input-text form-control  attribute-price validate-number price"
+                                                           style=""
+                                                           value="0"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <strong><?php echo $this->__("Name"); ?></strong>
+                                    </td>
+                                    <td>
+                                        <strong><?php echo $this->__("Price"); ?></strong>
+                                    </td>
+                                    <td>
+                                        <strong><?php echo $this->__("Quantity"); ?></strong>
+                                    </td>
+                                    <?php foreach ($attributes as $attribute) : ?>
+                                        <td>
+                                            <strong><?php echo $this->__($attribute['store_label']); ?></strong>
+                                        </td>
+                                    <?php endforeach; ?>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if ($associatedCount > 0): ?>
+                                    <?php foreach ($associatedProducts as $product): ?>
+                                        <?php $p = Mage::getModel('catalog/product')->load($product->getId()); ?>
+                                        <?php $stock = Mage::getModel('cataloginventory/stock_item')
+                                                           ->loadByProduct($product); ?>
+                                        <tr>
+                                            <td><input class="associated"
+                                                       type="checkbox"
+                                                       value="<?php echo $this->escapeHtml($product->getId()); ?>"
+                                                       name="selectedProduct[]"
+                                                /></td>
+                                            <td><a href="<?php echo $this->getSimpleProductEditUrl($p); ?>">
+                                                    <?php echo $this->escapeHtml($p->getName()); ?></a>
+                                                <br>(<?php echo $this->__("SKU : %s", $p->getSku()); ?>)
+                                            </td>
+                                            <td><?php echo $this->formatPrice($p->getPrice()); ?></td>
+                                            <td><input
+                                                    type="text"
+                                                    class="input-text form-control required-entry"
+                                                    name="qty[<?php echo $product->getId(); ?>]"
+                                                    value="<?php echo number_format($stock->getQty()); ?>"
+                                                    <?php echo (!$stock->getManageStock()) ? " disabled" : "" ?>
+                                                />
+                                                <?php if (!$stock->getManageStock()) : ?>
+                                                    <p class="text-danger"><small><?php echo $this->__("This product has disabled stock management"); ?></small></p>
+                                                <?php endif; ?>
+                                            </td>
+
+                                            <?php foreach ($attributes as $attribute) : ?>
+                                                <td>
+                                                    <?php echo $this->escapeHtml(
+                                                        $p->getAttributeText($attribute['attribute_code'])
+                                                    ); ?>
+                                                </td>
+                                            <?php endforeach; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="5"><?php echo $this->__( "No Associated Products" ); ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="col-md-4">
+                                            <input type="submit"
+                                                   class="btn btn-primary"
+                                                   data-mode="update_qty"
+                                                   value="<?php echo $this->updateQtyButtonLabel(); ?>"
+                                                   <?php echo !$associatedCount ? 'disabled' : ''; ?>
+                                            />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="submit"
+                                                   class="btn btn-warning"
+                                                   data-mode="unlink"
+                                                   value="<?php echo $this->unlinkButtonLabel(); ?>"
+                                                    <?php echo !$associatedCount ? 'disabled' : ''; ?>
+                                            />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="submit"
+                                                   class="btn btn-danger"
+                                                   data-mode="delete"
+                                                   value="<?php echo $this->removeButtonLabel(); ?>"
+                                                    <?php echo !$associatedCount ? 'disabled' : ''; ?>
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <input type="hidden" name="mode">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-12 col-md-offset-5">
+                <input type="submit" name="submit" class="btn btn-primary"
+                       value="<?php echo $this->__( 'Save Product' ) ?>"/>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('product_create_form');
+
+    jQuery(document).ready(function () {
+        jQuery('.custom-attributes input, .custom-attributes select, .custom-attributes textarea').not('.price').on('change', function () {
+            jQuery(this).next().show().find('input').addClass('required-entry');
+        });
+
+        jQuery('.associated-dropdown').change(function () {
+            jQuery(this).next().show();
+        });
+
+        jQuery('#product_id').change(function () {
+            if (jQuery(this).val() != 0) {
+                jQuery('#name').attr('disabled', '').removeClass('required-entry');
+                jQuery('#qty').attr('disabled', '').removeClass('required-entry');
+                jQuery('#weight').attr('disabled', '').removeClass('required-entry');
+                jQuery('#sku').attr('disabled', '').removeClass('required-entry');
+                jQuery('.associated-dropdown').attr('disabled', '').removeClass('required-entry');
+            } else {
+                jQuery('#name').removeAttr('disabled').addClass('required-entry');
+                jQuery('#qty').removeAttr('disabled').addClass('required-entry');
+                jQuery('#weight').removeAttr('disabled').addClass('required-entry');
+                jQuery('#sku').removeAttr('disabled').addClass('required-entry');
+            }
+        });
+
+        jQuery(".btn.btn-warning").click(function(e){
+            var confirmResponse = confirm("<?php echo $this->__("Are you sure?"); ?>");
+            if(!confirmResponse) e.preventDefault();
+        });
+
+        jQuery(".btn").click(function(e){
+            var mode = jQuery(this).data("mode");
+            if(mode) {
+                jQuery("input[name='mode']").val(mode);
+                jQuery('#name').attr('disabled', '').removeClass('required-entry');
+                jQuery('#qty').attr('disabled', '').removeClass('required-entry');
+                jQuery('#weight').attr('disabled', '').removeClass('required-entry');
+                jQuery('#sku').attr('disabled', '').removeClass('required-entry');
+                jQuery('.associated-dropdown').attr('disabled', '').removeClass('required-entry');
+            }
+        });
+    });
+    //]]>
+</script>

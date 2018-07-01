@@ -1,0 +1,530 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <cminds>
+            <label>CM Magento Extensions</label>
+            <sort_order>0</sort_order>
+        </cminds>
+    </tabs>
+    <sections>
+        <cmindsConf translate="label">
+            <label>Licenses</label>
+            <tab>cminds</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <instruction_short>
+                    <label>Please activate your license key according to the amount of licenses you purchased.
+                        If you want to move your plugin to another site please deactivate first before moving and reactivating.
+                        In order to activate the plugin you have to paste the code and "Save changes" then click the "Activate" button.</label>
+                    <sort_order>10</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_hint</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </instruction_short>
+                <sslconf>
+                    <label>SSL Version</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <version translate="label">
+                            <label>Server SSL Version</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>cminds/config_source_ssl_version</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </version>
+                    </fields>
+                </sslconf>
+                <cminds_marketplace>
+                    <label>CM Marketplace</label>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_marketplace>
+                <cminds_supplierfrontendproductuploader>
+                    <label>CM Supplier Frontend Product Uploader</label>
+                    <sort_order>40</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_supplierfrontendproductuploader>
+                <cminds_multiuseraccounts module="cminds">
+                    <label>CM Multi User Account</label>
+                    <sort_order>50</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_multiuseraccounts>
+                <cminds_productreviewcoupon>
+                    <label>CM Product Review Coupon</label>
+                    <sort_order>60</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_productreviewcoupon>
+                <cminds_coupon>
+                    <label>Custom Coupons Error Message Extension</label>
+                    <sort_order>70</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_coupon>
+                <cminds_freegift>
+                    <label>Free Gift and Coupon Extension</label>
+                    <sort_order>80</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_freegift>
+                <cminds_salesrecovery>
+                    <label>Cart Recovery Extension</label>
+                    <sort_order>90</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_salesrecovery>
+                <cminds_newsletter>
+                    <label>Advanced Newsletter Registration Extension</label>
+                    <sort_order>100</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_newsletter>
+                <cminds_orderedit module="cminds">
+                    <label>CM True Order Edit</label>
+                    <sort_order>110</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_orderedit>
+                <cminds_orderhighlight module="cminds">
+                    <label>CM Order Highlighter</label>
+                    <sort_order>120</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_orderhighlight>
+                <cminds_warp module="cminds">
+                    <label>CM Warp Full Page Caching</label>
+                    <sort_order>130</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_warp>
+                <cminds_antifraud module="cminds">
+                    <label>CM Antifraud</label>
+                    <sort_order>140</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_antifraud>
+                <cminds_freesample module="cminds">
+                    <label>CM Free Sample</label>
+                    <sort_order>150</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_freesample>
+                <cminds_giftcard module="cminds">
+                    <label>CM Gift Card</label>
+                    <sort_order>160</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_giftcard>
+                <cminds_giftcardvrp module="cminds">
+                    <label>CM Gift Card Vrp</label>
+                    <sort_order>161</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_giftcardvrp>
+                <cminds_findify>
+                    <label>Magento Findify Best Search Extension</label>
+                    <sort_order>170</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>34</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_findify>
+                <cminds_urlrewritefix>
+                    <label>URL Rewrite Extension for Magento 1</label>
+                    <sort_order>180</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_urlrewritefix>
+                <cminds_addressupload>
+                    <label>CSV Address Import Extension for Magento 1</label>
+                    <sort_order>190</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_addressupload>
+                <cminds_oapm>
+                    <label>Order Approve Payment Method for Magento 1</label>
+                    <sort_order>200</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>37</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_oapm>
+                <cminds_sociallogin>
+                    <label>CM Social Login and Registration Popup</label>
+                    <sort_order>220</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>39</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_sociallogin>
+                <cminds_faq>
+                    <label>CM Fancy FAQ</label>
+                    <sort_order>220</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>39</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_faq>
+                <cminds_orderarchive>
+                    <label>CM Order Archive</label>
+                    <sort_order>230</sort_order>
+                    <frontend_model>cminds/adminhtml_system_config_fieldset_license</frontend_model>
+                    <show_in_default>1</show_in_default>
+                    <fields>
+                        <license_key translate="label">
+                            <label>License Key</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_license</frontend_model>
+                            <backend_model>cminds/activate</backend_model>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </license_key>
+                        <is_approved translate="label">
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>cminds/adminhtml_system_config_form_button</frontend_model>
+                            <sort_order>39</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </is_approved>
+                    </fields>
+                </cminds_orderarchive>
+            </groups>
+        </cmindsConf>
+    </sections>
+</config>

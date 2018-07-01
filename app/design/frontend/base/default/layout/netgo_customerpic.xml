@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/***************************************
+ *** Customer Photo Crop Extension ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_Customerpic
+ * @author 		Vipin
+ * @dev			77vips@gmail.com
+ *
+ */
+-->
+<layout>
+    
+    <netgo_customerpic_customerpic_index translate="label" module="netgo_customerpic">
+		<reference name="head"> 
+			<action method="addCss"><stylesheet>customerpic/css/style.css</stylesheet></action>
+			<action method="addCss"><stylesheet>customerpic/css/jquery.Jcrop.min.css</stylesheet></action>
+            <action method="addJs"><script>customerpic/js/jquery.Jcrop.min.js</script></action>
+			<action method="addJs"><script>customerpic/js/script.js</script></action> 
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+            <action method="addBodyClass"><class>customer-account</class></action>
+        </reference>
+		
+        <reference name="content">
+            <block type="netgo_customerpic/customerpic_photo" name="customerpic_photo" template="netgo_customerpic/customerpic/profile_photo.phtml" />
+        </reference>
+		
+		<reference name="left_first">
+            <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
+                <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
+                <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
+                <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
+				<action method="addLink" translate="label" module="netgo_customerpic"><name>Upload Profile Photo</name><path>netgo/customerpic</path><label>Upload Profile Photo</label></action>
+            </block>
+        </reference>
+        <reference name="left">
+            <block type="catalog/product_compare_sidebar" name="catalog.compare.sidebar" template="catalog/product/compare/sidebar.phtml"/>
+            <remove name="tags_popular"/> 
+        </reference>
+    </netgo_customerpic_customerpic_index>
+	 
+	<customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="netgo_customerpic"><name>Upload Profile Photo</name><path>netgo/customerpic</path><label>Upload Profile Photo</label></action>
+        </reference>
+    </customer_account>
+</layout>

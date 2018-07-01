@@ -1,0 +1,95 @@
+
+/* For Supplier Upload Dashboard */
+@media (min-width: 768px) {
+    .navbar-fixed-side {
+        /* position: absolute !important; */
+        width: initial !important;
+    }
+}
+
+/*
+.navbar.navbar-inverse.navbar-fixed-side {
+    height: 1700px !important;
+}
+*/
+.vendor-container label {
+    float: left !important;
+}
+
+/* Header links for red */
+.header .skip-links a, .header .links a {
+    text-decoration: none;
+}
+
+.header .skip-links a:hover, .header .links a:hover {
+    text-decoration: none;
+    color: #fe5252 ;
+}
+
+.header .skip-links .skip-active {
+    color: #fe5252 ;
+}
+
+/**
+ * Cursor on Delete
+ */
+
+a.confirm {
+    cursor: pointer; 
+}
+
+li.thumbnail.main {
+    border: 3px solid #5cb85c;
+}
+
+/**
+  *
+  */
+
+.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline {
+    margin-left: 0px ;
+}
+
+/**
+    * Adjust Size
+*/
+input[type=email], input[type=search], input[type=number], input[type=password], input[type=tel], input[type=text] {
+    width: 100%;
+}
+
+/**
+	* Disable textarea resizeable
+*/
+
+textarea {
+	resize: none;
+}
+
+/** 
+    * disable uppercase
+*/
+.category-list h5, .photo-content h5 {
+    text-transform: none;
+}
+
+.jumbotron input[type=text] {
+    width: auto;
+}
+
+/**
+    * 
+*/
+
+div.main-container.col1-layout {
+    padding: 0;
+}
+
+div.vendor-container.main-container {
+    padding: 10px;
+}
+
+div.container.main-container.vendor-container th,
+div.container.main-container.vendor-container td {
+    text-align: center;
+}
+

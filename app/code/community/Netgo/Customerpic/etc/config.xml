@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- 
+/***************************************
+ *** Customer Photo Crop Extension ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_Customerpic
+ * @author 		Vipin
+ * @dev			77vips@gmail.com
+ *
+ */
+-->
+<config>
+    <modules>
+        <Netgo_Customerpic>
+            <version>1.0.0</version>
+        </Netgo_Customerpic>
+    </modules>
+    <global>
+        <resources> 
+			<netgo_customerpic_setup>
+				<setup>
+					<module>Netgo_Customerpic</module>
+					<class>Mage_Eav_Model_Entity_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</netgo_customerpic_setup>
+			
+			<netgo_customerpic_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</netgo_customerpic_write>
+			
+			<netgo_customerpic_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</netgo_customerpic_read> 		 
+        </resources>
+        <blocks>
+            <netgo_customerpic>
+                <class>Netgo_Customerpic_Block</class>
+            </netgo_customerpic>
+        </blocks>
+        <helpers>
+            <netgo_customerpic>
+                <class>Netgo_Customerpic_Helper</class>
+            </netgo_customerpic>
+        </helpers> 
+    </global> 
+    <frontend>
+        <routers>
+            <netgo_customerpic>
+                <use>standard</use>
+                <args>
+                    <module>Netgo_Customerpic</module>
+                    <frontName>netgo</frontName>
+                </args>
+            </netgo_customerpic>
+        </routers>
+        <layout>
+            <updates>
+                <netgo_customerpic>
+                    <file>netgo_customerpic.xml</file>
+                </netgo_customerpic>
+            </updates>
+        </layout> 
+    </frontend> 
+</config>

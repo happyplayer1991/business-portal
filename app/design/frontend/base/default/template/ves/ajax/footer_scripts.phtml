@@ -1,0 +1,264 @@
+<div id='ajax_loader' class="ajaxcartpro_progress hidden"></div>
+<script>
+    var cartSuffix = "";
+    var cartSuffixs = "";
+    function setLocationAjax(url,id){
+        jQuery('body').append("<div id='fancybox-loading'><div></div></div>");
+        url += 'isAjax/1';
+        url = url.replace("checkout/cart","ajax/cart");
+        jQuery('#ajax_loader').show();
+        try {
+            jQuery.ajax( {
+                url : url,
+                dataType : 'json',
+                success : function(data) {
+                    jQuery('#ajax_loader').hide();
+                    setAjaxData(data,false);
+                    jQuery('body #fancybox-loading').remove();
+                }
+            });
+        } catch (e) {
+        }
+    }
+    function showOptions(id,mobileid){      
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            var url =jQuery('#'+mobileid).attr('href');
+            window.location.href= url;
+        }else{
+           jQuery('#'+id).trigger('click'); 
+        }
+    }
+    function setAjaxData(data,iframe) {
+        if(data.status == 'ERROR'){
+            alert(data.message);
+        }else{
+            console.log(data.cart);
+            if(jQuery('#header-cart')){
+                jQuery('#header-cart').html(data.minicartContent);
+            }
+            if(jQuery('.top-minicart .count')){
+                if(data.cart['items_qty'] > 1) {
+                    jQuery('.top-minicart .count').html(data.cart['items_qty']+cartSuffixs);
+                } else {
+                    jQuery('.top-minicart .count').html(data.cart['items_qty']+cartSuffix);
+                }
+            }
+            if(jQuery('.top-minicart .subtotal') && typeof(data.cart) !== "undefined" && typeof(data.cart['subtotal']) != "undefined"){
+                jQuery('.top-minicart .subtotal').html(formatCurrency(data.cart['subtotal'], <?php echo Mage::helper('core')->jsonEncode(
+                    Mage::app()->getLocale()->getJsPriceFormat()) ?>));
+            }
+            jQuery.fancybox({ content: data.message });
+        }
+    }
+
+
+    Minicart.prototype = {
+        initAfterEvents : {},
+        removeItemAfterEvents : {},
+        init: function() {
+            var cart = this;
+
+        // bind remove event
+        $j(this.selectors.itemRemove).unbind('click.minicart').bind('click.minicart', function(e) {
+            e.preventDefault();
+            cart.removeItem($j(this));
+        });
+
+        // bind update qty event
+        $j(this.selectors.inputQty)
+        .unbind('blur.minicart')
+        .unbind('focus.minicart')
+        .bind('focus.minicart', function() {
+            cart.previousVal = $j(this).val();
+            cart.displayQuantityButton($j(this))
+        })
+        .bind('blur.minicart', function() {
+            cart.revertInvalidValue(this);
+        });
+
+        $j(this.selectors.quantityButtonClass)
+        .unbind('click.quantity')
+        .bind('click.quantity', function() {
+            cart.processUpdateQuantity(this);
+        });
+
+        for (var i in this.initAfterEvents) {
+            if (this.initAfterEvents.hasOwnProperty(i) && typeof(this.initAfterEvents[i]) === "function") {
+                this.initAfterEvents[i]();
+            }
+        }
+
+    },
+
+    removeItem: function(el) {
+        var cart = this;
+        if (confirm(el.data('confirm'))) {
+            cart.hideMessage();
+            cart.showOverlay();
+            var url = el.attr('href');
+            url = url.replace("checkout/cart","ajax/cart");
+            $j.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {form_key: cart.formKey},
+                url: url
+            }).done(function(result) {
+                cart.hideOverlay();
+                if (result.success) {
+                    if(jQuery('.top-minicart .subtotal') && typeof(result.cart) !== "undefined" && typeof(result.cart['subtotal']) != "undefined" ){
+                        jQuery('.top-minicart .subtotal').html(formatCurrency(result.cart['subtotal'], <?php echo Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getJsPriceFormat()) ?>));
+                    }
+                    if(jQuery('.top-minicart .count')){
+                        if(result.qty > 1) {
+                            jQuery('.top-minicart .count').html(result.qty+cartSuffixs);
+                        } else {
+                            jQuery('.top-minicart .count').html(result.qty+cartSuffix);
+                        }
+                    }
+                    if(jQuery('#header-cart').length){
+                        jQuery('#header-cart').html(result.content);
+                    }
+                    cart.updateCartQty(result.qty);
+                    cart.updateContentOnRemove(result, el.closest('li'));
+                } else {
+                    cart.showMessage(result);
+                }
+            }).error(function() {
+                cart.hideOverlay();
+                cart.showError(cart.defaultErrorMessage);
+            });
+        }
+        for (var i in this.removeItemAfterEvents) {
+            if (this.removeItemAfterEvents.hasOwnProperty(i) && typeof(this.removeItemAfterEvents[i]) === "function") {
+                this.removeItemAfterEvents[i]();
+            }
+        }
+    },
+
+    revertInvalidValue: function(el) {
+        if (!this.isValidQty($j(el).val()) || $j(el).val() == this.previousVal) {
+            $j(el).val(this.previousVal);
+            this.hideQuantityButton(el);
+        }
+    },
+
+    displayQuantityButton: function(el) {
+        var buttonId = this.selectors.quantityButtonPrefix + $j(el).data('item-id');
+        $j(buttonId).addClass('visible').attr('disabled',null);
+    },
+
+    hideQuantityButton: function(el) {
+        var buttonId = this.selectors.quantityButtonPrefix + $j(el).data('item-id');
+        $j(buttonId).removeClass('visible').attr('disabled','disabled');
+    },
+
+    processUpdateQuantity: function(el) {
+        var input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
+        if (this.isValidQty(input.val()) && input.val() != this.previousVal) {
+            this.updateItem(el);
+        } else {
+            this.revertInvalidValue(input);
+        }
+    },
+
+    updateItem: function(el) {
+        var cart = this;
+        var input = $j(this.selectors.quantityInputPrefix + $j(el).data('item-id'));
+        var quantity = parseInt(input.val(), 10);
+        cart.hideMessage();
+        cart.showOverlay();
+        var url = input.data('link');
+        url = url.replace("checkout/cart","ajax/cart");
+        $j.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: url,
+            data: {qty: quantity, form_key: cart.formKey}
+        }).done(function(result) {
+            cart.hideOverlay();
+            if (result.success) {
+                cart.updateCartQty(result.qty);
+                if(jQuery('.top-minicart .subtotal').length && typeof(result.cart) !== "undefined" && typeof(result.cart['subtotal']) != "undefined" ){
+                    jQuery('.top-minicart .subtotal').html(formatCurrency(result.cart['subtotal'], <?php echo Mage::helper('core')->jsonEncode(Mage::app()->getLocale()->getJsPriceFormat()) ?>));
+                }
+                if(jQuery('.top-minicart .count')){
+                    if(result.qty > 1) {
+                        jQuery('.top-minicart .count').html(result.qty+cartSuffixs);
+                    } else {
+                        jQuery('.top-minicart .count').html(result.qty+cartSuffix);
+                    }
+                }
+                if(jQuery('#header-cart').length){
+                    jQuery('#header-cart').html(result.content);
+                }
+                if (quantity !== 0) {
+                    cart.updateContentOnUpdate(result);
+                } else {
+                    cart.updateContentOnRemove(result, input.closest('li'));
+                }
+            } else {
+                cart.showMessage(result);
+            }
+        }).error(function() {
+            cart.hideOverlay();
+            cart.showError(cart.defaultErrorMessage);
+        });
+        return false;
+    },
+
+    updateContentOnRemove: function(result, el) {
+        var cart = this;
+        el.hide('slow', function() {
+            $j(cart.selectors.container).html(result.content);
+            cart.showMessage(result);
+        });
+    },
+
+    updateContentOnUpdate: function(result) {
+        $j(this.selectors.container).html(result.content);
+        this.showMessage(result);
+    },
+
+    updateCartQty: function(qty) {
+        if (typeof qty != 'undefined') {
+            $j(this.selectors.qty).text(qty);
+        }
+    },
+
+    isValidQty: function(val) {
+        return (val.length > 0) && (val - 0 == val) && (val - 0 > 0);
+    },
+
+    showOverlay: function() {
+        $j(this.selectors.overlay).addClass('loading');
+    },
+
+    hideOverlay: function() {
+        $j(this.selectors.overlay).removeClass('loading');
+    },
+
+    showMessage: function(result) {
+        if (typeof result.notice != 'undefined') {
+            this.showError(result.notice);
+        } else if (typeof result.error != 'undefined') {
+            this.showError(result.error);
+        } else if (typeof result.message != 'undefined') {
+            this.showSuccess(result.message);
+        }
+    },
+
+    hideMessage: function() {
+        $j(this.selectors.error).fadeOut('slow');
+        $j(this.selectors.success).fadeOut('slow');
+    },
+
+    showError: function(message) {
+        $j(this.selectors.error).text(message).fadeIn('slow');
+    },
+
+    showSuccess: function(message) {
+        $j(this.selectors.success).text(message).fadeIn('slow');
+    }
+};
+
+</script>

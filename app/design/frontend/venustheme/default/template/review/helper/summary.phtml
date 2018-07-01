@@ -1,0 +1,44 @@
+<?php if ($this->getReviewsCount()): ?>
+    <?php if(Mage::registry('current_product')) { ?>
+    <div class="ratings" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <?php } ?>
+        <?php if ($this->getRatingSummary()):?>
+            <?php if(Mage::registry('current_product')) { ?>
+            <meta itemprop="ratingValue" content="<?php echo $this->getRatingSummary(); ?>">
+            <meta itemprop="reviewCount" content="<?php echo $this->getReviewsCount(); ?>">
+            <meta itemprop="bestRating"  content="100">
+            <meta itemprop="worstRating" content="0">
+            <?php } ?>
+            <div class="rating-box">
+                <div class="rating" style="width:<?php echo $this->getRatingSummary() ?>%"></div>
+            </div>
+        <?php endif;?>
+        <div class="rating-links">
+            <a href="<?php echo $this->getReviewsUrl() ?>"><?php echo $this->__('%d Review(s)', $this->getReviewsCount()) ?></a>
+            <span class="separator">|</span>
+            <a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Add Your Review') ?></a>
+        </div>
+    <?php if(Mage::registry('current_product')) { ?>
+    </div>
+    <?php } ?>
+    <?php elseif ($this->getDisplayIfEmpty()): ?>
+    
+    <?php
+        if(Mage::getSingleton('customer/session')->isLoggedIn()) :
+    ?>
+   
+    <div class="ratings">
+        <div class="rating-box">
+            <div class="rating"></div>
+        </div>
+        <div class="rating-links">
+            <a href="<?php echo $this->getReviewsUrl() ?>"><?php echo $this->__('0 Review') ?></a>
+            <span class="separator">|</span>
+            <a href="<?php echo $this->getReviewsUrl() ?>#review-form"><?php echo $this->__('Add Your Review') ?></a>
+        </div>
+    </div>
+
+    <?php 
+        endif;
+    ?>
+<?php endif; ?>

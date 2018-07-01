@@ -1,0 +1,230 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Edit Account Information') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<form action="<?php echo $this->getUrl('customer/account/editPost') ?>" method="post" autocomplete="off" id="form-validate" class="scaffold-form" enctype="multipart/form-data">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $this->__('Account Information') ?></h2>
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <ul class="form-list">
+            <li class="fields">
+                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getCustomer())->toHtml() ?>
+            </li>
+            <li>
+                <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                <div class="input-box">
+                    <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="email" value="<?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text required-entry validate-email" />
+                </div>
+            </li>
+        <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+        <?php if ($_dob->isEnabled()): ?>
+            <li><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></li>
+        <?php endif ?>
+        <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+        <?php if ($_taxvat->isEnabled()): ?>
+            <li><?php echo $_taxvat->setTaxvat($this->getCustomer()->getTaxvat())->toHtml() ?></li>
+        <?php endif ?>
+        <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+        <?php if ($_gender->isEnabled()): ?>
+            <li><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></li>
+        <?php endif ?>
+            <li>
+                <label for="current_password" class="required"><em>*</em><?php echo Mage::helper('core')->quoteEscape($this->__('Current Password')) ?></label>
+                <div class="input-box">
+                    <!-- This is a dummy hidden field to trick firefox from auto filling the password -->
+                    <input type="text" class="input-text no-display" name="dummy" id="dummy" />
+                    <input type="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Current Password')) ?>" class="input-text required-entry" name="current_password" id="current_password" />
+                </div>
+            </li>
+
+            <?php 
+                $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+                $groupname = Mage::getModel('customer/group')->load($customerGroupId)->getCustomerGroupCode();
+                if(($groupname == 'Supplier') || ($groupname == 'Supplier Pro')) : ?>
+                <li>
+                    <?php
+                        $attribute = Mage::getModel('eav/config')->getAttribute('customer','categories');
+                    ?>
+                    <label for="categories" class="control-label">
+                        <?php echo $this->__('Category'); ?>
+                    </label>
+                    <div class="input-box">
+                        <select class="form-control select2_categories" name="categories[]" multiple>
+                        <?php
+                                $categories = $attribute->getSource()->getAllCategories();
+                                foreach($categories as $key => $category) :?>
+                                    <optgroup label="<?php echo $category[0]['name'] ?>">
+                                        <?php $category = array_slice($category, 1) ?>
+                                        <?php foreach($category as $key_ => $sub_category) { ?>
+                                            <option value="<?php echo $sub_category['id'] ?>"><?php echo $sub_category['name'] ?></option>
+                                        <?php } ?>
+                                    </optgroup>
+                            <?php endforeach; ?>                          
+                        </select>
+                    </div>
+                </li>
+                <!-- select2 tag : add new category -->
+                <input type="hidden" name="addcategories" class="addcategories" value="">
+            <?php endif; ?>
+            
+            <li>
+                <label for="change_password">
+                    <input type="checkbox" name="change_password" id="change_password" value="1" onclick="setPasswordForm(this.checked)" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Change Password')) ?>"<?php if($this->getCustomer()->getChangePassword()==1): ?> checked="checked"<?php endif; ?> class="checkbox" /> <span class="label-text"><?php echo $this->__('Change Password') ?></span>
+                </label>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="fieldset" style="display:none;">
+        <h2 class="legend"><?php echo $this->__('Change Password') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="password" class="required"><em>*</em><?php echo $this->__('New Password') ?></label>
+                    <div class="input-box">
+                        <input type="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('New Password')) ?>" class="input-text required-entry validate-password" name="password" id="password" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirm New Password') ?></label>
+                    <div class="input-box">
+                        <input type="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm New Password')) ?>" class="input-text required-entry validate-cpassword" name="confirmation" id="confirmation" />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save')) ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+
+<!-- remodal modal -->
+<div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <!-- <h1 id="suggest_modal1Title" style="font-weight: bold; font-size: 20px">Suggest Category</h1> -->
+    <h1>Suggest Category</h1>
+    <p class="addcategorytext">Please <span class="addcategorytext">input</span> simple word and type <span class="addcategorytext">enter</span> to suggest new category</p>
+    <input type="hidden" class="select2_addcategory" value="" style="width: 400px;">
+  </div>
+  <br>
+  <button data-remodal-action="confirm" class="hello remodal-confirm">OK</button>
+  <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+</div>
+
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/select2/select2.css'?>" />
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/base/default/css/custom.css'?>" />
+
+<!-- remodal css -->
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/remodal/remodal.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/remodal/remodal-default-theme.css'?>" />
+
+<!-- sweetalert css -->
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/sweetalert2/sweetalert2-6.4.1.css'?>" />
+
+
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/select2/select2.min.js'?>" type="text/javascript"></script>
+<!-- remodal js -->
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/remodal/remodal.js'?>" type="text/javascript"></script>
+
+<!-- sweetalert js -->
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/sweetalert2/sweetalert2-6.4.1.js'?>" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    function setPasswordForm(arg){
+        $('password').up('.fieldset')[arg ? 'show': 'hide']();
+    }
+
+    <?php if($this->getCustomer()->getChangePassword()): ?>
+        setPasswordForm(true);
+    <?php endif; ?>
+
+
+    <?php 
+        $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+        $groupname = Mage::getModel('customer/group')->load($customerGroupId)->getCustomerGroupCode();
+        if(($groupname == 'Supplier') || ($groupname == 'Supplier Pro')) {
+    ?>
+        jQuery(function ($) {
+            $('.select2_categories').select2({
+                placeholder: "Select categories",
+                allowClear: true,
+                formatNoMatches: function(term) {
+                    return "<a class='addCategory' onClick='return func()'>Suggest this Category!</a> ";
+                }
+            });
+            <?php 
+                $customer_categories = $this->getCustomer()->getCategories();
+            ?>
+            categories = "<?php echo $customer_categories ?>";
+            var myArray = categories.split(",");
+            // for(var i=0; i<myArray.length; i++) { myArray[i] = +myArray[i]; }
+            $('.select2_categories').select2('val', myArray);
+
+            $('.remodal').on('click', '.remodal-confirm', function() {
+                new_categories = $('.select2_addcategory').select2("val");
+                if(new_categories.length > 0) {
+                    $('.addcategories').val(new_categories.toString());
+                    $('.select2_addcategory').select2('data', []);
+                    swal({
+                        title: "Thanks!",
+                        text: "You suggested new category.",
+                        type: "success",
+                        timer: 2000 ,
+                        inputPlaceholder: 'I agree to <a href="#blahblahMore"></a>'
+                    });
+                }
+            });
+
+            $(".select2_addcategory").select2({
+                tags: []
+            });
+
+        });
+        
+    <?php
+        }
+    ?>
+    
+    function func() {
+        jQuery(".select2_categories").select2('close');
+        var inst = jQuery('[data-remodal-id=modal]').remodal();
+        inst.open();
+    }
+
+//]]>
+</script>

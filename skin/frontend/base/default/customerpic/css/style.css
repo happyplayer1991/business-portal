@@ -1,0 +1,59 @@
+/***************************************
+ *** Customer Photo Crop Extension ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_Customerpic
+ * @author 		Vipin
+ * @dev			77vips@gmail.com
+ *
+ */
+.upload_btn {    border-radius: 0;    color: #333333;    cursor: pointer;    display: inline-block;    font-size: 12px ;    font-weight: bold;    line-height: 22px ;    padding: 0 8px 0 32px ;    text-transform: uppercase;}#photo_container {	padding: 50px 0 0 0;}.upload_btn:hover {	background: #eaeaea;}/* popup --------------------------*/#popup_upload,#popup_crop {	position: fixed;	width: 100%;	height: 100%;	top: 0;	left: 0;	background: rgba(0, 0 ,0, 0.7);	z-index: 99;	text-align: center;	display: none;	overflow: auto;}.form_upload {    background: none repeat scroll 0 0 #ffffff;    border: 1px solid #999999;    border-radius: 0;    color: #666666;    height: 200px;    margin: 160px auto auto;    padding: 20px;    position: relative;    text-align: left;    width: 500px;}.form_upload h2 {	border-bottom: 1px solid #999999;	padding: 0 0 5px 0;	margin: 0 0 20px 0;}.upload_frame {	width: 0;	height: 0;	display: none;}.file_input {	width: 100%;	/*background: #eaeaea;*/	border: 1px solid #999999;	border-radius: 5px;	color: #333333;	padding: 1%;	margin: 0 0 20px 0;	background:#000;	color:#fff;}#upload_btn {	background: #cccccc;	color: #333333;	border: 1px solid #999999;	border-radius: 10px;	float: right;	line-height: 20px;	font-size: 14px;	font-weight: bold;	font-family: arial;	display: block;	padding: 5px;	cursor: pointer;}#upload_btn:hover {	background: #eaeaea;}.close {    position: absolute;    display: block;    right: 15px;    cursor: pointer;    font-size: 20px;    line-height: 16px;    width: 18px;    height: 18px;   /* border: 1px solid #cccccc;*/    border-radius: 5px;   /* background: #F0F0F0;*/    text-align: center;    font-weight: bold;}.close:hover {    background: #cccccc;}#loading_progress {    float: left;    line-height: 18px;    padding: 8px 0 0 0;}#loading_progress img {    float: left;    margin: 0 5px 0 0;    width: 16px !important;}@media screen and (min-width: 771px) {.form_crop {/*	max-width:500px;*/	}}@media screen and (min-width: 770px) {.form_crop {	width: auto;	}}.form_crop {	/*	height: auto;	display: inline-block;*/	border: 1px solid #999999;	border-radius: 10px;	background: #ffffff;	color: #666666;	margin: auto;	margin-top: 40px;	padding: 10px;	text-align: left;	position: relative;}.form_crop h2 {	border-bottom: 1px solid #999999;	padding: 0 0 5px 0;	margin: 0 0 20px 0;}#target {	background-color: #ccc;	width: 500px;	height: 330px;	font-size: 24px;	display: block;}#crop_btn {	background: #cccccc;	color: #333333;	border: 1px solid #999999;	border-radius: 10px;	float: right;	line-height: 30px;	font-size: 14px;	font-weight: bold;	font-family: arial;	display: block;	padding: 5px;	margin: 10px 0 0 0;	cursor: pointer;}#crop_btn:hover {	background: #eaeaea;}/*#photo_container img{	height: 120px;}*/  
+
+
+
+
+.profilepicbutton span.upload_btn {
+    border-radius: 0;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 200px;
+    line-height: 22px;
+    padding: 0 8px 0 32px;
+    text-transform: uppercase;
+    width: 200px;
+	background:rgba(0, 0, 0, 0) url("../img/no-image.png") repeat scroll 0 0;
+	text-indent: -9999px;
+	border: 1px solid #ddd;
+}
+.brw-content {
+    float: left;
+    position: relative;
+    width: 200px;
+}
+.profilepicbutton .content {
+    position: relative;
+}
+.upload_btn_img {
+    background: rgba(0, 0, 0, 0.5) url("../img/edit-img.png") no-repeat scroll left 9px top 7px;
+    bottom: 0;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    font-weight: bold;
+    height: 44px;
+    line-height: 40px;
+    padding-left: 47px;
+    position: absolute;
+    right: 0;
+    text-transform: uppercase;
+    width: 100%;
+}
+.upload_btn_img:hover{background: rgba(0, 0, 0, 0.6) url("../img/edit-img.png") no-repeat scroll left 9px top 7px;}
+.brw-content:hover .upload_btn_img {
+    display: block;
+}

@@ -1,0 +1,61 @@
+<?php 
+/*------------------------------------------------------------------------
+# Venus_Brand Module, Build for Magento
+# ------------------------------------------------------------------------
+# @Copyright (C) 2008-2012 Ves. All Rights Reserved.
+# @License - Copyrighted Commercial Software
+# @Author: Ves
+# @Websites: http://ves.com
+-------------------------------------------------------------------------*/ 	
+?>
+<?php
+	$enabled = $this->getConfig('enable_categorybrand', '');
+	$title = $this->__("Categories");
+	$style = $this->getConfig('menustyle', '');
+	$event = $this->getConfig('event', '');
+?>
+<?php if($enabled == 1)://start enabled?>
+	<div class="block venus-brand-menu">
+		<div class="block-title">
+			<strong><span><?php echo $title;?></span></strong>
+		</div>
+		<div class="block-content">
+			<?php if($style=='Dropdown'):?>
+		        <ul id="ves-dropdown">
+		        <?php foreach ($this->getStoreCategories() as $_category): ?>
+		            <?php echo $this->mtdrawItem($_category) ?>
+		        <?php endforeach; ?>
+		        </ul>
+			<?php endif; //end dropdown menu?>
+			<?php if ($style=='Accordion'):?>
+				<script type="text/javascript">
+					$jmenu(document).ready(function(){	
+						// applying the settings
+						$jmenu("#ves-accordion li.active span.head").addClass("selected");
+						$jmenu('#ves-accordion').Accordion({
+							active: 'span.selected',
+							header: 'span.head',
+							alwaysOpen: false,
+							animated: true,
+							showSpeed: 400,
+							hideSpeed: 800,
+							event: '<?php echo $event; ?>'
+						});
+					});	
+				</script>
+				<ul id="ves-accordion">
+					<?php foreach ($this->getStoreCategories() as $_category): ?>
+					    <?php echo $this->drawItem($_category) ?>
+					<?php endforeach ?>
+				</ul>
+			<?php endif; //end Accordion menu?>
+			<?php if ($style=='Tree'):?>
+		        <ul id="ves-tree">
+		        <?php foreach ($this->getStoreCategories() as $_category): ?>
+		            <?php echo $this->drawItem($_category) ?>
+		        <?php endforeach; ?>
+		        </ul>
+			<?php endif;//end tree menu?>
+		</div> <!-- end class=block-content -->
+	</div> <!-- end class=ves-categoriesmenu -->
+<?php endif;//end enabled menu?>

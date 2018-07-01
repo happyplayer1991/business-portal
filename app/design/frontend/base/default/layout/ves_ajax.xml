@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+	<default>
+		<reference name="head">
+			<action method="addCss" ifconfig="ajax/general_setting/enable_ajaxcart"><stylesheet>ves_ajax/styles.css</stylesheet></action>
+		</reference>
+		<reference name="before_body_end">
+			<block type="core/template" name="ajaxcart.footer.scripts" as="ajaxcart_script" template="ves/ajax/footer_scripts.phtml" before="footer.theme.scripts"/>
+		</reference>
+	</default>
+	<ajax_quickview_view>
+		<update handle="catalog_product_view"/>
+		<reference name="root">
+			<action method="setTemplate"><template>ves/ajax/quickview/product.phtml</template></action>
+		</reference>
+	</ajax_quickview_view>
+</layout>

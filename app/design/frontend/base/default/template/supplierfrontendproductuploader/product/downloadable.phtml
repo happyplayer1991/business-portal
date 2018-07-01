@@ -1,0 +1,291 @@
+<?php
+/**
+ * @var Cminds_Supplierfrontendproductuploader_Block_Product_Downloadable $this
+ * @var Mage_Catalog_Model_Product $product
+ */
+?>
+<?php $product = $this->getProduct(); ?>
+<h2><?php echo $this->__("Downloadable data of product %s <small>(SKU: %s)</small>", $product->getName(), $product->getSku()); ?></h2>
+<form action="<?php echo $this->getSubmitUrl(); ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="<?php echo $product->getId(); ?>"/>
+    <h3><?php echo $this->__("Samples"); ?></h3>
+    <table class="table table-responsive">
+        <tr>
+            <th><?php echo $this->__("Title"); ?></th>
+            <th><?php echo $this->__("File"); ?></th>
+            <th><?php echo $this->__("Order"); ?></th>
+            <th></th>
+        </tr>
+        <?php foreach ($this->getSamples() as $sample): ?>
+            <tr>
+                <td><input type="text" name="sample[<?php echo $sample->getId(); ?>][title]" class="form-control"
+                           value="<?php echo $sample->getTitle(); ?>"/></td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <input type="radio" name="sample[<?php echo $sample->getId(); ?>][type]"
+                                           value="url" <?php if ($sample->getSampleType() == "url"): ?> checked<?php endif; ?>
+                                           style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <input type="text" name="sample[<?php echo $sample->getId(); ?>][file]"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <input type="radio" name="sample[<?php echo $sample->getId(); ?>][type]"
+                                           value="file" <?php if ($sample->getSampleType() == "file"): ?> checked<?php endif; ?>
+                                           style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <?php echo $this->getLinkFileName($sample->getSampleFile()); ?>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+                <td><input type="text" name="sample[<?php echo $sample->getId(); ?>][order]" class="form-control"
+                           value="<?php echo $sample->getSortOrder(); ?>"/></td>
+                <td>
+                    <button data-id="<?php echo $sample->getId(); ?>" class="btn btn-sm btn-danger remove"
+                            data-type="sample"> <?php echo "x"; ?></button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        <tr>
+            <td><input type="text" name="sample[new][title]" class="form-control"/></td>
+            <td>
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <input type="radio" name="sample[new][type]" value="url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="row">
+                                <input type="text" name="sample[new][url]" class="form-control"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <input type="radio" name="sample[new][type]" value="file"/>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="row">
+                                <input type="file" name="sample[new][file]"/>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </td>
+            <td><input type="text" name="sample[new][order]" class="form-control"/></td>
+            <td></td>
+        </tr>
+    </table>
+    <hr>
+    <h3><?php echo $this->__("Links"); ?></h3>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <label for="links_purchased_separately"><?php echo $this->__("Links can be purchased separately"); ?></label>
+            <select name="links_purchased_separately" id="links_purchased_separately" class="" title="">
+                <option value="1"<?php echo ($product->getLinksPurchasedSeparately()) ? 'selected="selected"' : ''; ?>><?php echo $this->__("Yes"); ?></option>
+                <option value="0"<?php echo (!$product->getLinksPurchasedSeparately()) ? 'selected="selected"' : ''; ?>><?php echo $this->__("No"); ?></option>
+            </select>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-3">
+            <small id="emailHelp" class="form-text text-muted"><?php echo $this->__("allows the customer to buy only a particular item of that product. If you want them to buy whole product set this value to No."); ?></small>
+        </div>
+    </div>
+    <table class="table table-responsive">
+        <tr>
+            <th><?php echo $this->__("Title"); ?></th>
+            <th><?php echo $this->__("Price (%s)", $this->getCurrencyCode()); ?></th>
+            <th><?php echo $this->__("Max Downloads"); ?></th>
+            <th><?php echo $this->__("Sample"); ?></th>
+            <th><?php echo $this->__("File"); ?></th>
+            <th><?php echo $this->__("Sort"); ?></th>
+            <th></th>
+        </tr>
+        <?php foreach ($this->getLinks() as $link): ?>
+            <tr>
+                <td><input type="text" name="links[<?php echo $link->getId(); ?>][title]" class="form-control"
+                           value="<?php echo $link->getTitle(); ?>"/></td>
+                <td><input type="text" name="links[<?php echo $link->getId(); ?>][price]" class="form-control"
+                           value="<?php echo number_format($link->getPrice()); ?>"/></td>
+                <td><input type="text" name="links[<?php echo $link->getId(); ?>][max_downloads]" class="form-control"
+                           value="<?php echo $link->getNumberOfDownloads(); ?>"/></td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <input type="radio" name="links[<?php echo $link->getId(); ?>][sample_type]"
+                                           value="url" <?php if ($link->getSampleType() == "url"): ?> checked<?php endif; ?>
+                                           style="width: 100%;"/>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <input type="text" name="links[<?php echo $link->getId(); ?>][sample_url]"
+                                           class="form-control" value="<?php echo $link->getSampleUrl(); ?>"/>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <input type="radio" name="links[<?php echo $link->getId(); ?>][sample_type]"
+                                           value="file" <?php if ($link->getSampleType() == "file"): ?> checked<?php endif; ?>/>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <?php if($link->getSampleType() == "file"): ?>
+                                        <?php echo $this->getLinkFileName($link->getSampleFile()); ?>
+                                    <?php else: ?>
+                                        <p><?php echo $this->__("No file uploaded"); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <input type="radio" name="links[<?php echo $link->getId(); ?>][type]" value="url"
+                                           class="radio-inline" <?php if ($link->getLinkType() == "url"): ?> checked<?php endif; ?>/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <input type="text" name="links[<?php echo $link->getId(); ?>][url]"
+                                           class="form-control" value="<?php echo $link->getLinkUrl(); ?>"/>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <input type="radio" name="links[<?php echo $link->getId(); ?>][type]" value="file"
+                                           class="radio-inline" <?php if ($link->getLinkType() == "file"): ?> checked<?php endif; ?>/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <?php if ($link->getLinkType() == "file"): ?>
+                                        <?php echo $this->getLinkFileName($link->getLinkFile()); ?>
+                                    <?php else : ?>
+                                        <p><?php echo $this->__("No file uploaded"); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </td>
+                <td><input type="text" name="links[<?php echo $link->getId(); ?>][sort]" class="form-control"
+                           value="<?php echo $link->getSortOrder(); ?>"/></td>
+                <td>
+                    <button class="btn btn-sm btn-danger remove" data-id="<?php echo $link->getId(); ?>"
+                            data-type="link"> <?php echo "x"; ?></button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        <tr>
+            <td><input type="text" name="links[new][title]" class="form-control"/></td>
+            <td><input type="text" name="links[new][price]" class="form-control"/></td>
+            <td><input type="text" name="links[new][max_downloads]" class="form-control"/></td>
+            <td>
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <input type="radio" name="links[new][sample_type]" value="url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <input type="text" name="links[new][sample_url]" class="form-control"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <input type="radio" name="links[new][sample_type]" value="file"/>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <input type="file" name="links[new][sample]"/>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <input type="radio" name="links[new][type]" value="url"/>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <input type="text" name="links[new][url]" class="form-control"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-md-1">
+                            <div class="row">
+                                <input type="radio" name="links[new][type]" value="file"/>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <input type="file" name="links[new][file]"/>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </td>
+            <td><input type="text" name="links[new][sort]" class="form-control"/></td>
+        </tr>
+    </table>
+    <div class="col-md-2">
+        <div class="row">
+            <input type="submit" value="<?php echo $this->__("Submit"); ?>" class="btn btn-primary">
+        </div>
+    </div>
+</form>
+<script type="application/javascript">
+    Downloadable = new Downloadable(
+        "<?php echo $this->getDeleteLinkUrl(); ?>",
+        "<?php echo $this->getDeleteSampleUrl(); ?>",
+        "<?php echo $this->__("Are you sure you want delete this link?"); ?>",
+        "<?php echo $this->__("Are you sure you want delete this sample?"); ?>"
+    );
+</script>

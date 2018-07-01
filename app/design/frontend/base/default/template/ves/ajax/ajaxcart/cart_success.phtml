@@ -1,0 +1,19 @@
+<div class="popup_avaiable">
+	<?php
+	$helpImg = $this->helper('themesettings/image');
+	$imgUrl = $product->getProductUrl();
+	?>
+	<a href="<?php echo $imgUrl; ?>">
+		<?php echo Mage::helper('core')->htmlEscape($product->getName()); ?></a> <?php echo $this->__('was added to your shopping cart.'); ?>
+		<br/>
+		<div class="action_button">
+			<ul>
+				<li>
+					<button onclick="jQuery.fancybox.close();" class="button btn-continue" title="<?php echo $this->__("Continue Shopping");?>"><?php echo $this->__("Continue Shopping");?></button>
+				</li>
+				<li>
+					<a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="button btn-viewcart" title="<?php echo $this->__("Checkout");?>"><span><?php echo $this->__("View cart &amp; checkout");?></span></a>
+				</li>
+			</ul>
+		</div>
+	</div>

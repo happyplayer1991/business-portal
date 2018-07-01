@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <supplierfrontendproductuploader_catalog_product translate="title" module="supplierfrontendproductuploader">
+                    <sort_order>10</sort_order>
+                    <title>Supplier Products</title>
+                    <action>adminhtml/supplier_product</action>
+                </supplierfrontendproductuploader_catalog_product>
+            </children>
+        </catalog>
+        <report>
+            <children>
+                <salesroot>
+                    <children>
+                        <supplier_items_ordered translate="title" module="supplierfrontendproductuploader">
+                            <title>Suppliers Item Ordered</title>
+                            <action>adminhtml/supplier_report</action>
+                        </supplier_items_ordered>
+                    </children>
+                </salesroot>
+            </children>
+        </report>
+        <suppliers translate="title" module="supplierfrontendproductuploader">
+            <title>Suppliers</title>
+            <sort_order>50</sort_order>
+            <children>
+                <supplier_grid translate="title" module="supplierfrontendproductuploader">
+                    <title>Manage Suppliers</title>
+                    <action>adminhtml/suppliers</action>
+                    <sort_order>10</sort_order>
+                </supplier_grid>
+            </children>
+        </suppliers>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <supplierfrontendproductuploader_catalog translate="title" module="supplierfrontendproductuploader">
+                                        <title>Supplier Frontend Product Upload Extension - General Settings</title>
+                                    </supplierfrontendproductuploader_catalog>
+                                    <supplierfrontendproductuploader_products translate="title" module="supplierfrontendproductuploader">
+                                        <title>Supplier Frontend Product Upload Extension - Products Settings</title>
+                                    </supplierfrontendproductuploader_products>
+                                    <supplierfrontendproductuploader_multiple_products translate="title" module="supplierfrontendproductuploader">
+                                        <title>Supplier Frontend Product Upload Extension - Multiple products by Vendors</title>
+                                    </supplierfrontendproductuploader_multiple_products>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <catalog>
+                        <children>
+                            <supplierfrontendproductuploader_catalog_product translate="title" module="supplierfrontendproductuploader">
+                                <title>Supplier Frontend Product Upload Extension - Supplier Products</title>
+                            </supplierfrontendproductuploader_catalog_product>
+                        </children>
+                    </catalog>
+                    <report>
+                        <children>
+                            <salesroot>
+                                <children>
+                                    <supplier_items_ordered translate="title" module="supplierfrontendproductuploader">
+                                        <title>Supplier Frontend Product Upload Extension - Supplier Ordered Products</title>
+                                    </supplier_items_ordered>
+                                </children>
+                            </salesroot>
+                        </children>
+                    </report>
+                    <suppliers>
+                        <title>Supplier frontend Extension - Supplier Section</title>
+                        <children>
+                            <supplier_grid translate="title" module="supplierfrontendproductuploader">
+                                <title>Marketplace Multi Vendor Extension - Supplier Grid</title>
+                                <sort_order>10</sort_order>
+                            </supplier_grid>
+                        </children>
+                    </suppliers>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

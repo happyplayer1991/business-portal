@@ -1,0 +1,198 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+?>
+<?php
+$filepath = $default_path = "horizontal_bottom.phtml";
+
+$current_catalog_product_path = Mage::getSingleton('core/design_package')->getBaseDir(array('_area' => 'frontend', '_type'=>'template'));
+$current_catalog_product_path .= "/common/view/media/";
+
+$load_file_path = false;
+
+$ves = Mage::helper('themesettings');
+$additional_image_layout = $ves->getConfig('product_page/additional_image_layout');
+
+$vertical = false;
+if($additional_image_layout == 'horizontal_bottom'){
+	$filepath = 'horizontal_bottom.phtml';
+}elseif($additional_image_layout == 'horizontal_top'){
+	$filepath = 'horizontal_top.phtml';
+}elseif($additional_image_layout == 'vertical_left'){
+	$vertical = true;
+	$filepath = 'vertical_left.phtml';
+}elseif($additional_image_layout == 'vertical_right'){
+	$vertical = true;
+	$filepath = 'vertical_right.phtml';
+}
+
+if(file_exists($current_catalog_product_path.$filepath)) {
+	$load_file_path = $current_catalog_product_path.$filepath;
+} elseif(file_exists($current_catalog_product_path.$default_path)) {
+	$load_file_path = $current_catalog_product_path.$default_path;
+}
+$route = Mage::app()->getRequest()->getRouteName();
+
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+$config_data = $this->getConfigData();
+
+$ves = $this->helper('themesettings');
+
+
+
+// Product Label
+$enable_new_icon = $ves->getConfig('product_labels/new');
+$enable_sale_icon = $ves->getConfig('product_labels/sale');
+$id = rand().time();
+
+// Addtion Image Settings
+$thumb_width = (int)$ves->getConfig('product_page/additional_image_width');
+$thumb_height = (int)$ves->getConfig('product_page/additional_image_height');
+$visible = $ves->getConfig('product_page/visible');
+$speed = (int)$ves->getConfig('product_page/speed');
+$scroll = (int)$ves->getConfig('product_page/scroll');
+$auto_scroll = $ves->getConfig('product_page/auto_scroll');
+$non_circular = $ves->getConfig('product_page/non_circular');
+$easing = $ves->getConfig('product_page/easing');
+$mouse_wheel = $ves->getConfig('product_page/mouse_wheel');
+
+
+// Popup Settings
+$enable_image_popup = $ves->getConfig('product_page/enable_image_popup');
+$popup_config = '';
+$popup_customeffect = $ves->getConfig('product_page/popup_customeffect');
+$enable_loop = $ves->getConfig('product_page/enable_loop');
+$enable_autoplay = $ves->getConfig('product_page/enable_autoplay');
+$playspeed = (int)$ves->getConfig('product_page/playspeed');
+if($enable_loop){
+    $popup_config .= 'loop: true,';
+}
+if($enable_autoplay){
+    $popup_config .= 'autoPlay: true,';
+}
+if($playspeed){
+    $popup_config .= 'playSpeed: 1000,';
+}
+if($popup_customeffect){
+    $popup_config .= $popup_customeffect;
+}
+
+// Zoom Settings
+$zoomSettings = '';
+$enable_zoom = $ves->getConfig('product_page/enable_zoom');
+$zoom_type = $ves->getConfig('product_page/zoom_type');
+$zoom_scroll = $ves->getConfig('product_page/zoom_scroll');
+$zoom_easing = $ves->getConfig('product_page/zoom_easing');
+$zoom_easing_type = $ves->getConfig('product_page/zoom_easing_type');
+$zoom_easingduration = $ves->getConfig('product_page/zoom_easingduration');
+$zoom_lenssize = $ves->getConfig('product_page/zoom_lenssize');
+$zoom_windowwidth = $ves->getConfig('product_page/zoom_windowwidth');
+$zoom_windowheight = $ves->getConfig('product_page/zoom_windowheight');
+$zoom_lensfadein = $ves->getConfig('product_page/zoom_lensfadein');
+$zoom_lensfadeout = $ves->getConfig('product_page/zoom_lensfadeout');
+$zoom_windowfadein = $ves->getConfig('product_page/zoom_windowfadein');
+$zoom_windowfadeout = $ves->getConfig('product_page/zoom_windowfadeout');
+$zoom_tintfadein = $ves->getConfig('product_page/zoom_tintfadein');
+$zoom_tintfadeout = $ves->getConfig('product_page/zoom_tintfadeout');
+$zoom_bordersize = $ves->getConfig('product_page/zoom_bordersize');
+$zoom_bordercolour = $ves->getConfig('product_page/zoom_bordercolour');
+$zoom_lensshape = $ves->getConfig('product_page/zoom_lensshape');
+$zoom_containlenszoom = $ves->getConfig('product_page/zoom_containlenszoom');
+$zoom_lenscolour = $ves->getConfig('product_page/zoom_lenscolour');
+$zoom_lensopacity = $ves->getConfig('product_page/zoom_lensopacity');
+$zoom_tint = $ves->getConfig('product_page/zoom_tint');
+$zoom_tintcolour = $ves->getConfig('product_page/zoom_tintcolour');
+$zoom_tintopacity = $ves->getConfig('product_page/zoom_tintopacity');
+$zoom_cursor = $ves->getConfig('product_page/zoom_cursor');
+?>
+
+<?php if($load_file_path) { ?>
+<?php require ($load_file_path); ?>
+<?php } ?>
+
+<script type="text/javascript">
+    if($j('.more-views').length){
+        $j(".more-views .carousel").jCarouselLite({
+            btnNext: ".next",
+            btnPrev: ".prev",
+            mouseWheel: <?php echo $mouse_wheel?'true':'false' ?>,
+            easing: "<?php echo $easing?$easing:'swing' ?>",
+            circular: <?php echo $non_circular?'true':'false' ?>,
+            auto: <?php echo $auto_scroll?$auto_scroll:'null'; ?>,
+            scroll: <?php echo $scroll?$scroll:'1'; ?>,
+            speed: <?php echo $speed?$speed:'200'; ?>,
+            visible: <?php echo $visible?$visible:'3'; ?>,
+            vertical: <?php echo $vertical?'true':'false'; ?>,
+        });
+    }
+</script>
+
+<?php if($enable_image_popup){ ?>
+<script type="text/javascript">
+    var zoomSettings = {
+        zoomEnabled: <?php echo $enable_zoom?'true':'false' ?>,
+        scrollZoom: <?php echo $zoom_scroll?'true':'false' ?>,
+        easing: <?php echo $zoom_easing?'true':'false' ?>,
+        easingType: "<?php echo $zoom_easing_type?$zoom_easing_type:'swing' ?>",
+        easingDuration: <?php echo $zoom_easingduration?$zoom_easingduration:'2000' ?>,
+        zoomType: "<?php echo $zoom_type?$zoom_type:'inner' ?>",
+        lensSize: <?php echo $zoom_lenssize?$zoom_lenssize:'200' ?>,
+        zoomWindowWidth: <?php echo $zoom_windowwidth?$zoom_windowwidth:'400' ?>,
+        zoomWindowHeight: <?php echo $zoom_windowheight?$zoom_windowheight:'400' ?>,
+        lensFadeIn: <?php echo $zoom_lensfadein?$zoom_lensfadein:'false' ?>,
+        lensFadeOut: <?php echo $zoom_lensfadeout?$zoom_lensfadeout:'false' ?>,
+        zoomWindowFadeIn: <?php echo $zoom_windowfadein?$zoom_windowfadein:'false' ?>,
+        zoomWindowFadeOut: <?php echo $zoom_windowfadeout?$zoom_windowfadeout:'false' ?>,
+        zoomTintFadeIn: <?php echo $zoom_tintfadein?$zoom_tintfadein:'false' ?>,
+        zoomTintFadeOut: <?php echo $zoom_tintfadeout?$zoom_tintfadeout:'false' ?>,
+        borderSize: <?php echo $zoom_bordersize?$zoom_bordersize:'4' ?>,
+        borderColour: "<?php echo $zoom_bordercolour?$zoom_bordercolour:'#888' ?>",
+        lensShape: "<?php echo $zoom_lensshape?$zoom_lensshape:'square' ?>",
+        containLensZoom: <?php echo $zoom_containlenszoom?'true':'false' ?>,
+        lensColour: "<?php echo $zoom_lenscolour?$zoom_lenscolour:'white' ?>",
+        lensOpacity: <?php echo $zoom_lensopacity?$zoom_lensopacity:'0.4' ?>,
+        tint: <?php echo $zoom_tint?'true':'false' ?>,
+        tintColour: "<?php echo $zoom_tintcolour?$zoom_tintcolour:'#333' ?>",
+        tintOpacity: <?php echo $zoom_tintopacity?$zoom_tintopacity:'0.4' ?>,
+        cursor: "<?php echo $zoom_cursor?$zoom_cursor:'default' ?>"
+    };
+
+    var config = {<?php echo $popup_config;  ?>};
+    if($j(".product-image-gallery a").length){
+        $j(".product-image-gallery a").fancybox(config);
+    }
+
+</script>
+<?php } ?>
+<?php echo $this->getChildHtml('after'); ?>

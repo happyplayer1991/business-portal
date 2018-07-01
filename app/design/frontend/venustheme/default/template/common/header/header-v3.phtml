@@ -1,0 +1,165 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+$ves = Mage::helper('themesettings');
+$show_currency = $ves->getConfig('header/show_currency');
+$show_language = $ves->getConfig('header/show_language');
+$top_links = $ves->getConfig('header/top_links');
+$show_searchbox = $ves->getConfig('header/show_searchbox');
+$searchbox_class = $ves->getCfgDesign('icons/searchbox_class');
+$account_class = $ves->getCfgDesign('icons/account_class');
+?>
+<?php
+// SeachBox Design
+$searchbox_format = $ves->getCfgDesign('icons/searchbox_format');
+$searchbox_text = $ves->getCfgDesign('icons/searchbox_text');
+$searchbox_class = $ves->getCfgDesign('icons/searchbox_class');
+$searchboxText = '<span class="hidden-xs">'.$searchbox_text.'</span>';
+$searchboxIcon = '<i class="fa '.$searchbox_class.'"></i>';
+?>
+<?php $searchboxHtml = ''; ?>
+<?php if((!$searchbox_format || $searchbox_format == 'text') && $searchbox_text){ // Only Text ?>
+<?php $searchboxHtml = $searchboxText; ?>
+<?php }elseif($searchbox_format == 'icon'){ // Icon, Text ?>
+<?php $searchboxHtml = $searchboxIcon; ?>
+<?php }elseif($searchbox_format == 'icon-text'){ // Icon, Text ?>
+<?php $searchboxHtml = $searchboxIcon.$searchboxText; ?>
+<?php }elseif($searchbox_format == 'text-icon'){ // Text, Icon ?>
+<?php $searchboxHtml = $searchboxText.$searchboxIcon; ?>
+<?php } ?>
+
+<?php
+// Account Design
+$account_format = $ves->getCfgDesign('icons/account_format');
+$account_text = $ves->getCfgDesign('icons/account_text');
+$account_class = $ves->getCfgDesign('icons/account_class');
+$accountText = '<span class="hidden-xs">'.$account_text.'</span>';
+$accountIcon = '<i class="fa '.$account_class.'"></i>';
+?>
+<?php $accountHtml = ''; ?>
+<?php if((!$account_format || $account_format == 'text') && $account_text){ // Only Text ?>
+<?php $accountHtml = $accountText; ?>
+<?php }elseif($account_format == 'icon'){ // Icon, Text ?>
+<?php $accountHtml = $accountIcon; ?>
+<?php }elseif($account_format == 'icon-text'){ // Icon, Text ?>
+<?php $accountHtml = $accountIcon.$accountText; ?>
+<?php }elseif($account_format == 'text-icon'){ // Text, Icon ?>
+<?php $accountHtml = $accountText.$accountIcon; ?>
+<?php } ?>
+<div class="header header-v3">
+    <div class="header-language-background">
+        <div class="header-language-container1">
+            <div class="wrap-container">
+                <?php if($show_language){ ?>
+                <div class="store-language-container">
+                    <?php echo $this->getChildHtml('store_language') ?>
+                </div>
+                <?php } ?>
+                <?php if($show_currency){ ?>
+                <?php echo $this->getChildHtml('currency_switcher') ?>
+                <?php } ?>
+
+                <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
+
+                <!-- Skip Links -->
+                <div class="skip-links">
+                    <div class="account-cart-wrapper">
+                       <!-- Account -->
+                       <?php if($top_links){ ?>
+                       <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+                            <span class="fa <?php echo $account_class; ?>"></span>
+                            <span class="label"><?php echo $this->__('Account'); ?></span>
+                        </a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="header" class="page-header1">
+        <div class="wrap-container">
+            <div class="page-header-container">
+                <a class="logo" href="<?php echo $this->getUrl('') ?>">
+                    <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
+                    <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+                </a>
+
+                <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+                  // See app.js for details ?>
+                  <div class="store-language-container hidden"> </div>
+
+                  <!-- Skip Links -->
+                  <div class="skip-links">
+                    <a href="#header-nav" class="skip-link skip-nav">
+                        <span class="fa fa-bars"></span>
+                        <span class="label"><?php echo $this->__('Menu'); ?></span>
+                    </a>
+
+                    <div class="account-cart-wrapper">
+                        <?php if($show_searchbox){ ?>
+                        <a href="#header-search" class="skip-link skip-search">
+                            <?php echo $searchboxHtml; ?>
+                        </a>
+                        <?php } ?>
+                        <!-- Account -->
+                        <?php if($top_links){ ?>
+                        <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account hidden-lg hidden-md hidden-sm">
+                            <?php echo $accountHtml; ?>
+                        </a>
+                        <?php } ?>
+                        <!-- Cart -->
+                        <div class="header-minicart">
+                            <?php echo $this->getChildHtml('minicart_head'); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div id="header-nav" class="skip-content">
+                    <?php echo $this->getChildHtml('topMenu') ?>
+                </div>
+
+                <!-- Search -->
+                <?php if($show_searchbox){ ?>
+                <div id="header-search" class="skip-content">
+                    <?php echo $this->getChildHtml('topSearch') ?>
+                </div>
+                <?php } ?>
+
+                <!-- Account -->
+                <?php if($top_links){ ?>
+                <div id="header-account" class="skip-content">
+                    <?php echo $this->getChildHtml('topLinks') ?>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+        <?php echo $this->getChildHtml('topContainer'); ?>
+    </div>
+</div>

@@ -1,0 +1,463 @@
+<?xml version="1.0"?>
+<widgets>
+    <!-- Widget listing brands-->
+    <widget_brand_list type="ves_brand/widget_list">
+      <name>Ves Base : Brands Listing</name>
+      <description>Create List Brands Widget</description>
+      <parameters>
+       <show translate="label" module="core">
+        <visible>1</visible>
+        <label>Enabled</label>
+        <sort_order>1</sort_order>
+        <type>select</type>
+        <values>
+            <yes translate="label">
+                <label>Yes</label>
+                <value>true</value>
+            </yes>
+            <no translate="label">
+                <label>No</label>
+                <value>false</value>
+            </no>
+        </values>
+        <value>true</value>
+    </show>
+
+    <brandnav_title translate="label" module="core">
+        <visible>1</visible>
+        <label>Module Title</label>
+        <sort_order>10</sort_order>
+        <type>text</type>
+    </brandnav_title>
+
+    <cmsblock translate="label">
+        <visible>1</visible>
+        <label>Select Static Block</label>
+        <type>select</type>
+        <source_model>ves_brand/system_config_source_listCms</source_model>
+        <sort_order>11</sort_order>
+        <description>Choose Template for your module</description>
+        <value>0</value>
+    </cmsblock>
+
+    <filter_group translate="label" module="core">
+        <label>Brand Group</label>
+        <sort_order>12</sort_order>
+        <type>multiselect</type>
+        <source_model>ves_brand/system_config_source_listGroup</source_model>
+        <description>Choose Brand Group to get brand show on frontend.</description>
+        <visible>1</visible>
+        <value>0</value>
+    </filter_group>
+
+    <pretext translate="label">
+     <visible>1</visible>
+     <label>Pretext</label>
+     <type>ves_brand/widget_wysiwyg</type>
+     <sort_order>14</sort_order>
+     <description>Empty for hide. You put html code such A, H2,H3,H4...</description>
+     <depends><cmsblock><value>0</value></cmsblock></depends>
+ </pretext>
+
+ <brandnav_limit translate="label" module="core">
+    <visible>1</visible>
+    <label>Limit Items</label>
+    <description>Maximum brands show on the module block</description>
+    <sort_order>18</sort_order>
+    <type>text</type>
+    <value></value>
+</brandnav_limit>
+
+<isdropdown translate="label" module="core">
+    <visible>1</visible>
+    <label>Is Dropdown </label>
+    <sort_order>20</sort_order>
+    <description>Display dropdown or UL list </description>
+    <type>select</type>
+    <values>
+        <yes translate="label">
+            <label>Yes</label>
+            <value>true</value>
+        </yes>
+        <no translate="label">
+            <label>No</label>
+            <value>false</value>
+        </no>
+    </values>
+    <value>false</value>
+</isdropdown>
+
+<template translate="label">
+    <visible>1</visible>
+    <label>Module Template</label>
+    <description>Input custom module template file path. For example: ves/brand/block/brandnav.phtml Empty for default</description>
+    <type>text</type>
+    <sort_order>340</sort_order>
+</template> 
+</parameters>
+</widget_brand_list>
+<!-- Widget scroll brands-->
+<widget_brand_scroll type="ves_brand/widget_scroll">
+    <name>Ves Base : Brands Scroll</name>
+    <description>Create Brands In Scroll Widget</description>
+    <parameters>
+        <spacer_1 translate="label">
+            <label>General Setting</label>
+            <type>ves_brand/system_config_form_field_heading</type>
+            <sort_order>1</sort_order>
+            <visible>1</visible>
+            <description></description>
+        </spacer_1>
+        <enable_scrollmodule translate="label" module="core">
+            <visible>1</visible>
+            <label>Enabled</label>
+            <sort_order>2</sort_order>
+            <type>select</type>
+            <values>
+                <yes translate="label">
+                    <label>Yes</label>
+                    <value>true</value>
+                </yes>
+                <no translate="label">
+                    <label>No</label>
+                    <value>false</value>
+                </no>
+            </values>
+            <value>true</value>
+        </enable_scrollmodule> 
+
+        <scrollmod_title translate="label" module="core">
+            <visible>1</visible>
+            <label>Module Title</label>
+            <sort_order>10</sort_order>
+            <description>Title of scroll module</description>
+            <type>text</type>
+        </scrollmod_title>
+
+        <cmsblock translate="label">
+            <visible>1</visible>
+            <label>Select Static Block</label>
+            <type>select</type>
+            <source_model>ves_brand/system_config_source_listCms</source_model>
+            <sort_order>15</sort_order>
+            <description>Choose Template for your module</description>
+            <value>0</value>
+        </cmsblock>
+
+        <pretext translate="label">
+         <visible>1</visible>
+         <label>Pretext</label>
+         <type>ves_brand/widget_wysiwyg</type>
+         <sort_order>16</sort_order>
+         <description>Empty for hide. You put html code such A, H2,H3,H4...</description>
+         <depends><cmsblock><value>0</value></cmsblock></depends>
+     </pretext>
+
+     <filter_group translate="label" module="core">
+        <label>Brand Group</label>
+        <sort_order>17</sort_order>
+        <type>multiselect</type>
+        <source_model>ves_brand/system_config_source_listGroup</source_model>
+        <description>Choose Brand Group to get brand  show on frontend.</description>
+        <visible>1</visible>
+    </filter_group>
+
+    <show_more>
+        <label>Enable Show More</label>
+        <type>select</type>
+        <values>
+            <yes translate="label">
+                <label>Yes</label>
+                <value>true</value>
+            </yes>
+            <no translate="label">
+                <label>No</label>
+                <value>false</value>
+            </no>
+        </values>
+        <sort_order>18</sort_order>
+        <visible>1</visible>
+        <value>false</value>
+    </show_more>
+
+    <itemvisiable translate="label" module="core">
+        <visible>1</visible>
+        <label>Items Visiable</label>
+        <sort_order>20</sort_order>
+        <description>Maximum brand show in module</description>
+        <type>text</type>
+        <value>8</value>
+    </itemvisiable>
+
+    <columns translate="label" module="core">
+        <visible>1</visible>
+        <label>Columns</label>
+        <sort_order>30</sort_order>
+        <description>Number columns on carousel mode</description>
+        <type>text</type>
+        <value>4</value>
+    </columns>
+
+    <max_items>
+        <visible>1</visible>
+        <label>Max items on a page</label>
+        <type>text</type>
+        <sort_order>40</sort_order>
+        <value>4</value>
+    </max_items>
+
+
+    <spacer_7 translate="label">
+        <label>OWL Carousel Setting</label>
+        <type>ves_brand/system_config_form_field_heading</type>
+        <sort_order>250</sort_order>
+        <visible>1</visible>
+        <description></description>
+    </spacer_7>
+    <enable_owl_carousel>
+      <label>Use OWL Carousel</label>
+      <type>select</type>
+      <values>
+        <yes translate="label">
+          <label>Yes</label>
+          <value>true</value>
+      </yes>
+      <no translate="label">
+          <label>No</label>
+          <value>false</value>
+      </no>
+      </values>
+      <visible>1</visible>
+      <sort_order>255</sort_order>
+      <value>false</value>
+    </enable_owl_carousel>
+    <rtl>
+     <label>Enable Right To Left</label>
+     <type>select</type>
+     <values>
+        <yes translate="label">
+          <label>Yes</label>
+          <value>true</value>
+      </yes>
+      <no translate="label">
+          <label>No</label>
+          <value>false</value>
+      </no>
+    </values>
+    <visible>1</visible>
+    <sort_order>260</sort_order>
+    <value>false</value>
+    </rtl>
+
+    <show_navigator>
+     <label>Enable Button Navigation</label>
+     <type>select</type>
+     <values>
+        <yes translate="label">
+          <label>Yes</label>
+          <value>true</value>
+      </yes>
+      <no translate="label">
+          <label>No</label>
+          <value>false</value>
+      </no>
+    </values>
+    <visible>1</visible>
+    <sort_order>270</sort_order>
+    <value>false</value>
+    </show_navigator>
+
+    <loop>
+      <label>Enable Loop Carousel</label>
+      <type>select</type>
+      <values>
+        <yes translate="label">
+          <label>Yes</label>
+          <value>true</value>
+      </yes>
+      <no translate="label">
+          <label>No</label>
+          <value>false</value>
+      </no>
+    </values>
+    <visible>1</visible>
+    <sort_order>280</sort_order>
+    <value>true</value>
+    </loop>
+    <mouse_drag>
+      <label>Enable Mouse Drag</label>
+      <type>select</type>
+      <values>
+        <yes translate="label">
+          <label>Yes</label>
+          <value>true</value>
+      </yes>
+      <no translate="label">
+          <label>No</label>
+          <value>false</value>
+      </no>
+    </values>
+    <visible>1</visible>
+    <sort_order>280</sort_order>
+    <value>true</value>
+    </mouse_drag>
+    <touch_drag>
+      <label>Enable Touch Drag</label>
+      <type>select</type>
+      <values>
+        <yes translate="label">
+          <label>Yes</label>
+          <value>true</value>
+      </yes>
+      <no translate="label">
+          <label>No</label>
+          <value>false</value>
+      </no>
+    </values>
+    <visible>1</visible>
+    <sort_order>290</sort_order>
+    <value>true</value>
+    </touch_drag>
+    <slide_by>
+      <label>Slide By</label>
+      <type>text</type>
+      <description>Number Items will slide on a time. Default: 1</description>
+      <sort_order>300</sort_order>
+      <visible>1</visible>
+      <value>1</value>
+    </slide_by>
+    <margin_item>
+      <label>Margin Each Items</label>
+      <type>text</type>
+      <description>Default 0</description>
+      <sort_order>310</sort_order>
+      <visible>1</visible>
+      <value>0</value>
+    </margin_item>
+
+    <default_items>
+      <label>Number Columns On Page (Default)</label>
+      <description>Show number items when screen size between 1199px and 980px</description>
+      <type>text</type>
+      <sort_order>320</sort_order>
+      <visible>1</visible>
+      <value>4</value>
+    </default_items>
+
+    <mobile_items>
+      <label>Number Columns On Page (Phones)</label>
+      <description>Show number items when screen size bellow 480px</description>
+      <type>text</type>
+      <sort_order>330</sort_order>
+      <visible>1</visible>
+      <value>1</value>
+    </mobile_items>
+
+    <tablet_small_items>
+      <label>Number Columns On Page (Phones to Small tablets)</label>
+      <description>Show number items when screen size between 641px and 480px</description>
+      <type>text</type>
+      <sort_order>335</sort_order>
+      <visible>1</visible>
+      <value>2</value>
+    </tablet_small_items>
+
+    <tablet_items>
+      <label>Number Columns On Page (Phones to tablets)</label>
+      <description>Show number items when screen size between 768px and 641px</description>
+      <type>text</type>
+      <sort_order>340</sort_order>
+      <visible>1</visible>
+      <value>2</value>
+    </tablet_items>
+
+    <portrait_items>
+      <label>Number Columns On Page (Portrait tablets)</label>
+      <description>Show number items when screen size between 979px and 769px</description>
+      <type>text</type>
+      <sort_order>350</sort_order>
+      <visible>1</visible>
+      <value>3</value>
+    </portrait_items>
+
+    <large_items>
+      <label>Number Columns On Page (Large display)</label>
+      <description>Show number items when screen size 1200px and up</description>
+      <type>text</type>
+      <sort_order>360</sort_order>
+      <visible>1</visible>
+      <value>5</value>
+    </large_items>
+
+    <custom_items>
+      <label>Custom Number Items with any screen sizes</label>
+      <description>For example: [320, 1], [360, 1], [480, 1], [568, 2], [600, 2], [640, 2], [768, 2], [900, 3], [960, 3], [1024, 3] empty to disable</description>
+      <type>text</type>
+      <sort_order>370</sort_order>
+      <visible>1</visible>
+      <value></value>
+    </custom_items>
+
+    <auto_play>
+        <visible>1</visible>
+        <label>Auto Play</label>
+        <type>select</type>
+        <values>
+          <yes translate="label">
+            <label>Yes</label>
+            <value>true</value>
+        </yes>
+        <no translate="label">
+            <label>No</label>
+            <value>false</value>
+        </no>
+    </values>
+    <sort_order>400</sort_order>
+    <value>false</value>
+    </auto_play>
+
+    <page_speed>
+      <visible>1</visible>
+      <label>Pagination Speed</label>
+      <comment>Pagination speed in milliseconds. Default: 800</comment>
+      <type>text</type>
+      <sort_order>510</sort_order>
+      <value>3000</value>
+    </page_speed>
+
+    <interval>
+      <visible>1</visible>
+      <label>Slide Speed</label>
+      <comment>Slide speed in milliseconds. Default: 500</comment>
+      <type>text</type>
+      <sort_order>520</sort_order>
+      <value>500</value>
+    </interval>
+
+    <rewind_speed>
+      <visible>1</visible>
+      <label>Rewind Speed</label>
+      <comment>Rewind speed in milliseconds. Default: 1000</comment>
+      <type>text</type>
+      <sort_order>530</sort_order>
+      <value>1000</value>
+    </rewind_speed>
+
+    <spacer_8 translate="label">
+      <label>Template Setting</label>
+      <type>ves_brand/system_config_form_field_heading</type>
+      <sort_order>550</sort_order>
+      <visible>1</visible>
+      <description></description>
+    </spacer_8>
+    <template translate="label">
+        <visible>1</visible>
+        <label>Module Template</label>
+        <description>Input custom module template file path. For example: ves/brand/block/scroll.phtml Empty for default</description>
+        <type>text</type>
+        <sort_order>600</sort_order>
+    </template>
+</parameters>
+</widget_brand_scroll>
+
+</widgets>

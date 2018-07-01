@@ -1,0 +1,225 @@
+input[type="checkbox"], input[type="radio"]{
+	position: absolute;
+	right: 9000px;
+}
+
+/*Check box*/
+input[type="checkbox"] + .label-text:before{
+	content: "\f096";
+	font-family: "FontAwesome";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+input[type="checkbox"]:checked + .label-text:before{
+	content: "\f14a";
+	color: #2980b9;
+	animation: effect 250ms ease-in;
+}
+
+input[type="checkbox"]:disabled + .label-text{
+	color: #aaa;
+}
+
+input[type="checkbox"]:disabled + .label-text:before{
+	content: "\f0c8";
+	color: #ccc;
+}
+
+/* Radio Button */
+
+input[type="radio"] + .label-text:before{
+	content: "\f10c";
+	font-family: "FontAwesome";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+input[type="radio"]:checked + .label-text:before{
+	content: "\f192";
+	color: #fe5252;
+	animation: effect 250ms ease-in;
+}
+
+input[type="radio"]:disabled + .label-text{
+	color: #aaa;
+}
+
+input[type="radio"]:disabled + .label-text:before{
+	content: "\f111";
+	color: #ccc;
+}
+
+/* Select2 for Categories*/
+.select2_categories {
+    width: 365px !important;
+}
+
+.addCategory {
+    cursor: pointer;
+}
+
+/* Header Account */
+.header #header-account.skip-active {
+    /* top: 58px; */
+	/* right: 20px; */
+	right: 0;
+	z-index: 10003;
+
+	/* content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid #0fa1e0;
+	margin-left: -10px; */
+}
+
+.header-avatar {
+	width: 30px; 
+	height: 30px; 
+	/* margin-top: 5px;  */
+	border-radius: 50%; 
+}
+
+/**
+  * img of Product List 
+  */
+.products-grid .product-image img {
+	width: 100%;
+    height: 200px;
+}
+
+.products-list .product-block .image img {
+	width: 100%;
+    max-width: 100%;
+    height: 200px;
+}
+
+/**
+  * Notification
+  */
+.skip-notification {
+	display: inline-block;
+    zoom: 1;
+    width: auto;
+	text-transform: uppercase;
+	z-index: 10002;
+}
+
+.badge-notification.badge-default {
+    background-color: rgb(245, 108, 126);
+	color: #ffffff;
+	z-index: 10001;
+}
+
+.badge-notification {
+    font-family: "Open Sans", sans-serif;
+    position: absolute;
+	top: -6px;
+    right: 0px;
+    font-weight: 300;
+    padding: 3px 6px;
+}
+
+.badge-notification {
+	font-size: 11px !important;
+    height: 18px;
+    text-shadow: none !important;
+    display: inline-block;
+    min-width: 10px;
+    /* padding: 3px 7px; */
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%;
+}
+
+/**
+	* header drop menu not uppercase
+*/
+
+.header #header-account a {
+	text-transform: none;
+}
+
+.header #header-account a i {
+	margin-right: 5px;
+}
+
+/**
+	* Left naviagation side
+*/
+.block-account li, .block-cms-menu li {
+	text-transform: none;
+}
+
+
+/**
+	* Disable textarea resizeable
+*/
+
+textarea {
+	resize: none;
+}
+
+form#product_sendtofriend_form textarea#sender_message {
+	width: 365px;
+}
+
+.budge_type span {
+	display: inline-flex;
+}
+
+.budge_type img {
+	height: 16px !important;
+	margin: auto 5px !important; 
+}
+
+.budge_type input[type="checkbox"] + .label-text:before {
+	margin: auto 5px auto 0px;
+}
+
+.display-hide {
+	display: none;
+}
+
+/* My Budge Page */
+
+div.mybudge .budge {
+	padding: 10px 5px;
+	border: 1px solid darkgray;
+	height: 200px;
+}
+div.mybudge span.name {
+	display: inline-flex;
+}
+
+div.mybudge img.budge-icon {
+	margin: auto 5px auto 0;
+	height: 16px; 
+}
+
+div.mybudge div.description {
+	margin-left: 21px;
+}

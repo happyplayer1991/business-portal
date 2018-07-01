@@ -1,0 +1,126 @@
+<?php
+$ves = Mage::helper('themesettings');
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$store_switcher = $this->getStoreSwitcherHtml();
+$skins = $this->getSkins();
+$directions = array(
+	"ltr" => "Left To Right",
+	"rtl" => "Right To Left");
+$headerLayouts = $this->getHeaderLayouts();
+$yesno = array(
+	0 => 'No',
+	1 => 'Yes'
+	);
+$customWidths = array(
+	'default' => 'Default',
+	'960' => '960px',
+	'1024' => '1024px',
+	'1280' => '1280px',
+	'1360' => '1330px',
+	'1440' => '1440px',
+	'1680' => '1680px',
+	'custom' => 'Custom width..'
+	);
+	?>
+	<script type="text/javascript">
+		jQuery(document).ready( function (){
+			jQuery(".paneltool .panelbutton").click( function(){	
+				jQuery(this).parent().toggleClass("active");
+			} );
+		} );
+		jQuery('#custom_max_width').hide();
+		function changeLayout(obj){
+			var value = obj.value;
+			console.log(value);
+			if(value == 'custom'){
+				jQuery('#custom_max_width').show()
+			}else{
+				jQuery('#custom_max_width').hide();
+			}
+		}
+	</script>
+	<div id="ves-paneltool" class="hidden-md hidden-sm hidden-xs">
+		<div class="paneltool themetool">
+			<div class="panelbutton">
+				<i class="fa fa-sliders"></i>
+			</div>
+			<div class="panelcontent ">
+				<div class="panelinner">
+					<h3><?php echo Mage::helper("themesettings")->__("Panel Tool");?></h3>
+					<form action="<?php echo $this->getFormUrl(); ?>" method="post" class="clearfix" id="paneltool_form">
+						<?php if($store_switcher){ ?>
+						<div class="panel-item">
+							<?php echo $store_switcher; ?>
+						</div>
+						<?php } ?>
+						<?php if(!empty($skins)){ ?>
+						<div class="panel-item">
+							<label>Theme Skins</label>
+							<select name="userparams[themesettings/general/default_skin]">
+								<?php foreach( $skins as $skin ) { ?>
+								<option value="<?php echo $skin['value'];?>" <?php if($skin['value'] == $ves->getConfig('general/default_skin')){ ?> selected="selected"<?php } ?>><?php echo $skin['label']; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<?php } ?>
+						<?php if(!empty($directions)){ ?>
+						<div class="panel-item">
+							<label><?php echo Mage::helper("themesettings")->__("Direction"); ?></label>
+							<select name="userparams[themesettings/general/direction]">
+								<?php foreach( $directions as $k=>$direction ) {  $direction = basename($direction) ; ?>
+								<option value="<?php echo $k ?>"<?php if($k == $ves->getConfig('general/direction')){ ?> selected="selected"<?php } ?> ><?php echo $direction; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<?php } ?>
+						<?php if(!empty($headerLayouts)){ ?>
+						<div class="panel-item">
+							<label><?php echo Mage::helper("themesettings")->__("Header Layout"); ?></label>
+							<select name="userparams[themesettings/header/layout]">
+								<?php foreach( $headerLayouts as $k=>$layout ) { ?>
+								<option value="<?php echo $layout['value'];?>" <?php if($layout['value']==$ves->getConfig('header/layout')){ ?> selected="selected"<?php } ?>><?php echo $layout['label'];?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<?php } ?>
+
+						<div class="panel-item">
+							<label><?php echo Mage::helper("themesettings")->__("Fluid Layout"); ?></label>
+							<select name="userparams[themesettings_layout/responsive/fluid_width]">
+								<?php foreach( $yesno as $k=>$s ) {  ?>
+								<option value="<?php echo $k ?>"<?php if($k == $ves->getCfgLayout('responsive/fluid_width')){ ?> selected="selected"<?php } ?> ><?php echo $s; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+
+						<?php // Custom Max Width ?>
+						<div class="panel-item">
+							<label><?php echo Mage::helper("themesettings")->__("Custom Max Width"); ?></label>
+							<select name="userparams[themesettings_layout/responsive/max_width]" onchange="changeLayout(this)">
+								<?php foreach( $customWidths as $k=>$s ) {  ?>
+								<option value="<?php echo $k ?>"<?php if($k == $ves->getCfgLayout('responsive/max_width')){ ?> selected="selected"<?php } ?> ><?php echo $s; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+
+						<div class="panel-item" id="custom_max_width">
+							<label><?php echo Mage::helper("themesettings")->__("Custom Max Width"); ?></label>
+							<input type="text" name="userparams[themesettings_layout/responsive/max_width_custom]" value="<?php echo $ves->getCfgLayout('responsive/max_width_custom') ?>"/>
+						</div>
+
+						<div class="panel-apply">
+							<input type="hidden" value="1" id="vespanel" name="vespanel"/>
+							<input type="hidden" value="0" id="vesreset" name="vesreset"/>
+							<button value="Apply" class="btn btn-apply btn-small" name="btn-save" type="submit"><?php echo Mage::helper("themesettings")->__("Apply"); ?></button>
+							<a class="btn btn-small btn-reset" href="javascript:;" onclick="jQuery('#vesreset').val(1);jQuery('#paneltool_form').submit() "><span><?php echo Mage::helper("themesettings")->__("Reset"); ?></span></a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	// <![CDATA[
+	var panelForm = new VarienForm("paneltool_form");
+	// ]]>
+</script>

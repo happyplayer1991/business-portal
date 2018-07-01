@@ -1,0 +1,31 @@
+<?php
+$rootCatId = $this->getRootCategory();
+$childCats = $this->getChildCategories($rootCatId);
+$product = $this->getProductObject();
+$this->setProduct($product);
+$selectedCategories = $product->getCategoryIds();
+$this->setSelectedCategories($selectedCategories);
+$listCategory = $this->listCategory($childCats);
+?>
+
+<?php echo $listCategory;  ?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.category-list ul').hide();
+
+        jQuery('.category-sublist input:checked').parents().show();
+
+        if(jQuery('li.category-sublist').find('input:checked')) {
+            var el = jQuery('li.category-sublist').find('input:checked');
+            el.parents().prev('i').toggleClass('glyphicon-plus');
+            el.parents().prev('i').toggleClass('glyphicon-minus');
+        }
+
+        jQuery('li.category-sublist > i').click(function(e) {
+            jQuery(this).parent().children('ul').slideToggle();
+            jQuery(this).toggleClass('glyphicon-plus');
+            jQuery(this).toggleClass('glyphicon-minus');
+        });
+    });
+</script>

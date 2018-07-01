@@ -1,0 +1,80 @@
+.widget-productlist-tab {}
+.tab-side-container {}
+#outer-container {}
+
+/* Styles for Tabs on Top */
+.outer-container ul.easytab-title, 
+.tab-side-container ul.nav-tabs {
+	margin: 0; 
+	padding: 0; 
+	text-align: center; 
+	position: relative;
+	&:after {
+		content: "";
+		width: 100%;
+		background: #ececec;
+		height: 1px;
+		position: absolute;
+		top:50%;
+		@include rtl-left(0);
+	}
+	li { 
+		@include inline-block();
+		background: $white; 
+		border: 0;
+		text-align: center;
+		position: relative;
+		z-index: 2;
+		@include rtl-margin-right(5px);
+		&.active {
+			background: $white; 
+		}
+		a { 
+			font-size: 18px; 
+			line-height: 2em; 
+			display: block; 
+			padding: 0 10px; 
+			outline: none; 
+			text-transform: uppercase;
+			color: $c-gray;
+			&:hover{
+				text-decoration: underline;
+			}
+			&.active {
+				font-weight: bold; 
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.easytab-play {	}
+.easytab {}
+.etabs { margin: 0; padding: 0; }
+
+ul.easytab-title {}
+.panel-container {}
+#side-tab1,
+#side-tab2,
+#side-tab3 { @include rtl-float-left(); width: 100%;}
+
+.tab-side-container .panel-container,
+.outer-container .panel-container { 
+	background: $white; 
+	@include border-radius(0);
+	border:0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+/* Styles for Tabs on Side */
+#tab-side-container {}
+.tab-side-container-v ul.easytab-title { height: 300px; list-style: none; margin: 0; padding: 0; background: #ccc; float: left; border-right: solid 1px; }
+.tab-side-container-v ul.easytab-title li { width: 100px; margin: 0; padding: 0; text-align: center; }
+.tab-side-container-v ul.easytab-title li a { display: block; padding: 15px 0; outline: none; }
+.tab-side-container-v ul.easytab-title li a:hover { text-decoration: underline; }
+.tab-side-container-v ul.easytab-title li.active { background: #fff; position: relative; left: 1px; border-style: solid; border-width: 1px 0; }
+.tab-side-container-v ul.easytab-title li:first-child.active { border-top: none; }
+.tab-side-container-v ul.easytab-title li a.active { font-weight: bold; text-decoration: none; }
+.tab-side-container-v .panel-container { background: #fff; padding-top: 5px; padding-left: 120px; }
+

@@ -1,0 +1,86 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php $_items = $this->getReviewsCollection()->getItems();?>
+<div class="box-collateral box-reviews" id="customer-reviews">
+    <?php if (count($_items)):?>
+        <div class="review-heading">
+            <h2>
+                <?php echo $this->__('Customer Reviews') ?>
+                <span><?php echo count($_items); ?> item(s)</span>
+            </h2>
+            <?php echo $this->getChildHtml('toolbar') ?>
+        </div>
+        <div class="reviews-container">
+        <?php foreach ($_items as $_review):?>
+            <?php $_votes = $_review->getRatingVotes(); ?>
+            <div class="row review-row">
+                <div class="review-dt col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <span class="nickname"><?php echo $this->escapeHtml($_review->getNickname()); ?></span> <br/>
+                    <small class="date"><?php echo $this->formatDate($_review->getCreatedAt()); ?></small>
+                </div>
+                <div class="review-dd col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    
+                    <?php
+                        /*
+                    <div class="title">
+                        <a href="<?php echo $this->getReviewUrl($_review->getId()) ?>">
+                            <?php echo $this->escapeHtml($_review->getTitle()) ?>
+                        </a>
+                    </div>
+                        */
+                    ?>
+
+                    <div class="value-review-attr description">
+                        <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
+                    <?php if (count($_votes)): ?>
+                    <ul class="ratings-table">
+                        <?php foreach ($_votes as $_vote): ?>
+                        <li>
+                            <span><?php echo $this->escapeHtml($_vote->getRatingCode()) ?></span>
+                            <div class="rating-box">
+                                <div class="rating" style="width:<?php echo $_vote->getPercent() ?>%;"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+
+        <?php // echo $this->getChildHtml('toolbar') ?>
+    <?php elseif($this->getParentBlock()): ?>
+        <?php echo $this->getParentBlock()->getReviewsSummaryHtml($this->getProduct(), 'short', true)?>
+    <?php endif;?>
+    <?php echo $this->getChildHtml('review_form') ?>
+</div>

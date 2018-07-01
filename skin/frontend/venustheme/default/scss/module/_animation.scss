@@ -1,0 +1,153 @@
+.button:hover, 
+.cart-table .product-cart-actions .button:hover, 
+#co-shipping-method-form .buttons-set .button:hover, 
+.footer .button:hover {
+	background:  $c-gray;
+	@include transition(all 0.4s ease-out 0s);
+}
+
+.ves-brand {
+	a {
+	    display:block;
+	    img { 
+	        transform: rotateY(0deg);
+	        transform-style: preserve-3d;
+	        @include transition(all 0.4s ease-out 0s);
+	    }
+	    &:hover {
+	        img {
+	            transform: rotateY(-360deg);
+	        }  
+	    } 
+	}
+}
+
+.widget-sociallinks {
+	a {
+	    .fa {@include transition(all 0.4s ease-out 0s);}
+	    &:hover,
+	    &:focus {
+	    	.fa {
+	    		transform: rotate(360deg);
+	    		@include transition(all 0.4s ease-out 0s);
+	    	}
+	    }
+	}
+}
+
+.widget-images {
+	.image-item {
+		overflow:hidden;
+		position: relative;
+	}
+	.img-animation {
+		overflow:hidden;
+		position: relative;
+        img { 
+            @include scale(1);
+            @include transition(.6s ease-in-out);
+        }
+        &:hover {
+            img { 
+                @include scale(1.1);
+                @include transition(.6s ease-in-out);
+            }
+        }
+	}
+}
+
+.product-block {
+	.quickview {
+		@include opacity(0);
+		visibility: hidden;
+	}
+
+    .actions,
+    .btn-cart,
+    .add-to-links {
+        visibility:hidden;
+        @include opacity(0);
+        @include transition(all 0.3s ease);
+        float: none !important;
+        vertical-align: top;
+        .display-onhover {
+        	@include inline-block();
+        	margin: 0;
+        	vertical-align: top;
+        }
+    }
+
+    &:hover,
+    &:focus {
+        .quickview {
+            @include opacity(1);
+            visibility: visible;
+        }
+
+    	.actions,
+        .btn-cart,
+    	.add-to-links {
+            visibility:visible;
+            @include opacity(1);
+        }
+        .btn-cart  {
+            @include transition(all 0.3s ease);
+            -webkit-transition-delay: 0.3s; /* Safari */
+            transition-delay: 0.3s;
+		}
+        .add-to-links  {
+            @include transition(all 0.4s ease);
+            -webkit-transition-delay: 0.4s; /* Safari */
+            transition-delay: 0.4s;
+        }
+    } 
+}
+
+.hover-effect {
+    /* Product name in a single line */
+    &.single-line-name {
+        .product-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        &:hover,
+        &:focus{
+            .product-name {
+                overflow: visible;
+                white-space: normal;
+            }
+        }
+    }
+    
+    .actions .button,
+    .add-to-links li a {float: none;}
+
+    &.show-mobile {
+        > li {
+            width: 100% !important;
+            margin: 0;
+        }
+        .display-onhover {
+            display:inline-block!important;
+            visibility:visible!important;
+            @include opacity(1);
+            @include transition(all 0.4s ease-in-out 0s);
+        }
+        .quickview,
+        .actions,
+        .btn-cart,
+        .add-to-links {
+            visibility:visible;
+            @include opacity(1);
+        }
+
+    } 
+}
+
+.widget-productlist-tab,
+.widget-productlist-carousel {
+	.actions {
+		button { vertical-align: top; padding: 7px 15px;}
+	}
+}

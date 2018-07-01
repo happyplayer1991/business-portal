@@ -1,0 +1,293 @@
+// Content bootstrap.vars
+$image-theme-path-base: 	   "../images/" !default; //image default of magento
+$font-size-base:        14px !default;
+$text-color:            #666666 !default;
+$link-color:            #000 !default;
+$gray-base:             #000 !default;
+$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:              lighten($gray-base, 21%) !default;   // #363636
+$gray:                   lighten($gray-base, 27%) !default; // #555
+$gray-light:             lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:           #bbb !default; // #ddd
+
+$rtl-left : left;
+$rtl-right : right;
+
+$brand-default :    	#F46D71 !default;
+$brand-primary:         #9c9c9c !default;
+$brand-success:         #5cb85c !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+
+$headings-font-family:    inherit !default;
+$headings-font-weight:    600 !default;
+$headings-line-height:    1.1 !default;
+$headings-color:          inherit !default;
+
+$hr-border:                   $gray-lighter !default;
+$panel-body-padding:          15px !default;
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                normal !default;
+
+$btn-default-color:              #fff !default;
+$btn-default-bg:                 #434a54 !default;
+$btn-default-border:             #434a54 !default;
+
+$btn-primary-color:              #fff !default;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+
+$btn-success-color:              #fff !default;
+$btn-success-bg:                 $brand-success !default;
+$btn-success-border:             darken($btn-success-bg, 5%) !default;
+
+$btn-info-color:                 #fff !default;
+$btn-info-bg:                    $brand-info !default;
+$btn-info-border:                darken($btn-info-bg, 5%) !default;
+
+$btn-warning-color:              #fff !default;
+$btn-warning-bg:                 $brand-warning !default;
+$btn-warning-border:             darken($btn-warning-bg, 5%) !default;
+
+$btn-danger-color:               #fff !default;
+$btn-danger-bg:                  $brand-danger !default;
+$btn-danger-border:              darken($btn-danger-bg, 5%) !default;
+
+$btn-link-disabled-color:        $gray-light !default;
+$blockquote-border-color:     $gray-lighter !default;
+
+
+// content element-vars
+$bo-parallax-before-background : url("#{$image-theme-path-base}img-paralax.jpg")!default;
+$border-color: #ececec!default;
+$brand-default: #000!default;
+
+/* --- SCSS For Accordion --- */
+$bo-accordion-background:                        $brand-primary !default; 
+$bo-accordion-color:                             $brand-primary !default;
+$bo-accordion-border-color:                      #eee !default;
+
+/* --- SCSS For Call-to-action --- */
+$white : #fff !default;
+$call-to-action-border-color: #999 !default;
+
+/* --- SCSS For Content-slider --- *//*  */
+$bo-carousel-md-width:                             40px !default;
+$bo-carousel-md-height:                            40px !default;
+
+$bo-carousel-sm-width:                             30px !default;
+$bo-carousel-sm-height:                            30px !default;
+$bo-carousel-sm-font-size:						   $font-size-base - 2;
+
+$bo-carousel-xs-width:                             20px !default;
+$bo-carousel-xs-height:                            20px !default;
+$bo-carousel-sm-font-size:						   $font-size-base - 4;
+
+/* carousel-controls-v1 */
+$bo-carousel-controls-v1-color:                    #999 !default;
+$bo-carousel-controls-v1-hover-color:              darken($bo-carousel-controls-v1-color, 15%) !default;
+$bo-carousel-controls-v1-bg:                       rgba(0, 0, 0, 0.5) !default;
+
+/* carousel-controls-v2 */
+$bo-carousel-controls-v2-color:                    #999 !default;
+$bo-carousel-controls-v2-hover-color:              darken($bo-carousel-controls-v2-color, 25%) !default;
+
+/* carousel-controls-v3 */
+$bo-carousel-controls-v3-color:                    #fff !default;
+$bo-carousel-controls-v3-hover-color:              #fff !default;
+$bo-carousel-controls-v3-bg:                       $brand-primary !default;
+$bo-carousel-controls-v3-hover-bg:                 darken($bo-carousel-controls-v3-bg, 15%) !default;
+
+/* carousel-indicators-v1 */
+$bo-carousel-indicators-v1-bg:                     #ddd !default;
+$bo-carousel-indicators-v1-hover-bg:               $brand-primary !default;
+
+/* carousel-indicators-v2 */
+$bo-carousel-indicators-v2-bg:                     #ddd !default;
+$bo-carousel-indicators-v2-hover-bg:               $brand-primary !default;
+
+/* carousel-indicators-v3 */
+$bo-carousel-indicators-v3-bg:                     $brand-primary !default;
+$bo-carousel-indicators-v3-hover-bg:               $brand-primary !default;
+
+/* carousel-indicators-v4 */
+$bo-carousel-indicators-v4-bg:                     $brand-primary !default;
+$bo-carousel-indicators-v4-hover-bg:               $brand-primary !default;
+
+/* carousel-indicators-v5 */
+$bo-carousel-indicators-v5-bg:                     $brand-primary !default;
+$bo-carousel-indicators-v5-hover-bg:               $brand-primary !default;
+
+/* carousel-indicators-v6 */
+$bo-carousel-indicators-v6-bg:                     $brand-primary !default;
+$bo-carousel-indicators-v6-hover-bg:               $brand-primary !default;
+
+/* --- SCSS For Counters --- */$bo-counter-color:                   $brand-primary;
+$bo-counter-font-weight:             800;
+$bo-counter-font-size:               36px;
+
+$bo-counter-icon-font-size:          46px;
+$bo-counter-heading-font-weight:     700;
+
+/* --- SCSS For Heading --- */
+$bo-heading-color:            $brand-primary;
+$bo-heading-after:            $brand-primary;
+
+/* --- SCSS For Latest-posts --- *//* latest posts */
+$bo-latest-posts-color:                   $text-color;
+$bo-latest-posts-a-color:                 $link-color;
+$bo-latest-posts-a-hover-color:           $brand-primary;
+$bo-latest-posts-font-size:               $font-size-base;
+$bo-latest-posts-title-font-size:         $font-size-base - 1;
+
+$bo-latest-posts-meta-font-size:          $font-size-base + 2;
+
+$bo-latest-posts-profile-font-size:       $font-size-base - 1;
+$bo-latest-posts-profile-color:           $text-color;
+
+/* --- SCSS For List --- *//* variables for list */
+$bo-list-color:                           #666 !default; 
+$bo-list-a-color:                         $bo-list-color !default; 
+$bo-list-a-color-hover:                   $brand-primary  !default;
+
+/* variables for list light */
+$bo-list-light-color:                     #fff !default; 
+$bo-list-light-a-color:                   $bo-list-light-color !default; 
+$bo-list-light-a-color-hover:             $brand-primary  !default;
+
+/* --- SCSS For Newsletter --- */
+$newsletter-v2-bg            : lighten($gray-light, 50%) !default;
+$newsletter-v3-bg            : $gray-dark !default;
+
+ /* --- SCSS For Process-steps --- *//* process-steps */
+$bo-process-steps-color:                      $brand-default;
+$bo-process-steps-bg:                         $brand-default;
+
+$bo-process-steps-active-color:               $brand-primary;
+$bo-process-steps-active-bg:                  $brand-primary;
+
+ /* --- SCSS For Style-icon --- *//* Variables icons default */
+$bo-style-icon-color:                              #fff!default;
+$bo-style-icon-hover-color:                        #fff!default;
+$bo-style-icon-bg:                                 $brand-primary!default;
+$bo-style-icon-hover-bg:                           darken($bo-style-icon-bg, 5%)!default;
+
+/* Variables icons bodered */
+$bo-style-icon-bodered-color:                      $brand-primary!default;
+$bo-style-icon-bodered-hover-color:                darken($bo-style-icon-bodered-color, 10%)!default;
+
+/* Variables icons darker */
+$bo-style-icon-darker-color:                        #fff!default;
+$bo-style-icon-darker-hover-color:                  #fff!default;
+$bo-style-icon-darker-bg:                           #000!default;
+$bo-style-icon-darker-hover-bg:                     lighten($bo-style-icon-darker-bg, 35%)!default;
+
+/* Variables icons light */
+$bo-style-icon-light-color:                        #000!default;
+$bo-style-icon-light-hover-color:                  #fff!default;
+$bo-style-icon-light-bg:                           #f0f0f0!default;
+$bo-style-icon-light-hover-bg:                     darken($bo-style-icon-light-bg, 10%)!default;
+
+/* Variables icons plain */
+$bo-style-icon-plain-color:                        $brand-primary!default;
+$bo-style-icon-plain-hover-color:                  #000!default;
+$bo-style-icon-plain-bg:                           transparent!default;
+$bo-style-icon-plain-hover-bg:                     transparent!default;
+
+/* Variables icons for light style */
+$bo-light-style-icon-color:                        $brand-primary!default;
+$bo-light-style-icon-hover-color:                  $brand-primary!default;
+$bo-light-style-icon-bg:                           #fff!default;
+$bo-light-style-icon-hover-bg:                     darken(#fff, 5%)!default;
+
+$bo-light-style-icon-bodered-color:                #fff!default;
+$bo-light-style-icon-bodered-hover-color:          darken(#fff, 5%)!default;
+$bo-light-style-icon-bodered-bg:                   #fff!default;
+$bo-light-style-icon-bodered-hover-bg:             darken(#fff, 5%)!default;
+
+/* Variables icons outline */
+$icons-outline-color:                              #d1d646!default;
+$icons-outline-bg:                                 transparent!default;
+$icons-outline-border:                             $icons-outline-color!default;
+$icons-outline-hover-color:                        #fff!default;		
+$icons-outline-hover-bg:                           $icons-outline-color!default;
+$icons-outline-hover-border:                       darken($icons-outline-hover-bg, 5%)!default;
+
+/* Variables icons inverse */
+$icons-inverse-color:                              #fff!default;
+$icons-inverse-bg:                                 #d1d646!default;
+$icons-inverse-border:                             darken($icons-inverse-bg, 5%)!default;
+$icons-inverse-hover-color:                        #d1d646!default;	
+$icons-inverse-hover-bg:                            transparent!default;
+$icons-inverse-hover-border:                       $icons-inverse-bg!default;
+
+/* variables for tab style1 using as base of tab */
+$bo-tabs-a-color:#aaa !default; 
+$bo-tabs-a-color-hover: $brand-primary !default;
+$bo-tabs-a-color-active:#000 !default;
+$bo-tabs-a-padding: 10px 20px !default;
+
+$bo-tabs-padding: 30px 0 !default; 
+$bo-tabs-background: $brand-primary !default;
+$bo-tabs-background-hover: #f6f6f6 !default;
+$bo-tabs-content-background:#f6f6f6 !default;
+
+$bo-tabs-border-color : #eee !default;
+$bo-tabs-content-border:  1px solid $bo-tabs-border-color !default;
+$bo-tabs-content-padding: 15px 20px!default;
+
+/* tab style version 4 */
+$bo-tabs-v4-a-padding: 20px !default;
+$bo-tabs-v4-a-font-size: 12px;
+/* tab style version 5 */
+$bo-tabs-v5-a-padding: 15px 30px !default;
+$bo-tabs-v5-a-font-size: 18px;
+$bo-tabs-primary-background-hover:#000!default;
+$bo-tabs-primary-background:#fff !default;
+
+/* tab style version 6 */
+$bo-tabs-v6-heading-background: #fff !default; 
+
+$bo-tabs-v6-a-color : #000 !default;
+$bo-tabs-v6-a-color-active:red !default;
+$bo-tabs-v6-heading-padding: 10px 20px;
+$bo-tabs-v6-heading-border-top-color:#000 !default; 
+
+$bo-tabs-v6-heading-border-color:#eee !default;  
+$bo-tabs-v6-content-border-color:1px solid $bo-tabs-border-color !default;
+
+/* tab style version 7 */
+$bo-tabs-v7-a-padding: 20px !default;
+$bo-tabs-v7-a-font-size: 14px;
+
+ /* --- SCSS For Testimonials --- *//* testimonials default */
+$bo-testimonials-color:                              #696969;
+$bo-testimonials-a-color:                            #696969;
+$bo-testimonials-heading-color:                      #696969;							
+
+/* testimonials-v1 */
+$bo-testimonials-v1-color:                              #696969;
+$bo-testimonials-v1-a-color:                            #696969;
+$bo-testimonials-v1-background:                         #f3f3f3;
+$bo-testimonials-v1-light-background:                         #f3f3f3;
+$bo-testimonials-v1-light-color:                              #555;
+
+/* testimonials light */
+$bo-testimonials-light-color:                              #fff;
+$bo-testimonials-light-a-color:                            #fff;
+$bo-testimonials-light-heading-color:                      #fff;
+
+ /* --- SCSS For Typography --- */
+$bo-blockquote-icon-background  : $brand-primary !default;
+$bo-blockquote-icon-color       : #fff !default;
+$bo-blockquote-icon-font-size   : 17px !default;
+$bo-blockquote-icon-line-height : 22px !default;
+$bo-blockquote-color            : #000 !default;
+
+$nocolor						: transparent !default;
+$pager-size: 16px;

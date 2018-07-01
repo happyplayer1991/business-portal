@@ -1,0 +1,177 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<?php
+    //Mass Top Blocks
+$masstop1 = $this->getChildHtml('masstop1');
+$masstop2 = $this->getChildHtml('masstop2');
+$masstop3 = $this->getChildHtml('masstop3');
+$masstop4 = $this->getChildHtml('masstop4');
+$masstop_lg_col = 4;
+$masstop_md_col = 4;
+$masstop_sm_col = 2;
+$masstop_xs_col = 1;
+$masstop_array = array($masstop1, $masstop2, $masstop3, $masstop4);
+foreach($masstop_array as $k=>$item) {
+    if(!$item) {
+        unset($masstop_array[$k]);
+    }
+}
+
+
+    //Mass Top Blocks
+$massbottom1 = $this->getChildHtml('massbottom1');
+$massbottom2 = $this->getChildHtml('massbottom2');
+$massbottom3 = $this->getChildHtml('massbottom3');
+$massbottom4 = $this->getChildHtml('massbottom4');
+
+$massbottom_array = array($massbottom1, $massbottom2, $massbottom3, $massbottom4);
+foreach($massbottom_array as $k=>$item) {
+    if(!$item) {
+        unset($massbottom_array[$k]);
+    }
+}
+$ves = Mage::helper("themesettings");
+$sticky = $ves->getConfig('header/sticky');
+$direction = $ves->getConfig('general/direction');
+?>
+<!DOCTYPE html>
+
+<!--[if lt IE 7 ]> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="<?php echo $this->getLang(); ?>" dir="<?php echo $direction ?>" class="<?php echo $direction; ?> no-js">
+<!--<![endif]-->
+
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+</head>
+<body class="<?php echo $this->getBodyClass() ?> <?php echo $sticky?"keep-header":"" ?> layout-<?php echo $ves->getConfig('layout/layout_mode', 'fullwidth'); ?> fs<?php echo $ves->getConfig('layout/fontsize');?> <?php echo $ves->getConfig('layout/body_pattern');?>" >
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div class="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
+    <div class="page">
+        <?php echo $this->getChildHtml('header') ?>
+        <!-- Slideshow Position -->
+        <?php if($slideshow = $this->getChildHtml('slideshow')){ ?>
+        <div id="ves-slideshow" class="ves-slideshow">
+            <div class="wrap-container">
+                <?php echo $slideshow; ?>
+            </div>
+        </div>
+        <?php } ?>
+        <!-- Showcase Position -->
+        <?php if($showcase = $this->getChildHtml('showcase')){ ?>
+        <div id="ves-showcase" class="ves-showcase">
+            <div class="wrap-container">
+            <?php echo $showcase; ?>
+            </div>
+        </div>
+        <?php } ?>
+        <!-- Promotion Position -->
+        <?php if($promotion = $this->getChildHtml('promotion')){ ?>
+        <div id="ves-promotion" class="ves-promotion">
+            <div class="wrap-container">
+                <?php echo $promotion; ?>
+            </div>
+        </div>
+        <?php } ?>
+        <!-- Mass Top Position -->
+        <?php if($masstop_array){ ?>
+        <div id="ves-masstop" class="ves-masstop">
+            <?php foreach($masstop_array as $k=>$item): ?>
+                <div class="masstop<?php echo $k+1; ?>">
+                    <div class="wrap-container">
+                        <?php echo $item; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php } ?>
+        <!-- Maincontent-->
+        <div id="ves-maincontent" class="ves-maincontent">
+            <div class="main-container col3-layout">
+                <div class="main">
+                    <?php echo $this->getChildHtml('breadcrumbs') ?>
+                    <div class="col-wrapper">
+                        <?php // This left_first block will display above the main content on smaller viewports ?>
+                        <?php if ($_leftContent = $this->getChildHtml('left_first')): ?>
+                            <div class="col-left sidebar col-left-first"><?php echo $_leftContent;   ?></div>
+                        <?php endif; ?>
+                        <div class="col-main">
+                            <?php echo $this->getChildHtml('global_messages') ?>
+                            <?php if($contentTop = $this->getChildHtml('content_top')){ ?>
+                            <div id="ves-content-top" class="content-top">
+                                <?php echo $contentTop; ?>
+                            </div>
+                            <?php } ?>
+                            <?php echo $this->getChildHtml('content') ?>
+                            <?php if($contentBottom = $this->getChildHtml('content_bottom')){ ?>
+                            <div id="ves-content-bottom" class="content-bottom">
+                                <?php echo $contentBottom; ?>
+                            </div>
+                            <?php } ?>
+                        </div>
+                        <div class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></div>
+                    </div>
+                    <div class="col-right sidebar"><?php echo $this->getChildHtml('right') ?></div>
+                    <?php if($postscript = $this->getChildHtml('postscript')){ ?>
+                    <div class="postscript"><?php echo $postscript ?></div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <!--- Mass Bottom Position -->
+        <?php if($massbottom_array){ ?>
+        <div id="ves-massbottom" class="ves-massbottom">
+            <?php foreach($massbottom_array as $k=>$item): ?>
+                <div class="massbottom<?php echo $k+1; ?>">
+                    <div class="wrap-container">
+                        <?php echo $item; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php } ?>
+        <div id="ves-footer"  class="ves-footer">
+            <?php echo $this->getChildHtml('footer_before') ?>
+            <?php echo $this->getChildHtml('footer') ?>
+        </div>
+        <?php echo $this->getChildHtml('global_cookie_notice') ?>
+        <?php echo $this->getChildHtml('before_body_end') ?>
+    </div>
+</div>
+<?php echo $this->getChildHtml('theme_body_end') ?>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

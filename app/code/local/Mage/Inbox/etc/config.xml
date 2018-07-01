@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+  <frontend>
+    <layout>
+      <updates>
+        <mage_inbox module="Mage_Inbox">
+            <file>inbox.xml</file>
+        </mage_inbox>
+      </updates>
+    </layout>
+    <routers>
+      <mage_inbox>
+        <use>standard</use>
+        <args>
+          <module>Mage_Inbox</module>
+          <frontName>mage_inbox</frontName>
+        </args>
+      </mage_inbox>
+    </routers>
+  </frontend>
+  <global>
+    <helpers>
+      <mage_inbox>
+        <class>Mage_Inbox_Helper</class>
+      </mage_inbox>
+    </helpers>
+  </global>
+</config>

@@ -1,0 +1,159 @@
+// owlproductcarousel
+.carousel.slide {
+	overflow: hidden;
+    padding-top: 40px;
+    position: relative;
+}
+.owl-carousel{
+    width: auto !important;
+    margin-left: -($trim/2);
+    margin-right: -($trim/2);
+    .owl-item{
+        padding-left: $trim/2;
+        padding-right: $trim/2;
+        float:left;
+        @include translate3d(0px, 0px, 0px);
+    }
+    .owl-wrapper {
+        @include translate3d(0px, 0px, 0px);
+        float:left;
+    }
+}
+
+.owl-controls {
+    .owl-pagination {
+        text-align: center;
+       .owl-page {
+            cursor: pointer;
+            @include inline-block();
+            span{
+                @include size(12px, 12px);
+                @include opacity(0.5);
+                @include border-radius(50%);
+                display: block;
+                margin: 5px 7px;
+                background: $c-gray;
+            }
+            &:hover, &.active {
+                span {
+                    @include opacity(1);
+                }
+            }
+        }
+    }
+    .owl-buttons {
+        position: relative;
+        bottom: 0;
+        direction: ltr;
+        //top:0;
+        div {
+            position: relative;
+            bottom: 0;
+            background: $c-gray;
+            @include opacity(0.5);
+            @include size (30px, 25px);
+            @include border-radius(0);
+            color: $white;
+            text-align: center;
+            cursor: pointer;
+            &:hover {
+                @include opacity(1);
+                color: $white
+            }
+            // &.owl-prev { left: 15px; }
+            // &.owl-next { right: 15px; }
+        }
+    }
+}
+
+.custom-navigation,
+.carousel-controls {
+    position: absolute;
+    top:0;
+    width: 100%; 
+    text-align: center;
+    direction: ltr;
+    a  {
+        color: $white;
+        padding: 0;
+        font-size: 15px;
+        @include inline-block();
+        @include border-radius(0);
+        @include opacity(0.3);
+        @include size(30px, 25px);
+        @include rtl-margin-right(3px);
+        line-height: 25px;
+        text-align: center;
+        background: $c-gray;
+        &:hover {
+            @include opacity(1);
+            text-decoration: none;
+            color: $white;
+        }
+    }
+}
+
+
+.product-view .product-img-box {
+    .owl-buttons {
+        position: inherit !important;
+        div {
+            position: absolute;
+            top: 45%;
+            &.owl-prev { left: 10px; }
+            &.owl-next { right: 10px; }
+        }
+    }
+
+    .vertical-left,
+    .vertical-right {
+        .vertical {
+            .prev,
+            .next {
+                background: $c-gray;
+                @include opacity(0.3);
+                text-align: center;
+                @include rtl-float-left();
+                width: 100%;
+                color: $white;
+                &:hover {
+                    @include opacity(1);
+                    color: $white;
+                }
+            }
+            .carousel { 
+                @include rtl-float-left();
+                margin: 5px 0;
+            }
+        }
+    }
+    .horizontal-top,
+    .horizontal-bottom {
+        .prev,
+        .next {
+            background: $c-gray;
+            text-align: center;
+            color: $white;
+            @include opacity(0.3);
+            @include size(30px, 25px);
+            position: absolute;
+            top:45%;
+            z-index: 99;
+            &:hover {
+                @include opacity(1);
+                color: $white;
+            }
+        }
+        .prev {left:0;}
+        .next { right:0}
+
+        .carousel { 
+            margin: 0;
+            overflow: hidden!important;
+            width: 100%!important;
+            .item {
+                @include rtl-margin-right(10px);
+            }
+        }
+    }
+}

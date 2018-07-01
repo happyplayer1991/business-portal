@@ -1,0 +1,139 @@
+<?xml version="1.0"?> 
+<config>
+    <menu>
+            <vesextensions module="ves_brand">
+                <title>VenusTheme</title>
+                <sort_order>50</sort_order>
+                <children>
+                    <brand translate="title" module="ves_brand">
+                        <title>Ves Brand</title>
+                        <children>
+                            <addgroup module="ves_brand">
+                                <title>Add Group</title>
+                                <sort_order>0</sort_order>
+                                <action>adminhtml/brandgroup/add</action>
+                            </addgroup>
+                            <brandgroup translate="title" module="ves_brand">
+                                <title>Manage Group Brand</title>
+                                <sort_order>1</sort_order>
+                                <action>adminhtml/brandgroup/index</action>
+                            </brandgroup>
+                            <add module="ves_brand">
+                                <title>Add Brand</title>
+                                <sort_order>2</sort_order>
+                                <action>adminhtml/brand/add</action>
+                            </add>
+                            <brands module="ves_brand">
+                                <title>Manage Brands</title>
+                                <sort_order>3</sort_order>
+                                <action>adminhtml/brand/index</action>
+                            </brands>
+                            
+                         
+                            <configuration translate="title" module="ves_brand">
+                                <title>Configuration</title>
+                                <sort_order>5</sort_order>
+                                <action>adminhtml/system_config/edit/section/ves_brand</action>
+                            </configuration>
+                        </children>
+                    </brand>
+                </children>
+            </vesextensions>
+    </menu>
+    <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <vesextensions module="ves_brand">
+                            <title>VenusTheme</title>
+                            <sort_order>50</sort_order>
+                            <children>
+                                <brand translate="title" module="ves_brand">
+                                    <title>Ves Brand</title>
+                                    <children>
+                                        <addgroup module="ves_brand">
+                                            <title>Add Group</title>
+                                            <sort_order>0</sort_order>
+                                        </addgroup>
+                                        <brandgroup translate="title" module="ves_brand">
+                                            <title>Manage Group Brand</title>
+                                            <sort_order>1</sort_order>
+
+                                        </brandgroup>
+
+                                        <brandgroup_save translate="title" module="ves_brand">
+                                            <title>Save Group Brand</title>
+                                            <sort_order>10</sort_order>
+
+                                        </brandgroup_save>
+
+                                        <brandgroup_delete translate="title" module="ves_brand">
+                                            <title>Delete Group Brand</title>
+                                            <sort_order>20</sort_order>
+
+                                        </brandgroup_delete>
+
+                                        <add module="ves_brand">
+                                            <title>Add Brand</title>
+                                            <sort_order>30</sort_order>
+    
+                                        </add>
+
+                                        <save module="ves_brand">
+                                            <title>Save Brand</title>
+                                            <sort_order>40</sort_order>
+    
+                                        </save>
+
+                                        <delete module="ves_brand">
+                                            <title>Delete Brand</title>
+                                            <sort_order>50</sort_order>
+    
+                                        </delete>
+
+                                        <mass_resize module="ves_brand">
+                                            <title>Mass Resize Brand Images</title>
+                                            <sort_order>60</sort_order>
+    
+                                        </mass_resize>
+
+                                        <brands module="ves_brand">
+                                            <title>Manage Brands</title>
+                                            <sort_order>70</sort_order>
+               
+                                        </brands>
+                                        
+                                        <configuration translate="title" module="ves_brand">
+                                            <title>Configuration</title>
+                                            <sort_order>80</sort_order>
+                         
+                                        </configuration>
+                                    </children>
+                                </brand>
+                            </children>
+                        </vesextensions>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ves_brand>
+                                            <title>Ves Brand</title>
+                                        </ves_brand>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+			<modules>
+				<Ves_Brand>
+					<files>
+						<default>Ves_Brand.csv</default>
+					</files>
+				</Ves_Brand>
+			</modules>
+		</translate>
+</config>

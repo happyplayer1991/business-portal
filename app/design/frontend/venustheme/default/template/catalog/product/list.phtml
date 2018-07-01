@@ -1,0 +1,175 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+<?php
+$_productCollection=$this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+
+//Get custom category layout
+$_category = Mage::registry('current_category');
+$styletemplate = 0;
+if($_category) {
+    $id = $_category->getId();
+    $name = $_category->getName();
+    $styletemplate = (int)$_category->getStylelayout();
+}
+$common_template = $default_path = "list_default.phtml";
+if($styletemplate) {
+    $common_template = "list_".$styletemplate.".phtml";
+}
+$current_catalog_product_path = Mage::getSingleton('core/design_package')->getBaseDir(array('_area' => 'frontend', '_type'=>'template'));
+$current_catalog_product_path .= "/catalog/product/";
+$load_file_path = false;
+if(file_exists($current_catalog_product_path.$common_template)) {
+    $load_file_path = $current_catalog_product_path.$common_template;
+} elseif(file_exists($current_catalog_product_path.$default_path)) {
+    $load_file_path = $current_catalog_product_path.$default_path;
+}
+
+$_productCollection=$this->getLoadedProductCollection();
+$count = $_productCollection->count();
+$_helper = $this->helper('catalog/output');
+$ves = $this->helper('themesettings');
+$ajax = $this->helper('ajax');
+$helpImg = $this->helper('themesettings/image');
+$class = '';
+
+
+/******************* PRODUCT SETTINGS ******************************/
+$show_name = $ves->getConfig('category_product/show_name');
+$display_name_single_line = $ves->getConfig('category_product/display_name_single_line');
+if($display_name_single_line){
+    $class .= ' single-line-name'; 
+}
+
+$show_short_description = $ves->getConfig('category_product/show_short_description');
+$short_max_char = $ves->getConfig('category_product/short_max_char');
+$show_learnmore = $ves->getConfig('category_product/show_learnmore');
+
+$show_price = $ves->getConfig('category_product/show_price');
+$show_rating = $ves->getConfig('category_product/show_rating');
+$show_countdowntimer = $ves->getConfig('category_product/show_countdowntimer');
+$show_addtolinks = $ves->getConfig('category_product/show_addtolinks');
+
+// Product Label
+$enable_new_icon = $ves->getConfig('product_labels/new');
+$enable_sale_icon = $ves->getConfig('product_labels/sale');
+
+// Swapp Image
+$alt_image = $ves->getConfig('category_product/alt_image');
+$alt_image_column = $ves->getConfig('category_product/alt_image_column');
+$alt_image_column_value = $ves->getConfig('category_product/alt_image_column_value');
+
+// Main Image
+$aspect_ratio = $ves->getConfig('category_product/aspect_ratio');
+$imgWidth = (int)$ves->getConfig('category_product/image_width');
+$imgHeight = $imgWidth;
+//If image width is not specified, use default values
+if ($imgWidth <= 0){
+    $imgWidth = 300;
+    $imgHeight = 300;
+}
+if($aspect_ratio){
+    $imgHeight = 0;
+    $catViewKeepFrame = FALSE;
+}else{
+    $catViewKeepFrame = TRUE;
+}
+if (Mage::registry('catViewKeepFrame') === NULL){
+    Mage::register('catViewKeepFrame', $catViewKeepFrame);
+}
+
+//Hide toolbar
+$hideToolbar = false;
+if ($this->getHideToolbar())
+{
+    $hideToolbar = true;
+}
+
+// Product Grid
+$equal_height = $ves->getConfig('category_grid/equal_height');
+if($equal_height){
+    $class .= ' grid-items-equal-height';
+}
+
+$hover_effect = $ves->getConfig('category_grid/hover_effect');
+$disable_hover_effect = $ves->getConfig('category_grid/disable_hover_effect');
+if($hover_effect){
+    $class .= ' hover-effect';
+}
+
+// Grid Column
+$columns = $ves->getConfig('category_grid/column_count');
+$itemsperpage = Mage::getStoreConfig('catalog/frontend/grid_per_page');
+if( ($limit = $this->getRequest()->getParam('limit') ) ||  ($limit = Mage::getSingleton('catalog/session')->getLimitPage()) ){
+    $itemsperpage = $limit;
+}
+
+// Ajax Cart, Quick View
+$ajaxcart = $ajax->getConfig('general_setting/enable_ajaxcart');
+$show_addtocart = $ajax->getConfig('general_setting/show_addtocart');
+$show_quickview = $ajax->getConfig('general_setting/show_quickview');
+$popup_quickview_width = $ajax->getConfig('general_setting/popup_quickview_width');
+$popup_quickview_height = $ajax->getConfig('general_setting/popup_quickview_height');
+
+// ToolBar
+$show_toptoolbar = $ves->getConfig('category/show_toptoolbar');
+$show_bottomtoolbar = $ves->getConfig('category/show_bottomtoolbar');
+
+
+// Quickview Design
+$quickview_format = $ves->getCfgDesign('icons/quickview_format');
+$quickview_text = $ves->getCfgDesign('icons/quickview_text');
+$quickview_class = $ves->getCfgDesign('icons/quickview_class');
+
+// Addtocart Design
+$addtocart_format = $ves->getCfgDesign('icons/addtocart_format');
+$addtocart_text = $ves->getCfgDesign('icons/addtocart_text');
+$addtocart_class = $ves->getCfgDesign('icons/addtocart_class');
+
+// Compare Design
+$compare_format = $ves->getCfgDesign('icons/compare_format');
+$compare_text = $ves->getCfgDesign('icons/compare_text');
+$compare_class = $ves->getCfgDesign('icons/compare_class');
+
+// Wishlist Design
+$wishlist_format = $ves->getCfgDesign('icons/wishlist_format');
+$wishlist_text = $ves->getCfgDesign('icons/wishlist_text');
+$wishlist_class = $ves->getCfgDesign('icons/wishlist_class');
+
+$enable_color_swatches = Mage::getStoreConfig('configswatches/general/enabled');
+
+if($load_file_path) {
+    require ($load_file_path);
+}

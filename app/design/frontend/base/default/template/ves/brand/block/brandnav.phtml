@@ -1,0 +1,28 @@
+<div class="block brandnav-block">
+	<div class="block-title">
+		<strong><span><?php echo   $this->getConfig("brandnav_title"); ?></span></strong>
+		<?php if( ($pretext = $this->getConfig("pretext")) && !$cms ) { ?>
+		<div class="pretext"><?php echo $pretext;?></div>
+		<?php } elseif(isset($cms) && $cms != '') {
+			?>
+			<div class="pretext"><?php echo $cms;?></div>
+			<?php
+		} ?>
+	</div>
+	<div class="block-content">
+		<?php if( !$this->getConfig("isdropdown") ): ?>
+			<ul>
+				<?php foreach( $brands as $brand ): ?>
+					<li><a href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>"><span><?php echo $brand->getTitle();?></span></a></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php else: ?>
+			<select name="select-brand-nav" onchange="window.location.href=this.value">
+				<option value=""><?php echo $this->__("-----------");?></option>
+				<?php foreach( $brands as $brand ): ?>
+					<option value="<?php echo $brand->getLink();?>"><?php echo $brand->getTitle();?></option>
+				<?php endforeach; ?>
+			</select>
+		<?php endif; ?>
+	</div>
+</div>

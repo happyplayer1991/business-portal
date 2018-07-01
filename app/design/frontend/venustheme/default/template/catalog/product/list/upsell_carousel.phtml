@@ -1,0 +1,182 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+$common_template = "item.phtml";
+$current_catalog_product_path = Mage::getSingleton('core/design_package')->getBaseDir(array('_area' => 'frontend', '_type'=>'template'));
+$current_catalog_product_path .= "/common/list/";
+$load_file_path = $current_catalog_product_path.$common_template;
+
+$ajax = Mage::helper('ajax');
+$ajaxcart = $ajax->getConfig('general_setting/enable_ajaxcart');
+$show_addtocart = $ajax->getConfig('general_setting/show_addtocart');
+$show_quickview = $ajax->getConfig('general_setting/show_quickview');
+$popup_quickview_width = $ajax->getConfig('general_setting/popup_quickview_width');
+$popup_quickview_height = $ajax->getConfig('general_setting/popup_quickview_height');
+$helpImg = $this->helper('themesettings/image');
+$class = '';
+$ves = $this->helper('themesettings');
+
+// ToolBar
+$show_toptoolbar = $ves->getConfig('category/show_toptoolbar');
+$show_bottomtoolbar = $ves->getConfig('category/show_bottomtoolbar');
+
+// Quickview Design
+$quickview_format = $ves->getCfgDesign('icons/quickview_format');
+$quickview_text = $ves->getCfgDesign('icons/quickview_text');
+$quickview_class = $ves->getCfgDesign('icons/quickview_class');
+
+// Addtocart Design
+$addtocart_format = $ves->getCfgDesign('icons/addtocart_format');
+$addtocart_text = $ves->getCfgDesign('icons/addtocart_text');
+$addtocart_class = $ves->getCfgDesign('icons/addtocart_class');
+
+// Compare Design
+$compare_format = $ves->getCfgDesign('icons/compare_format');
+$compare_text = $ves->getCfgDesign('icons/compare_text');
+$compare_class = $ves->getCfgDesign('icons/compare_class');
+
+// Wishlist Design
+$wishlist_format = $ves->getCfgDesign('icons/wishlist_format');
+$wishlist_text = $ves->getCfgDesign('icons/wishlist_text');
+$wishlist_class = $ves->getCfgDesign('icons/wishlist_class');
+
+// Product Label
+$enable_new_icon = $ves->getConfig('product_labels/new');
+$enable_sale_icon = $ves->getConfig('product_labels/sale');
+
+// Product Settings
+$_helper = $this->helper('catalog/output');
+$show_name = $ves->getConfig('product_slider/show_name');
+$display_name_single_line = $ves->getConfig('product_slider/display_name_single_line');
+if($display_name_single_line){
+    $class = ' single-line-name';
+}
+$show_short_description = $ves->getConfig('product_slider/show_short_description');
+$short_max_char = $ves->getConfig('product_slider/short_max_char');
+$show_price = $ves->getConfig('product_slider/show_price');
+$show_rating = $ves->getConfig('product_slider/show_rating');
+$show_learnmore = $ves->getConfig('product_slider/show_learnmore');
+$show_countdowntimer = $ves->getConfig('product_slider/show_countdowntimer');
+$show_addtolinks = $ves->getConfig('product_slider/show_addtolinks');
+
+$alt_image = $ves->getConfig('product_slider/alt_image');
+$alt_image_column = $ves->getConfig('product_slider/alt_image_column');
+$alt_image_column_value = $ves->getConfig('product_slider/alt_image_column_value');
+
+$aspect_ratio = $ves->getConfig('product_slider/aspect_ratio');
+$imgWidth = (int)$ves->getConfig('product_slider/image_width');
+$imgHeight = $imgWidth;
+//If image width is not specified, use default values
+if ($imgWidth <= 0)
+{
+    $imgWidth = 295;
+    $imgHeight = 295;
+}
+
+if($aspect_ratio){
+    $imgHeight = 0;
+    $catViewKeepFrame = FALSE;
+}else{
+    $catViewKeepFrame = TRUE;
+}
+
+if (Mage::registry('catViewKeepFrame') === NULL){
+    Mage::register('catViewKeepFrame', $catViewKeepFrame);
+}
+
+
+// Product Grid
+$equal_height = $ves->getConfig('category_grid/equal_height');
+if($equal_height){
+    $class .= ' equal-height';
+}
+$hover_effect = $ves->getConfig('category_grid/hover_effect');
+if($equal_height){
+    $class .= ' hover-effect';
+}
+$disable_hover_effect = $ves->getConfig('category_grid/disable_hover_effect');
+
+$processor = Mage::helper('cms')->getPageTemplateProcessor();
+$replaceupsell = $ves->getConfig('product_page/replace_upsell');
+$upsell_staticblock = $ves->getConfig('product_page/upsell_staticblock');
+$html = '';
+if($upsell_staticblock!=''){
+    $html = Mage::getSingleton('core/layout')->createBlock('cms/block')->setBlockId($upsell_staticblock)->toHtml();
+}
+
+$upsell_breakpoints = $ves->getConfig('product_page/upsell_breakpoints');
+$upsell_count = $ves->getConfig('product_page/upsell_count');
+$upsell_products_checkbox = $ves->getConfig('magento_blocks/upsell_products_checkbox');
+
+
+
+if ($replaceupsell == 1 || $replaceupsell == 2)
+{
+?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <div class="block block-upsell">
+        <div class="block-title">
+            <h2><?php echo $this->__('Upsell products') ?></h2>
+        </div>
+
+        <div class="box-collateral box-up-sell carousel slide owl-carousel-play" data-ride="owlcarousel">
+            <ul class="owl-carousel products-grid products-grid--max-<?php echo $_columnCount; ?>-col" id="upsell-product-table" 
+            data-slide-custom="<?php echo $upsell_breakpoints ?>" 
+            data-slide-speed="300" data-auto="false" 
+            data-navigation="true" 
+            data-pagination="true"
+            data-navigation-text='["<i class=\"fa fa-angle-left\"></i>","<i class=\"fa fa-angle-right\"></i>"]'
+            >
+            <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
+                <?php $this->resetItemsIterator() ?>
+                <?php $i = 0; ?>
+                <?php foreach ($this->getItemCollection()->getItems() as $_product): ?>
+                    <?php if((int)$upsell_count>0){ ?>
+                    <?php if($i>($upsell_count-1) ){ break; } ?>
+                    <?php $i++; ?>
+                    <?php } ?>
+                    <li>
+                        <?php require ($load_file_path); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php /*
+        <script type="text/javascript">decorateGeneric($$('#upsell-product-table'), ['odd','even','first','last'])</script>
+        */ ?>
+        </div>
+    </div>
+<?php endif ?>
+<?php
+if(!count($this->getItemCollection()->getItems()) &&  $replaceupsell == 2 && $html!=''){
+    echo $processor->filter($html);
+
+}
+?>
+<?php } ?>
+<?php if ($replaceupsell == 3 && $html!=''){
+    echo $processor->filter($html);
+} ?>

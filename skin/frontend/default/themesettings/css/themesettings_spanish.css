@@ -1,0 +1,327 @@
+/**
+ * WARNING: do <noframes></noframes>ot edit this file. It was generated automatically, your changes will be overwritten and lost.
+ * 2018-04-12 10:58:49 */
+
+
+body
+{
+}
+
+.wrapper{
+}
+
+.icons,
+.owl-controls .owl-page span,
+.owl-controls .owl-page.active span,
+.owl-controls.clickable .owl-page.active:hover span,
+.scrollup
+{
+		}
+.icons:hover,
+.owl-controls.clickable .owl-page:hover span,
+.owl-controls.clickable .owl-page:hover span,
+.scrollup:hover
+{
+		}
+
+a
+{
+}
+
+a:hover,
+h2.product-name a:hover,
+h3.product-name a:hover,
+h4.product-name a:hover,
+h5.product-name a:hover,
+p.product-name a:hover
+{
+}
+
+.caret, .caret:before, .caret:after {
+}
+
+div .button
+{
+		}
+div .button:hover,
+div a.button:hover,
+div .button:focus,
+div a.button:focus
+{	
+		}
+
+
+
+.header{
+			
+		
+	}
+.header a {
+}
+.header a :hover{
+	
+}
+.header .wrap-container{
+	}
+.caret, .caret:before, .caret:after {
+	}
+
+.keep-header .header.hide-bar{
+		
+}
+
+
+#header-search .input-text
+{
+			}
+#header-search .input-text:hover,
+#header-search .input-text:focus
+{
+		}
+
+#header-search .input-text,
+#header-search .button {
+	}
+#header-search .input-text:hover,
+#header-search .input-text:focus,
+#header-search .input-text:hover + .button,
+#header-search .button:hover {
+	}
+
+	#header-search .input-text { border: none; }
+
+
+.header .skip-content,
+.header #header-account.skip-content,
+.header .form-search .search-autocomplete
+{
+		
+	}
+
+.header .skip-content a,
+.header #header-account.skip-content a,
+.header .form-search .search-autocomplete li
+{
+	}
+.header .skip-content a:hover,
+.header #header-account.skip-content a:hover
+{
+	}
+
+.header .dropdown.open > .dropdown-heading.cover .caret {
+	}
+
+.header-mobile .skip-link, 
+{
+		}
+.header-mobile .skip-link:hover {
+		}
+.header-mobile .skip-link.skip-active
+{
+		}
+
+.header-language-background 
+{
+		
+	
+		}
+.header-language-background  a
+{
+	}
+.header-language-background  a:hover
+{
+	}
+#mainmenutop{
+			}
+
+.ves-megamenu .navbar-nav > li > a{
+		
+}
+.ves-megamenu .navbar-nav > li > a span{
+	}
+.ves-megamenu .navbar-nav > li > a:hover{
+		
+}
+.ves-megamenu .navbar-nav > li > a:hover span{
+	}
+
+.ves-megamenu .navbar-nav > li.active a{
+	}
+
+.ves-megamenu .navbar-nav > li.active > a span{
+	}
+
+.main-container
+{
+	
+	}
+
+.main-container .main{
+}
+
+
+
+.products-grid .product-block,
+.product-list .product-block{
+			}
+.products-grid .product-block:hover,
+.product-list .product-block:hover{
+	}
+.product-block .product-name a,
+.product-view .product-name h1{
+	
+}
+.product-block .product-name a:hover,
+.product-view .product-name h1:hover{
+	}
+.product-block .price,
+.product-block .regular-price .price,
+.product-view .price-box .regular-price .price{
+	}
+.product-block .old-price .price,
+.product-block .price-excluding-tax .price,
+.product-view .price-box .old-price .price,
+.product-view .price-box .price-excluding-tax .price{
+	}
+.product-block .special-price .price,
+.product-block .price-including-tax .price,
+.product-view .price-box .special-price .price,
+.product-view .price-box .price-including-tax .price{
+	}
+.product-block .quickview a,
+.product-view .quickview a{
+		}
+.product-block .quickview a:hover,
+.product-view .quickview a:hover{
+		}
+.product-block .btn-cart,
+.product-view .btn-cart{
+		}
+.product-block .btn-cart:hover,
+.product-view .btn-cart:hover{
+		}
+.product-block .product-info .actions .add-to-links li a.link-compare,
+.product-view .add-to-links li a.link-compare{
+		}
+.product-block .product-info .actions .add-to-links li:hover a.link-compare,
+.product-view .add-to-links li:hover .link-compare{
+		}
+.product-block .product-info .actions .add-to-links li a.link-wishlist,
+.product-view .add-to-links li a.link-wishlist{
+		}
+.product-block .product-info .actions .add-to-links li:hover a.link-wishlist,
+.product-view .add-to-links li:hover a.link-wishlist{
+		}
+.product-block .desc,
+.product-view .short-description{
+	}
+
+.product-block .countdown-timmer, .product-block .countdown-timmer span,
+.product-view .countdown-timmer, .product-view .countdown-timmer span{
+	}
+
+.product-block .new-icon,
+.product-view .new-icon{
+		}
+.product-block .onsale,
+.product-view .onsale{
+		}
+.product-view .tabs .toggle-tabs
+{
+	}
+
+.product-view .tabs li span
+{
+		
+	}
+
+.product-view .tabs li:hover span
+{
+		
+			border-bottom-color: transparent;
+}
+
+.product-view .tabs li.current span
+{
+		}
+.product-view .tabs .tab-container
+{
+		}
+
+.product-view .tabs-accodion.tabs .tab-container{
+	}
+.product-view .tabs li.current span
+{
+			border-bottom-color: transparent;
+}
+.product-view .tabs li.current:hover span
+{
+		border-bottom-color: transparent;
+}
+
+
+.product-view .tabs.tabs-accodion .tab
+{
+			}
+
+.product-view .tabs.tabs-accodion .tab:hover,
+.product-view .tabs.tabs-accodion .tab:focus,
+.product-view .tabs.tabs-accodion .tab.current {
+		}
+#ves-footer .footer{
+			
+		
+	}
+#ves-footer .footer a {
+}
+#ves-footer .footer a:hover{
+	
+}
+#ves-footer .footer .wrap-container{
+	}
+#ves-footer .footer-top{
+				}
+#ves-footer .footer-top a{
+	}
+#ves-footer .footer-top a:hover{
+		
+}
+
+#ves-footer .footer-center{
+				}
+#ves-footer .footer-center a{
+	}
+#ves-footer .footer-center a:hover{
+		
+}
+
+#ves-footer .footer-bottom{
+				}
+#ves-footer .footer-center a{
+	}
+#ves-footer .footer-center a:hover{
+		
+}
+
+.sidebar .block-title strong,
+.sidebar .block-title{
+}
+.sidebar .block-content{
+}
+.sidebar .block-content a{
+}
+.sidebar .block-content a:hover{
+}
+.sidebar .block{
+		}
+
+.block-title{
+}
+.block-content{
+}
+.block-content a{
+}
+.block-content a:hover{
+}
+.block{
+}

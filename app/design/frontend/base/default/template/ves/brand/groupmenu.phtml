@@ -1,0 +1,41 @@
+<?php 
+	$modid=rand();
+	$menus = $this->getCategoryBrands();
+	$route = $this->getGeneralConfig('route');
+?>
+<div class="venus-brand-menu block">
+	 <div class="block-title">
+        <strong>
+            <span><?php echo $this->__('Brand Categories') ?></span>
+        </strong>
+    </div>
+	<div class="block-content">
+	<?php if( count($menus) ): ?>
+		<ul id="brand-menu<?php echo $modid; ?>">
+		<?php foreach( $menus as $menu ): ?>
+			<li class="parent">
+				<a href="<?php echo $menu->getCategoryLink($route); ?>" title="<?php echo $menu->getName(); ?>">
+					<span><?php echo $menu->getName(); ?></span>
+				</a>
+			</li>
+		<?php endforeach; ?>
+		
+		</ul>
+		<script type="text/javascript">
+					$jmenu(document).ready(function(){	
+						// applying the settings
+						$jmenu("#brand-menu<?php echo $modid; ?> li.active span.head").addClass("selected");
+						$jmenu('#brand-menu<?php echo $modid; ?>').Accordion({
+							active: 'span.selected',
+							header: 'span.head',
+							alwaysOpen: false,
+							animated: true,
+							showSpeed: 400,
+							hideSpeed: 800,
+							event: 'click'
+						});
+					});	
+				</script>
+	<?php endif; ?>
+	</div>
+</div>

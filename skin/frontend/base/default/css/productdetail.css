@@ -1,0 +1,32 @@
+.display-hide {
+    display: none;
+}
+
+.product-collateral {
+    padding: 0 !important;
+}
+
+.otherinfo {
+    padding-left: 25px;
+}
+
+#info {
+    display: flex;
+}
+
+#map {
+    height: 400px;
+}
+
+p.wrongaddress {
+    font-style: italic;
+    font-weight: bold;
+}
+
+/**
+  * about review
+  */
+
+.value-review-attr.description {
+	word-wrap: break-word ;
+}

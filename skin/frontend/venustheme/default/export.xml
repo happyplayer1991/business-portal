@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<theme>
+	<!-- Export data sample: theme, modules, static_block, cms_page -->
+	<export>
+		<!-- export type for (theme, cms_page, static_block): only support CSV file -->
+		<theme>csv</theme>
+		<cms_page>csv</cms_page>
+		<static_block>csv</static_block>
+
+		<!-- there modules will delete all current data in tables of following modules then inserting new sampledata -->
+		<modules_query section="community"><!-- community = app/code/community-->
+			<module>Ves_Ajax</module>
+			<module>Ves_Brand</module>
+			<module>Ves_Megamenu</module>
+			<module>Ves_ProductList</module>
+			<module>Ves_Themesettings</module>
+		</modules_query>
+
+		<!-- Input modules of theme and module's table names (Install or Override)-->
+		<modules section="community"><!-- community = app/code/community-->
+			<module name="Ves_Base"></module>
+			<module name="Ves_BlockBuilder"></module>
+			<module name="Ves_Blog"></module>
+			<module name="Ves_Brand"></module>
+			<module name="Ves_Layerslider"></module>
+			<module name="Ves_Megamenu"></module>
+			<module name="Ves_FAQ"></module>
+			<module name="StoreLocator" realname="Ves_StoreLocator">
+				category
+				store
+			</module>
+			<module name="Ves_Tempcp"></module>
+			<module name="Ves_Verticalmenu"></module>
+			<module name="Ves_TreeMenu"></module>
+			<module name="Ves_ProductCarousel"></module>
+			<module name="Ves_ProductCarousel2"></module>
+			<module name="Ves_ProductCarousel3"></module>
+			<module name="Ves_Deals"></module>
+			<module name="Ves_Autosearch"></module>
+			<module name="Ves_Tabs"></module>
+		</modules>
+		
+	</export>
+
+</theme>

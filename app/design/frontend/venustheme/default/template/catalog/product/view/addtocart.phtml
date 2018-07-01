@@ -1,0 +1,104 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_product = $this->getProduct();
+$buttonTitle = Mage::helper('core')->quoteEscape($this->__('Add to Cart'));
+$ves = $this->helper('themesettings');
+?>
+
+<?php
+// Addtocart Design
+$addtocart_format = $ves->getCfgDesign('icons/addtocart_format');
+$addtocart_text = $ves->getCfgDesign('icons/addtocart_text');
+$addtocart_class = $ves->getCfgDesign('icons/addtocart_class');
+?>
+<?php
+$addtocartText = '<span>'.$addtocart_text.'</span>';
+$addtocartIcon = '<i class="fa '.$addtocart_class.'"></i>';
+?>
+<?php $addToCartHtml = ''; ?>
+<?php if((!$addtocart_format || $addtocart_format == 'text') && $addtocart_text){ // Only Text ?>
+<?php $addToCartHtml = $addtocart_text; ?>
+<?php }elseif($addtocart_format == 'icon'){ // Icon, Text ?>
+<?php $addToCartHtml = $addtocartIcon; ?>
+<?php }elseif($addtocart_format == 'icon-text'){ // Icon, Text ?>
+<?php $addToCartHtml = $addtocartIcon.$addtocart_text; ?>
+<?php }elseif($addtocart_format == 'text-icon'){ // Text, Icon ?>
+<?php $addToCartHtml = $addtocart_text.$addtocartIcon; ?>
+<?php } ?>
+
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+            <?php /*
+            <div class="qty-wrapper quantity-adder">
+                <label for="qty"><?php echo $this->__('Qty:') ?></label>
+                <div class="quantity-number pull-left">
+                    <input type="text" pattern="\d*" name="qty" id="qty" maxlength="12" value="<?php echo max($this->getProductDefaultQty() * 1, 1) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+                </div>
+                <div class="quantity-wrapper pull-left">
+                    <span class="add-up add-action fa fa-plus" data-parentqty="true"></span>  
+                    <span class="add-down add-action fa fa-minus" data-parentqty="true"></span>
+                </div>
+            </div>
+            */ ?>
+            <script type="text/javascript">
+            jQuery(window).ready( function(){
+            
+                 jQuery(".quantity-adder .add-action").click( function(){
+                        if( jQuery(this).hasClass('add-up') ) {  
+                            jQuery("[name=qty]",'.quantity-adder').val( parseInt(jQuery("[name=qty]",'.quantity-adder').val()) + 1 );
+                        }else {
+                            if( parseInt(jQuery("[name=qty]",'.quantity-adder').val())  > 1 ) {
+                                jQuery("input",'.quantity-adder').val( parseInt(jQuery("[name=qty]",'.quantity-adder').val()) - 1 );
+                            } 
+                        }
+                    } );
+             })
+            </script>
+        <?php endif; ?>
+        <?php
+            /**
+             * Hide add to cart button in Product details
+             */
+        
+            ?>
+        <div class="add-to-cart-buttons">
+            <?php 
+
+            /*
+            <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)">
+            <?php echo $addToCartHtml ?></button>
+            */
+            
+            ?>
+
+            <?php echo $this->getChildHtml('', true, true) ?>
+        </div>
+        
+  
+    </div>
+<?php endif; ?>

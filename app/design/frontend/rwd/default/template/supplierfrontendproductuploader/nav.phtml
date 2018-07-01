@@ -1,0 +1,71 @@
+<?php
+$items = $this->getFirstLevelMenuItems();
+$full_action_name = Mage::app()->getFrontController()->getAction()->getFullActionName();
+?>
+<script type="text/javascript">
+    var $j = jQuery.noConflict();
+</script>
+
+<div class="navbar navbar-inverse navbar-fixed-side" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand nopadding" style="padding: 0 70px"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <?php foreach($items as $key => $item): ?>
+                    <?php $childrens = $this->getChildsMenuItems($key); ?>
+                    <li <?php if(isset($item['action_names']) && in_array($full_action_name,$item['action_names'])) echo 'class="active"'; ?>>
+                        <?php if(count($childrens)>0): ?>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <?php echo Mage::helper('supplierfrontendproductuploader')->__($item['label']); ?>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php foreach($childrens as $child): ?>
+                                    <li
+                                        <?php if(isset($child['fix_label']) and $child['fix_label'] == true) echo 'class="menu-item fix-dropdown"'; ?>
+                                        <?php if(isset($child['fix_label_children']) and $child['fix_label_children'] == true) echo 'class="menu-item fix-dropdown-children"'; ?>
+                                    >
+                                        <?php if(!isset($child['fix_label']) or $child['fix_label'] == false): ?>
+                                            <a href="<?php echo Mage::getUrl($child['url']) ?>">
+                                            <?php if(isset($child['fix_label_children']) and $child['fix_label_children'] == true):?>
+                                                <b> - </b>
+                                            <?php endif; ?>
+                                            <?php echo Mage::helper('supplierfrontendproductuploader')->__($child['label']); ?></a>
+                                        <?php else: ?>
+                                            <?php echo Mage::helper('supplierfrontendproductuploader')->__($child['label']); ?>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach;?>
+                            </ul>
+                        <?php else: ?>
+                            <a href="
+                                <?php if(strpos($item['url'],'http') === 0): ?>
+                                    <?php echo $item['url'] ?>
+                                <?php else: ?>
+                                    <?php echo Mage::getUrl($item['url']) ?>
+                                <?php endif; ?>
+                            ">
+                                <?php echo Mage::helper('supplierfrontendproductuploader')->__($item['label']); ?>
+                                <?php if($key == 'PRODUCT_LIST'): ?>
+                                    <?php if($this->hasMarkedProducts()): ?><span class="badge pull-right badge-important"><?php echo $this->getMarkedProductCount(); ?></span><?php endif; ?>
+                                <?php endif; ?>
+                            </a>
+                        <?php endif;?>
+
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/base/default/css/supplierfrontendproductuploader.css'?>" />
+

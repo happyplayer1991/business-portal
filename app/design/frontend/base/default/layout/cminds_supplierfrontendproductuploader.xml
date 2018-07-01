@@ -1,0 +1,274 @@
+<?xml version="1.0" ?>
+<layout version="1.0.0">
+    <default>
+        <reference name="head">
+        </reference>
+    </default>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="supplierfrontendproductuploader">
+                <name>supplierfrontendproductuploader</name>
+                <path>supplier/</path>
+                <label>My Supplier Frontend Product Uploader Panel</label>
+            </action>
+        </reference>
+    </customer_account>
+
+    <cminds_supplierfrontendproductuploader>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>supplierfrontendproductuploader/page/1column-mp.phtml</template></action>
+            <block type="supplierfrontendproductuploader/navbar" name="supplierfrontendproductuploader_nav" template="/supplierfrontendproductuploader/nav.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/bootstrap.min.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/navbar-fixed-side.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/custom.css</stylesheet></action>
+            <action method="addItem"><type>skin_js</type><name>js/supplierfrontendproductuploader/custom.js</name></action>
+    
+            <!-- <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/slideshow.js</name></action> -->
+
+            <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/slideshow.js</name></action>
+
+        </reference>
+
+    </cminds_supplierfrontendproductuploader>
+
+    <cminds_supplierfrontendproductuploader_index_index>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/dashboard" name="supplierfrontendproductuploader_dashboard"
+                   template="supplierfrontendproductuploader/dashboard.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_index_index>
+    <cminds_supplierfrontendproductuploader_product_list>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_list" name="supplierfrontendproductuploader_product_list"
+                   template="supplierfrontendproductuploader/product/list.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_list>
+    <cminds_supplierfrontendproductuploader_import_products>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/import_products" name="supplierfrontendproductuploader_import_products"
+                   template="supplierfrontendproductuploader/import/products.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_import_products>
+    <cminds_supplierfrontendproductuploader_product_ordered>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/sales_order" name="supplierfrontendproductuploader_order_items"
+                   template="supplierfrontendproductuploader/product/list/ordered.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_ordered>
+
+    <cminds_supplierfrontendproductuploader_product_create>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/create/form.phtml">
+                <block type="supplierfrontendproductuploader/product_create_categories" name="cminds_supplierfrontendproductuploader.product_create_categories" template="supplierfrontendproductuploader/product/create/categories.phtml" />
+                <block type="core/template" name="cminds_supplierfrontendproductuploader.product_create_downloadata" as="downloadable_data" template="supplierfrontendproductuploader/product/downloadable/data.phtml" />
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_create>
+    <cminds_supplierfrontendproductuploader_product_edit>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/edit/form.phtml">
+                <block type="supplierfrontendproductuploader/product_create_categories" name="cminds_supplierfrontendproductuploader.product_create_categories" template="supplierfrontendproductuploader/product/create/categories.phtml" />
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_edit>
+    <cminds_supplierfrontendproductuploader_product_clone>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/edit/form.phtml">
+                <block type="supplierfrontendproductuploader/product_create_categories" name="cminds_supplierfrontendproductuploader.product_create_categories" template="supplierfrontendproductuploader/product/create/categories.phtml" />
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_clone>
+    <cminds_supplierfrontendproductuploader_product_createvirtual>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/create/form.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_createvirtual>
+    <cminds_supplierfrontendproductuploader_product_createdownloadable>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/create/form.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_createdownloadable>
+    <cminds_supplierfrontendproductuploader_settings_notifications>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="page/html" name="supplierfrontendproductuploader_settings_shipping_methods"
+                   template="supplierfrontendproductuploader/settings/notifications.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_settings_notifications>
+    <cminds_supplierfrontendproductuploader_login_index>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+
+            <!-- <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/slideshow.js</name></action> -->
+
+            <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/slideshow.js</name></action>
+
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="cminds_supplierfrontendproductuploader.login_index"
+                   template="supplierfrontendproductuploader/login/form.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_login_index>
+    <cminds_supplierfrontendproductuploader_register_index>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="head">
+        
+            <!-- <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+            <action method="removeItem"><type>skin_js</type><name>js/slideshow.js</name></action> -->
+
+            <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
+            <action method="addItem"><type>skin_js</type><name>js/slideshow.js</name></action>
+
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <block type="core/messages" name="global_messages" as="global_messages"/>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="cminds_supplierfrontendproductuploader.register_index"
+                   template="supplierfrontendproductuploader/register/form.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_register_index>
+    <cminds_supplierfrontendproductuploader_product_choosetype>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="marketplace.product_create"
+                   template="supplierfrontendproductuploader/product/chooseType.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_choosetype>
+    <cminds_supplierfrontendproductuploader_codes_clone>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/codes/clone/clone.phtml">
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_codes_clone>
+    <cminds_supplierfrontendproductuploader_codes_edit>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/codes/clone/edit.phtml">
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_codes_edit>
+    <!-- Configurable Section -->
+    <cminds_supplierfrontendproductuploader_product_createconfigurable>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="cminds_supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/createConfigurable.phtml">
+                <block type="supplierfrontendproductuploader/product_create_categories" name="cminds_supplierfrontendproductuploader.product_create_categories_configurabl" template="supplierfrontendproductuploader/product/create/categories.phtml" />
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_createconfigurable>
+    <cminds_supplierfrontendproductuploader_product_associatedproducts>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_associated" name="supplierfrontendproductuploader.product_associated"
+                   template="supplierfrontendproductuploader/product/associatedproducts.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_associatedproducts>
+    <cminds_supplierfrontendproductuploader_product_editconfigurable>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/datepicker.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/supplierfrontendproductuploader/uploadify/uploadify.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_create" name="supplierfrontendproductuploader.product_create"
+                   template="supplierfrontendproductuploader/product/createConfigurable.phtml">
+                <block type="supplierfrontendproductuploader/product_create_categories" name="cminds_supplierfrontendproductuploader.product_create_categories_configurabl" template="supplierfrontendproductuploader/product/create/categories.phtml" />
+            </block>
+        </reference>
+    </cminds_supplierfrontendproductuploader_product_editconfigurable>
+    <supplier_sales_email_order_items>
+        <block type="supplierfrontendproductuploader/sales_order_email_items" name="items" template="supplierfrontendproductuploader/email/order/items.phtml">
+            <action method="addItemRender"><type>default</type><block>sales/order_email_items_order_default</block><template>supplierfrontendproductuploader/email/order/items/order/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>supplierfrontendproductuploader/email/order/items/order/default.phtml</template></action>
+            <block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">
+                <action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>
+                <action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>
+                <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">
+                    <action method="setIsPlaneMode"><value>1</value></action>
+                </block>
+            </block>
+        </block>
+        <block type="core/text_list" name="additional.product.info" />
+    </supplier_sales_email_order_items>
+    <cminds_supplierfrontendproductuploader_index_terms>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/terms" name="supplierfrontendproductuploader_terms"
+                   template="supplierfrontendproductuploader/terms.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_index_terms>
+    <cminds_supplierfrontendproductuploader_downloadable_downloadabledata>
+        <update handle="cminds_supplierfrontendproductuploader"/>
+        <reference name="content">
+            <block type="supplierfrontendproductuploader/product_downloadable" name="supplierfrontendproductuploader_downloableable_data"
+                   template="supplierfrontendproductuploader/product/downloadable.phtml"/>
+        </reference>
+    </cminds_supplierfrontendproductuploader_downloadable_downloadabledata>
+</layout>

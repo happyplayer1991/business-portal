@@ -1,0 +1,20 @@
+<?php
+$ves = Mage::helper('themesettings');
+$enable_footer_center = $ves->getConfig('footer/enable_footer_center');
+$html = '';
+if(Mage::helper("themesettings")->checkModuleInstalled("Ves_BlockBuilder") && $enable_footer_center) {
+	$blockId = $ves->getConfig('footer/center_layout');
+	$blockBuilder = Mage::getModel("ves_blockbuilder/block")->load($blockId);
+	$processor = Mage::helper('cms')->getPageTemplateProcessor();
+	$html = $processor->filter($blockBuilder->getShortcode());
+}
+$footer_center_html = $this->getChildHtml();
+?>
+<?php if( $enable_footer_center && ($footer_center_html || $html)){ ?>
+<div class="footer-center">
+	<div class="wrap-container">
+		<?php echo $html; ?>
+		<?php echo $footer_center_html ?>
+	</div>
+</div>
+<?php } ?>

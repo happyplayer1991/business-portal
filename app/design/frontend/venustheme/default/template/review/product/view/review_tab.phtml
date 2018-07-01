@@ -1,0 +1,44 @@
+<?php
+$ves = $this->helper('themesettings');
+$toggle_review_form = $ves->getConfig("product_page/toggle_review_form"); //Enable/disable toggle review form
+$toggle_review_form = ($toggle_review_form != null)?(int)$toggle_review_form:1;
+$_product = Mage::registry('current_product');
+$review_summary = $this->getChild("product_review_summary");
+$info_tabs = $this->getChild('info_tabs');
+
+?>
+<div class="row ves-reviewtab">
+    <script type="text/javascript">
+        <!--
+        function toggleReviewForm() {
+            $j("#review_hidden_form").toggle();
+            $j(".review-top").toggle();
+        }
+        //-->
+   </script>
+	<div class="<?php if($info_tabs): ?> col-lg-4 col-md-4 col-sm-5 <?php endif; ?> col-xs-12">
+		<div class="review-top" style="display: block;">
+            <?php if($review_summary && $_product): ?>
+                <?php
+                    echo $review_summary->getSummaryHtml($_product, 'detail', true);
+                ?>
+            <?php endif ; ?>
+            <?php if($info_tabs && $toggle_review_form): ?>
+                <div class="button-write-review">
+                    <button class="button" title="<?php echo $this->__("Write A Review");?>" type="button" onclick="toggleReviewForm();"><span><span><?php echo $this->__("Write A Review");?></span></span></button>
+                </div>
+            <?php endif; ?>
+        </div>
+        
+        <?php if($info_tabs): ?>
+    	<div id="review_hidden_form" <?php if($toggle_review_form): ?>class="hidden-element" style="display:none"<?php endif; ?>>
+    		<?php echo $info_tabs->getChildHtml('review_tab_form'); ?>
+    	</div>
+        <?php endif; ?>
+	</div>
+    <?php if($info_tabs): ?>
+	<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+		<?php echo $this->getChildHtml('info_tabs'); ?>
+	</div>
+    <?php endif; ?>
+</div>

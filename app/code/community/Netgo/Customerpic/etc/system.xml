@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!-- 
+/***************************************
+ *** Customer Photo Crop Extension ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_Customerpic
+ * @author 		Vipin
+ * @dev			77vips@gmail.com
+ *
+ */
+--> 
+<config>
+    <tabs>
+        <netgo translate="label" module="netgo_customerpic">
+            <label>Netgo</label>
+            <sort_order>2000</sort_order>
+        </netgo>
+    </tabs>
+    <sections>
+        <netgo_customerpic translate="label" module="netgo_customerpic">
+            <class>separator-top</class>
+            <label>Customer Profile Photo</label>
+            <tab>netgo</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <customerpic translate="label" module="netgo_customerpic">
+                    <label>Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <status translate="label">
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </status>
+						<img_quality translate="label">
+                            <label>Image quality</label>
+                            <frontend_type>text</frontend_type> 
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Default value : 90</comment>
+                        </img_quality>
+						<img_width translate="label">
+                            <label>Image width</label>
+                            <frontend_type>text</frontend_type> 
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Default value : 150</comment>
+                        </img_width>
+						<img_height translate="label">
+                            <label>Image height</label>
+                            <frontend_type>text</frontend_type> 
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Default value : 200</comment>
+                        </img_height>
+                    </fields>
+                </customerpic>
+            </groups>
+        </netgo_customerpic>
+    </sections>
+</config>

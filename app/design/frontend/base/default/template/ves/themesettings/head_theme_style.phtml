@@ -1,0 +1,60 @@
+<?php
+$ves = Mage::helper('themesettings');
+$sidebar_title_fonts = $ves->getCfgDesign('sidebar/title_fonts');
+?>
+
+<?php if(isset($sidebar_title_fonts) && $sidebar_title_fonts != null && $sidebar_title_fonts != '--select--')  {  ?>
+<link href='//fonts.googleapis.com/css?family=<?php echo str_replace(' ', '+', $sidebar_title_fonts); ?>' rel='stylesheet' type='text/css'>
+<?php } ?>
+
+<style type="text/css">
+	<?php
+/* Equal Height Block
+-------------------------------------------------------------- */?>
+<?php
+$equal_height = $ves->getConfig('category_grid/equal_height');
+$equal_height_type = $ves->getConfig('category_grid/equal_height_type'); ?>
+<?php if($equal_height && $equal_height_type == 'minimun'){ ?>
+	.grid-items-equal-height .product-wrapp{
+		overflow: hidden
+	}
+	.grid-items-equal-height li.item:hover{
+		position: relative
+	}
+	.grid-items-equal-height li.item:hover .product-wrapp{
+		overflow: visibile;
+		height: 100% !important;
+		z-index: 1000
+	}
+	.grid-items-equal-height li.item:hover .product-block{
+		position: absolute;
+		width: 100%;
+		z-index: 999
+	}
+	<?php } ?>
+
+<?php
+/* ThemeSettings Layout
+-------------------------------------------------------------- */
+$responsive = $ves->getCfgLayout('responsive/responsive');
+$max_width = $ves->getCfgLayout('responsive/max_width');
+$max_width_custom = $ves->getCfgLayout('responsive/max_width_custom');
+$fluid_width = $ves->getCfgLayout('responsive/fluid_width');
+?>
+<?php if($max_width && !$fluid_width){ ?>
+	.main-container, .container, .wrap-container, .page-header, .footer-container {
+		<?php if($max_width == 'custom'){ ?>
+			max-width: <?php echo $max_width_custom; ?>;
+			<?php }else{ ?>
+				max-width: <?php echo $max_width; ?>px;	
+				<?php } ?>
+			}
+				<?php } ?>
+	<?php if($fluid_width){  ?>
+		.main-container, .container, .wrap-container, .page-header, .footer-container {
+			width: 100%;
+			max-width: 100%;
+		}
+	<?php } ?>
+
+</style>

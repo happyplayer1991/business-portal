@@ -1,0 +1,126 @@
+<?php
+$product = $this->getProductObject();
+$data = Mage::getSingleton("supplierfrontendproductuploader/session")->getProductData();
+$this->setProduct($product);
+$data = $this->getProductAttributes($product);
+$qty = (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty();
+?>
+
+<div class="container main-container vendor-container">
+    <div class="row">
+        <h1 class="text-left"><?php echo $this->__('Clone Product'); ?></h1>
+        <div class="information-codes nopadding col-md-8">
+            <span>
+                <?php echo $this->__('Creating Products using Supplier Code allows you to Clone the Main product and modify only prices and qty.'); ?>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 nopadding">
+            <form name="product_clone_code" id="product_clone_code" action="<?php echo Mage::getUrl('supplier/codes/save') ?>" method="post">
+                <input type="hidden" name="product_id" value="<?php echo $product->getId(); ?>"/>
+                <input type="hidden" name="edited_product_id" value="<?php echo $product->getId(); ?>"/>
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 nopadding">
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="price">
+                                    <?php echo $this->__('Price'); ?>
+                                    <span class="required">*</span>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="price" name="price" class="input-text form-control required-entry validate-number validate-greater-than-zero" <?php echo 'value="' . $product->getData('price') . '"';?>/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="special_price">
+                                    <?php echo $this->__('Special Price'); ?>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="special_price" name="special_price"  class="input-text form-control validate-number" value="<?php echo (isset($data['special_price']) ? $data['special_price'] : ''); ?>"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="special_price_from_date">
+                                    <?php echo $this->__('Special Price From'); ?>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="special_price_from_date" name="special_price_from_date" value="<?php echo (isset($data['special_price_from_date']) ? $data['special_price_from_date'] : ''); ?>" class="input-text form-control datepicker" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="special_price_to_date">
+                                    <?php echo $this->__('Special Price To'); ?>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="special_price_to_date" name="special_price_to_date" value="<?php echo (isset($data['special_price_to_date']) ? $data['special_price_to_date'] : ''); ?>" class="input-text form-control datepicker" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="qty">
+                                    <?php echo $this->__('QTY Available'); ?>
+                                    <span class="required">*</span>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="qty" name="qty" class="input-text form-control required-entry validate-number validate-greater-than-zero" value="<?php echo $qty;?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="clearfix"></span>
+                    <div class="col-md-4 col-sm-4 btn-save-fix">
+                        <input type="submit" name="submit" class="btn btn-primary save-button" value="<?php echo $this->__('Save Product') ?>" />
+                    </div>
+                    <div class="col-md-2 col-sm-2 save-button">
+                        <a href="<?php echo Mage::getUrl('supplier/product/choosetype'); ?>" class="btn btn-warning"><?php echo $this->__('Back'); ?></a>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-unstyled ">
+            <li>
+                <a href="<?php echo $product->getProductUrl(); ?>" target="_blank"><img src="<?php echo (string) Mage::helper('catalog/image')->init($product, 'thumbnail')->resize(150); ?>" alt=""/></a>
+            </li>
+            <li>
+                <label><?php echo $this->__('Name'); ?>:</label>
+                <span><?php echo $product->getName(); ?></span>
+            </li>
+            <li>
+                <label><?php echo $this->__('Short Description'); ?>:</label>
+                <span style="word-wrap: break-word;"><?php echo $product->getShortDescription(); ?></span>
+            </li>
+            <li>
+                <label><?php echo $this->__('Detailed Description'); ?>:</label>
+                <span style="word-wrap: break-word;"><?php echo $product->getDescription(); ?></span>
+            </li>
+            <li>
+                <label><?php echo $this->__('Price'); ?>:</label>
+                <span><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></span>
+            </li>
+            <li>
+                <label><?php echo $this->__('Qty'); ?>:</label>
+                <span><?php echo (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty(); ?></span>
+            </li>
+            <li>
+                <label><?php echo $this->__('Supplier Code'); ?>:</label>
+                <span><?php echo $product->getSupplierProductCode(); ?></span>
+            </li>
+            <a href="<?php echo $product->getProductUrl() ?>" target="_blank"><?php echo $this->__('Click To Preview'); ?></a>
+        </ul>
+    </div>
+</div>
+<script>
+    //< ![CDATA[
+    var customForm = new VarienForm('product_clone_code');
+    //]]>
+    jQuery('.datepicker').datepicker();
+</script>

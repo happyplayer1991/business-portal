@@ -1,0 +1,8 @@
+<?php
+class Cminds_Supplierfrontendproductuploader_Model_Mysql4_Attributesets extends Mage_Core_Model_Mysql4_Abstract
+{
+    protected function _construct()
+    {
+        $this->_init('supplierfrontendproductuploader/attributesets', 'id');
+    }
+}

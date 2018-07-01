@@ -1,0 +1,65 @@
+<div class="container vendor-container form-signin col2-set">
+    <div class="page-title">
+        <h1><?php echo $this->__('Log In'); ?></h1>
+    </div>
+    <ul>
+        <?php $messages = Mage::getSingleton('customer/session')->getMessages(true); ?>
+        <?php if($messages->getItems('error')) : ?>
+            <li class="error-msg">
+                <?php foreach($messages->getItems('error') AS $msg): ?>
+                    <ul><li><span><?php echo $msg->getCode(); ?></span></li></ul>
+                <?php endforeach; ?>
+            </li>
+        <?php endif; ?>
+        <?php if($messages->getItems('success')) : ?>
+            <li class="success-msg">
+                <?php foreach($messages->getItems('success') AS $msg): ?>
+                    <ul><li><span><?php echo $msg->getCode(); ?></span></li></ul>
+                <?php endforeach; ?>
+            </li>
+        <?php endif; ?>
+    </ul>
+    <div class="col-1">
+        <div class="login-form">
+            <?php if(Mage::helper('supplierfrontendproductuploader')->noAccessInformation()): ?>
+                <div class="alert alert-error">
+                    <strong><?php echo $this->__('Sorry') ?>!</strong> <?php echo $this->__('It looks like you are logged in, but you do not have access to this page. Please contact website administrator.') ?>
+                </div>
+            <?php endif; ?>
+            <form name="login_form" id="login_form" class="scaffold-form" action="<?php echo Mage::getBaseUrl() ?>supplier/login/login/" method="POST">
+                <fieldset class="form-list">
+                    <div class="field">
+                        <label for="email" class="control-label required">
+                            <?php echo $this->__('Email'); ?><em class="text-error">*</em>
+                        </label>
+                        <div class="input-box">
+                            <input type="email" name="email" placeholder="example@example.com" class="input-text required-entry validate-email">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="password" class="control-label required">
+                            <?php echo $this->__('Password'); ?><em class="text-error">*</em>
+                        </label>
+                        <div class="input-box">
+                            <input type="password" name="password" placeholder="Password" class="input-text required-entry">
+                        </div>
+                    </div>
+                    <p class="required"><?php echo $this->__('* Required Fields'); ?></p>
+                    <li class="note">
+                        <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
+                    </li>
+                    <div class="form-actions buttons-set">
+                        <button class="button btn btn-primary" type="submit"><span><span><?php echo $this->__('Sign In'); ?></span></span></button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('login_form');
+    //]]>
+</script>
+
+

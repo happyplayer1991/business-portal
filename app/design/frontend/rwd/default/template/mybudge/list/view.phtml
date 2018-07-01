@@ -1,0 +1,26 @@
+<?php
+
+$title = $this->getTitle() ? $this->getTitle() : 'My Budge';
+$budges = $this->getBudges(); 
+?>
+<div class="mybudge">
+    <div class="page-title">
+        <h1>
+            <?php echo $title ?>
+        </h1>
+    </div>
+    <div class="row">
+        <?php foreach($budges as $budge) : ?>
+            <div class="col-md-3">
+                <div class="budge">
+                    <span class="name"> 
+                        <img class="budge-icon" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$budge->icon;?>" > <?php echo $budge->name ?> 
+                    </span>
+                    <div class="description"> 
+                        <?php echo $budge->description ?>
+                    </div>  
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

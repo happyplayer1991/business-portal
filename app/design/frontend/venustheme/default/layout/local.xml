@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+	<default>
+
+		<reference name="head">
+			<!-- Remove rwd theme js/css files-->
+			<!-- <action method="removeItem"><type>skin_js</type><name>js/slideshow.js</name></action>
+	        <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.min.js</name></action>
+	        <action method="removeItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action> -->
+	        <action method="removeItem"><type>skin_css</type><name>css/madisonisland.css</name></action>
+	        <action method="removeItem"><type>skin_css</type><name>css/madisonisland-ie8.css</name></action>
+	        <action method="removeItem"><type>link_rel</type><name>//fonts.googleapis.com/css?family=Raleway:300,400,500,700,600</name></action>
+
+	        <!-- Add JS Files Of Venustheme -->
+	        <action method="addItem"><type>skin_js</type><name>js/lib/jquery.jcarousellite-1.1.min.js</name></action>
+	        <action method="addJs"><script>ves/jquery/plugins/jquery.easing.min.js</script></action>
+	        <action method="addJs"><script>ves/jquery/plugins/jquery.easytabs.min.js</script></action>
+	        <action method="addJs"><script>ves/jquery/plugins/jquery.accordion.min.js</script></action>
+	        <action method="addJs"><script>ves/jquery/plugins/jquery.owlcarousel.min.js</script></action>
+	        <action method="addJs"><script>ves/jquery/plugins/countdown.js</script></action>
+
+	        <!-- Add Fancy Box Popup -->
+	        <action method="addJs"><script>ves/jquery/plugins/fancybox/jquery.mousewheel.pack.js</script></action>
+	        <action method="addJs"><script>ves/jquery/plugins/fancybox/jquery.fancybox.pack.js</script></action>
+	        <action method="addItem"><type>js_css</type><name>ves/jquery/plugins/fancybox/jquery.fancybox.css</name><params/></action>
+  
+
+	        <!--<action method="addCss"><stylesheet helper="themesettings/cssgen/getProfileFile" /></action>-->
+	        <!-- Custom CSS (has to be enabled in admin) -->
+
+	        <action method="addCss" ifconfig="themesettings/customization/enable_custom_css"><stylesheet>css/custom.css</stylesheet></action>
+
+	        <action method="addItem"><type>skin_css</type><name>css/font-awesome.min.css</name><params/></action>
+	        <action method="addItem"><type>skin_css</type><name>css/bootstrap/bootstrap-tiny.css</name><params/></action>
+	        <action method="addItem"><type>skin_css</type><name>css/custom_theme.css</name><params/></action>
+	        <action method="addItem"><type>skin_css</type><name>css/animate.css</name><params/></action>
+
+	        <!-- Custom font -->
+	        <action method="addLinkRel"><rel>stylesheet</rel><href>//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic</href></action>
+	        <action method="addLinkRel"><rel>stylesheet</rel><href>//fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic</href></action>
+
+	        <action method="addJs"><script>ves/jquery/frontend.js</script></action>
+	        <action method="addItem"><type>skin_js</type><name>js/common.js</name><params/></action>
+
+	        <action method="addCss"><stylesheet helper="themesettings/data/getDesignFile" /></action>
+	    </reference>
+
+	    <!-- Root containers ====================================================================== -->
+	    <reference name="root">
+
+	    	<block type="core/text_list" name="slideshow" as="slideshow" translate="label">
+	    		<label>Slideshow</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="showcase" as="showcase" translate="label">
+	    		<label>Showcase</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="promotion" as="promotion" translate="label">
+	    		<label>Promotion</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="content_top" as="content_top" translate="label">
+	    		<label>Content Top</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="content_bottom" as="content_bottom" translate="label">
+	    		<label>Content Bottom</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="masstop1" as="masstop1" translate="label">
+	    		<label>Masstop1</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="masstop2" as="masstop2" translate="label">
+	    		<label>Masstop2</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="masstop3" as="masstop3" translate="label">
+	    		<label>Masstop3</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="masstop4" as="masstop4" translate="label">
+	    		<label>Masstop4</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="massbottom1" as="massbottom1" translate="label">
+	    		<label>Massbottom1</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="massbottom2" as="massbottom2" translate="label">
+	    		<label>Massbottom2</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="massbottom3" as="massbottom3" translate="label">
+	    		<label>Massbottom3</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="massbottom4" as="massbottom4" translate="label">
+	    		<label>Massbottom4</label>
+	    	</block>
+
+	    	<reference name="footer">
+	    		<remove name="store_switcher"/>
+	    		<remove name="cms_footer_links"/>
+	    		<remove name="cms_footer_links_sm"/>
+	    		<remove name="footer_links"/>
+	    		<remove name="footer_links2"/>
+	    		<remove name="footer.newsletter"/>
+	    		<remove name="footer_currency"/>
+	    		<block type="core/template" name="footer_top" template="page/html/footer/footer_top.phtml" />
+		    	<block type="core/template" name="footer_center" template="page/html/footer/footer_center.phtml" />
+		    	<block type="core/template" name="footer_bottom" template="page/html/footer/footer_bottom.phtml" />
+	    	</reference>
+
+	    	<block type="core/text_list" name="postscript" as="postscript" translate="label">
+	    		<label>Post Script</label>
+	    	</block>
+
+	    	<block type="core/text_list" name="theme_body_end" as="theme_body_end" translate="label">
+	    		<label>Theme Body End</label>
+	    	</block>
+	    </reference>
+
+	    <reference name="footer_top">
+	    	<block type="page/html" name="footer_link_custom" template="page/template/footer_block_link.phtml">
+    			<block type="cms/block" name="footer.blocklink1">
+    				<action method="setBlockId"><block_id>about-us-footer</block_id></action>
+    			</block>
+    			<block type="cms/block" name="footer.blocklink2">
+    				<action method="setBlockId"><block_id>block-account-footer</block_id></action>
+    			</block>
+    			<block type="cms/block" name="footer.blocklink3">
+    				<action method="setBlockId"><block_id>popular-tags-footer</block_id></action>
+    			</block>
+    			<block type="cms/block" name="footer.blocklink4">
+    				<action method="setBlockId"><block_id>block-list-link-footer</block_id></action>
+    			</block>
+    		</block>
+	    </reference>
+
+	    <!-- Footer scripts ====================================================================== -->
+	    <reference name="theme_body_end">
+	    	<block type="page/html_head" name="footer.scripts" as="footer_scripts" template="page/html/footer_assets.phtml" before="-">
+	    		<action method="addItem"><type>skin_js</type><name>js/common.js</name></action>
+	    	</block>
+	    </reference>
+
+	    <!-- Override default template or set default reference blocks -->
+	    <!-- Change template and layout of header block -->
+	</default>
+
+	<cms_index_index>
+		<reference name="slideshow">
+			<block type="cms/block" name="block-slideshow">
+				<action method="setBlockId"><block_id>block-slideshow</block_id></action>
+			</block> 
+		</reference>
+
+		<reference name="showcase">
+			<block type="cms/block" name="showcase-banner">
+				<action method="setBlockId"><block_id>showcase-banner</block_id></action>
+			</block> 
+		</reference>
+
+		<reference name="content_top">
+			<block type="cms/block" name="tabs-products">
+				<action method="setBlockId"><block_id>tabs-products</block_id></action>
+			</block> 
+		</reference>
+
+		<reference name="massbottom1">
+			<block type="cms/block" name="banner-center">
+				<action method="setBlockId"><block_id>banner-center</block_id></action>
+			</block> 
+
+			<block type="cms/block" name="product-carousel">
+				<action method="setBlockId"><block_id>product-carousel</block_id></action>
+			</block> 
+		</reference>
+
+		<reference name="massbottom2">
+			<block type="cms/block" name="banner-center2">
+				<action method="setBlockId"><block_id>banner-center2</block_id></action>
+			</block> 
+
+			<block type="page/html" name="footer_product_carousels" template="page/template/footer_product_carousels.phtml">
+				<block type="cms/block" name="footer.carousel1">
+					<action method="setBlockId"><block_id>featured-products-bottom</block_id></action>
+				</block>
+				<block type="cms/block" name="footer.carousel2">
+					<action method="setBlockId"><block_id>bestsell-products-bottom</block_id></action>
+				</block>
+				<block type="cms/block" name="footer.carousel3">
+					<action method="setBlockId"><block_id>special-products-bottom</block_id></action>
+				</block>
+				<block type="cms/block" name="footer.carousel4">
+					<action method="setBlockId"><block_id>top-rated-product-bottom</block_id></action>
+				</block>
+			</block>
+		</reference>
+
+		<reference name="massbottom3">
+			<block type="cms/block" name="banner-bottom">
+				<action method="setBlockId"><block_id>banner-bottom</block_id></action>
+			</block> 
+		</reference>
+		
+		<reference name="massbottom4">
+			<block type="ves_brand/scroll" before="-" name="ves.brand.massbottom4">
+				<action method="setTemplate"><template>ves/brand/block/carousel.phtml</template></action>
+			</block>
+
+			<block type="cms/block" name="newsletter-social-footer">
+				<action method="setBlockId"><block_id>newsletter-social-footer</block_id></action>
+			</block> 
+		</reference>
+	</cms_index_index>
+
+	<!-- Custom magento layouts -->
+	<catalog_category_layered translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="product_list">
+			<action method="setColumnCount"><count>3</count></action>
+		</reference>
+	</catalog_category_layered>
+
+	<catalog_category_default translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+	</catalog_category_default>
+
+	<catalog_product_view translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+
+		<reference name="product.info">
+			<remove name="catalog.product.related"/>
+			<remove name="product.info.upsell"/>
+			<remove name="product.reviews"/>
+			<remove name="product_tag_list"/>
+
+			<block type="catalog/product_view_tabs" name="product.info.reviews" as="reviews" template="review/product/view/review_tab.phtml" after="additional">
+			    <action method="addToParentGroup"><group>detailed_info</group></action>
+			    <action method="setTitle" translate="value"><value>Reviews</value></action>
+                <block type="page/html_pager" name="product_review_list.toolbar" />
+                <block type="core/template" name="product_review_list.count" template="review/product/view/count.phtml" />
+                <block type="review/product_view_list" name="product.info.product_additional_data" as="info_tabs" template="review/product/view/review_tab_list.phtml">
+                	<block type="review/form" name="product.review.tab.form" as="review_tab_form" template="review/tab_form.phtml"/>
+                </block>
+
+                <block type="review/helper" name="product.review.summary" as="product_review_summary">
+                	<action method="addTemplate"><type>detail</type><template>review/helper/detail_rating.phtml</template></action>
+                </block>
+			</block>
+		</reference>
+
+		<reference name="catalog.product.related">
+			<block type="catalog/product_list_related" name="catalog.product.related.carousel" as="related_products_carousel" template="catalog/product/list/related_carousel.phtml">
+				<action method="setColumnCount"><columns>4</columns></action>
+				<action method="setItemLimit"><type>related</type><limit>8</limit></action>
+			</block>
+		</reference>
+
+		<reference name="product.info.upsell">
+			<action method="setColumnCount"><columns>4</columns></action>
+			<action method="setItemLimit"><type>upsell</type><limit>8</limit></action>
+			<action method="setTemplate"><template>catalog/product/list/upsell_carousel.phtml</template></action>
+		</reference>
+
+	</catalog_product_view>
+
+	<checkout_cart_index translate="label">
+		<reference name="checkout.cart.crosssell">
+			<action method="setTemplate"><template>checkout/cart/crosssell_carousel.phtml</template></action>
+			<action method="setColumnCount"><columns>4</columns></action>
+			<action method="setItemLimit"><type>crosssell</type><limit>8</limit></action>
+		</reference>
+	</checkout_cart_index>
+
+	<catalogsearch_result_index translate="label">
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+	</catalogsearch_result_index>
+
+	<!-- Custom extensions layout -->
+
+</layout>

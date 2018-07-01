@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout>
+  <customer_account>
+    <reference name="customer_account_navigation">
+      <action method="addLink" >
+        <name>viewinbox</name>
+        <path>mage_inbox/list/view</path>
+        <label>Inbox</label>
+      </action>
+    </reference>
+  </customer_account>
+  <mage_inbox_list_view>
+    <update handle="customer_account" />
+    <reference name="content">
+        <block type="inbox/list" name="view.inbox" template="inbox/list/view.phtml"/>
+    </reference>
+  </mage_inbox_list_view>
+</layout>

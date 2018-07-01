@@ -1,0 +1,73 @@
+<?php
+/**
+ * Additional scripts
+ */
+?>
+<?php
+//Get grid configuration array
+$ves = $this->helper('themesettings');
+$disable_hover_effect = $ves->getConfig('category_grid/disable_hover_effect');
+$hover_effect = $ves->getConfig('category_grid/hover_effect');
+$equal_height = $ves->getConfig('category_grid/equal_height');
+$equal_height_type = $ves->getConfig('category_grid/equal_height_type');
+?>
+<script type="text/javascript">
+	jQuery(function() {
+		<?php
+		$custom_js = $ves->getConfig('customization/custom_js');
+		if($custom_js){
+			echo $custom_js;
+		}
+		?>
+		<?php //Products grid: item hover effect ?>
+		<?php if ($hover_effect){ ?>
+			function resizeWindow(){
+				if(jQuery(window).width() <= <?php echo $disable_hover_effect ?>){
+					jQuery('.products-grid').addClass('show-mobile').show();
+				}else{
+					jQuery('.products-grid').removeClass('show-mobile');
+				}
+			}
+			resizeWindow();
+			jQuery(window).resize(function() {
+				resizeWindow();
+			});
+			<?php } ?>
+
+			<?php if($equal_height){ ?>
+			<?php // Products grid: equal height ?>
+			if(jQuery('.catalog-category-view .grid-items-equal-height').length>0){
+				//jQuery('.grid-items-equal-height').each(function(){
+					var maxHeight = 0;
+					var minHeight = 0;
+
+					//alert(jQuery('.grid-items-equal-height .first img').height());
+
+					jQuery('.catalog-category-view .grid-items-equal-height').children('li.item').each(function(i){
+						var itemHeight = jQuery(this).height();
+
+						console.log(itemHeight);
+
+						if(itemHeight>maxHeight){
+							maxHeight = itemHeight;
+						}
+						if(i==0){
+							minHeight = itemHeight;
+						}else{
+							if(minHeight>itemHeight){
+								minHeight = itemHeight;
+							}
+						}
+					});
+					/*
+					<?php if($equal_height_type == 'maximun'){ ?>
+					jQuery(this).find('.product-wrapp').css("height",maxHeight);
+					<?php }else{ ?>
+					jQuery(this).find('.product-wrapp').css("height",minHeight);	
+					<?php } ?>
+					*/
+				//});
+			}
+			<?php } ?>
+		});
+</script>

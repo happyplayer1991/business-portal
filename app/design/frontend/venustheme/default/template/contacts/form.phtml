@@ -1,0 +1,191 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+$ves = Mage::helper('themesettings');
+$enable_googlemap = $ves->getConfig('contacts_page/enable_googlemap');
+$location_lng = $ves->getConfig('contacts_page/location_lng');
+$location_lat = $ves->getConfig('contacts_page/location_lat');
+$address = $ves->getConfig('contacts_page/address');
+$telephone = $ves->getConfig('contacts_page/telephone');
+$fax = $ves->getConfig('contacts_page/fax');
+$enable_contactus = $ves->getConfig('contacts_page/enable_contactus');
+$enable_contactform = $ves->getConfig('contacts_page/enable_contactform');
+$custom_html = $ves->getConfig('contacts_page/custom_html');
+$map_width = $ves->getConfig('contacts_page/map_width');
+$map_height = $ves->getConfig('contacts_page/map_height');
+$map_zoom = (int)$ves->getConfig('contacts_page/map_zoom');
+
+$processor = Mage::helper('cms')->getPageTemplateProcessor();
+$marker_content = $ves->getConfig('contacts_page/marker_content');
+if($marker_content!=''){
+    $marker_content = $processor->filter($marker_content);
+}
+
+$marker_content_staticblock = $ves->getConfig('contacts_page/marker_content_staticblock');
+$marker_content_width = $ves->getConfig('contacts_page/marker_content_width');
+$marker_content_height = $ves->getConfig('contacts_page/marker_content_height');
+$marker_content_position = $ves->getConfig('contacts_page/marker_content_position');
+
+?>
+<div class="block locations">
+    <div class="block-title"> <span><?php echo Mage::helper('contacts')->__('Our Location'); ?></span> </div>
+    <div class="block-content">
+
+        <div class="col-ld-12 col-md-12 col-sm-12">
+            <?php if($enable_googlemap){ ?>
+            <div class="col-ld-12 col-md-12 col-sm-12">
+                <div id="map" style="width: <?php echo $map_width?$map_width:"100%" ?>;height:<?php echo $map_height?$map_height:"400px" ?>;"></div>
+                <script>
+
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
+
+function initMap() {
+    // Default My Dinh Plaza
+    var uluru = {
+        lat: <?php echo $location_lat?$location_lat:'21.0309091' ?>,
+        lng: <?php echo $location_lng?$location_lng:'105.77577840000004' ?>
+    };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: <?php echo $map_zoom?$map_zoom:'15' ?>,
+        center: uluru,
+    });
+
+    var contentString = '<?php echo $address; ?><br/><?php echo $marker_content?$marker_content:"";  ?>';
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        maxWidth: <?php echo $marker_content_width?$marker_content_width:"300"; ?>,
+        maxHeight: <?php echo $marker_content_height?$marker_content_height:"300"; ?>,
+    });
+
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+        title: '<?php echo $address?$address:""; ?>'
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+}
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALraGXlzRqFlAOb-tYLhUi6o6Cq9qN4KA&signed_in=true&callback=initMap"></script>
+
+</div>
+<?php } ?>
+<?php //end contact map ?>
+
+<?php if($enable_contactus){ ?>
+<div class="col-ld-5 col-md-5 col-sm-12">
+    <div class="contact-info">
+        <h3><?php echo Mage::helper("contacts")->__('Contact Us'); ?></h3>
+        <div class="content">       
+            <div class="media">
+                <i class="fa fa-home pull-left"></i>
+                <div class="media-body">
+                    <?php echo $address; ?>
+                </div>
+            </div>
+
+            <?php if ($telephone) { ?>
+            <div class="media">
+                <i class="fa fa-phone pull-left"></i>
+                <div class="media-body">                          
+                    <?php echo $telephone; ?>                             
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if ($fax) { ?>
+            <div class="media">
+                <i class="fa fa-envelope-o pull-left"></i>           
+                <div class="media-body">
+                    <?php echo $fax; ?>
+                </div>
+            </div>                                  
+            <?php } ?>
+        </div>  
+    </div>
+    <?php if($custom_html){ ?>
+    <div class="contact-customhtml">
+        <div class="content">
+            <?php echo $processor->filter($custom_html);; ?>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+<?php } ?>
+</div>
+
+<?php if($enable_contactform){ ?>
+<div class="col-ld-12 col-md-5 col-sm-12">
+    <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="scaffold-form">
+        <div class="fieldset">
+            <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
+            <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="field">
+                        <label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Name') ?></label>
+                        <div class="input-box">
+                            <input name="name" id="name" title="<?php echo Mage::helper('contacts')->__('Name') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="email" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Email') ?></label>
+                        <div class="input-box">
+                            <input name="email" id="email" title="<?php echo Mage::helper('contacts')->__('Email') ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <label for="telephone"><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+                    <div class="input-box">
+                        <input name="telephone" id="telephone" title="<?php echo Mage::helper('contacts')->__('Telephone') ?>" value="" class="input-text" type="tel" />
+                    </div>
+                </li>
+                <li class="wide">
+                    <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Comment') ?></label>
+                    <div class="input-box">
+                        <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="buttons-set">
+            <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+            <button type="submit" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+        </div>
+    </form>
+    <script type="text/javascript">
+//<![CDATA[
+var contactForm = new VarienForm('contactForm', true);
+//]]>
+</script>
+</div>
+<?php } ?>
+
+</div> <!-- Content -->
+</div>

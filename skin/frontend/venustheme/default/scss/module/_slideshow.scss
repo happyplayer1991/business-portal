@@ -1,0 +1,358 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Slideshow
+ * ============================================ */
+.slideshow-container {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 0 $trim !important;
+    border: 0!important;
+
+    .slideshow {
+        width: 100%;
+        padding: 0;
+        position: relative;
+        margin: 0;
+        border:0!important;
+        & > li {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0;
+            display: block;
+            margin: 0;
+
+            // in case script does not load
+            &:first-child {
+                position: static;
+                z-index: 100;
+            }
+
+            img {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.slideshow-pager {
+    text-align: center;
+    width: 100%;
+    z-index: 115;
+    position: absolute;
+    bottom: 0px;
+    top: auto;
+    overflow: hidden;
+    @include not-selectable;
+
+    span {
+        font-family: arial;
+        @include size(24px, 24px);
+        @include inline-block();
+        color: #ddd;
+        cursor: pointer;
+        &:before {
+            content: '';
+            display: block;
+            @include size($pager-size, $pager-size);
+            @include border-radius(50%);
+            left: 50%;
+            top: 50%;
+            margin-left: (-$pager-size/2);
+            margin-top: (-$pager-size/2);
+            background-color: $white;
+            position: relative;
+        }
+
+        &:hover:before {
+            background-color: $c-button-hover;
+        }
+
+        &.cycle-pager-active:before {
+            background-color: $c-button-active;
+        }
+    }
+
+    & > * {
+        cursor: pointer;
+    }
+}
+
+.slideshow-prev,
+.slideshow-next {
+    position: absolute;
+    top: 0;
+    max-width: 80px;
+    z-index: 110;
+    cursor: pointer;
+    @include not-selectable();
+    @include size(100%, 100%);
+    @include opacity(0.6);
+
+    &:before {
+        content: '';
+        @include size(32px, 32px);
+        line-height: 32px;
+        font-size: 14px;
+        text-align: center;
+        font-family:"FontAwesome" ;
+        position: absolute;
+        display: block;
+        top: 50%;
+        margin-top: -15px;
+        background: $white;
+        color: $c-gray;
+        border:0;
+    }
+
+    &:hover {
+        @include opacity(1);
+        &:before {
+            color: $c-blue;
+        }
+    }
+
+    &.disabled {
+        @include opacity(0.5);
+        cursor: default;
+    }
+}
+
+.slideshow-prev {
+    left: 8px;
+    &:before {
+        content: "\f053";
+    }
+}
+
+.slideshow-next {
+    right: 8px;
+    &:before {
+       content: "\f054";
+    }
+}
+
+.cycle-caption {
+    position: absolute;
+    color: white;
+    bottom: 15px;
+    right: 15px;
+    z-index: 110;
+}
+
+.cycle-overlay {
+    font-family: tahoma, arial;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 120;
+    background: black;
+    color: white;
+    padding: 15px;
+    opacity: .5;
+}
+
+.iview-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 25%;
+    color: $white;
+    span {
+        clear: both;
+        width: 600px;
+        margin: 0 auto;
+        display: block;
+        .button {
+            padding: 5px 15px;
+            border: 1px solid $white;
+            background: transparent;
+            max-width: 100px;
+            &:hover {
+                background: $c-blue;
+                border-color: $c-blue;
+            }
+        }
+    }
+    .main-text1 {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding-bottom: 10px;
+    }
+    .main-text2 {
+        font-size: 85px;
+        font-weight: 900;
+        border-bottom: 2px solid rgba(255,255,255, 0.5);
+        border-top: 2px solid rgba(255,255,255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+    .main-text3 {
+        padding: 20px 0;
+        font-size: 16px;
+    }
+}
+
+.iview-caption-v2 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    @include rtl-text-align-left();
+    top: 15%;
+    color: $white;
+    z-index: 99;
+    span {
+        clear: both;
+        width:65%;
+        @include rtl-margin-left(10%);
+        display: block;
+        .button {
+            padding: 5px 15px;
+            border: 1px solid $white;
+            background: transparent;
+            max-width: 100px;
+            &:hover {
+                background: $c-blue;
+                border-color: $c-blue;
+            }
+        }
+    }
+    .main-text1 {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding-bottom: 5px;
+    }
+    .main-text2 {
+        font-size: 36px;
+        font-weight: 700; 
+        border-bottom: 1px solid rgba(255,255,255, 0.5);
+        border-top: 1px solid rgba(255,255,255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+    .main-text3 {
+        padding: 10px 0;
+        font-size: 14px;
+    }
+}
+
+.iview-caption-v3 {
+    position: relative;
+    text-align: center;
+    color: $white;
+    padding: 20px 0 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    span {
+        .button {
+            padding: 5px 15px;
+            border: 1px solid $white;
+            background: transparent;
+            max-width: 100px;
+            margin-top: 20px;
+            &:hover {
+                background: $c-blue;
+                border-color: $c-blue;
+            }
+        }
+    }
+    .main-text1 {
+        font-size: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding-bottom: 5px;
+    }
+    .main-text2 {
+        font-size: 60px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .main-text3 {
+        padding: 10px 0;
+        font-size: 18px;
+        border-top:1px solid rgba(255, 255, 255, 0.5);
+        border-bottom:1px solid rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+    }
+}
+
+.v-dark {
+    color: $c-gray;
+    span,
+    .button {
+        border-color:$c-gray !important;
+        color: $c-gray;
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    .iview-caption,
+    .iview-caption-v2{
+        top:15%;
+        span {
+            width: 60%;
+        }
+        .main-text1 { font-size: 14px;}
+        .main-text2 { 
+            font-size: 20px;
+            border-size:1px;
+        }
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    .iview-caption,
+    .iview-caption-v2{
+        span {
+            .button { margin-top: 10px;}
+        }
+        .main-text3 { display: none;}
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .iview-caption,
+    .iview-caption-v2{
+        span {
+            .button { margin-top: 10px;}
+        }
+        .main-text1 { font-size: 12px;}
+        .main-text2 { 
+            font-size: 14px;
+        }
+        .main-text3 { display: none;}
+    }
+}

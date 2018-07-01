@@ -1,0 +1,443 @@
+<!-- Save Button -->
+<div class="row">
+    <div class="col-md-offset-9 col-md-3">
+        <button title="Save Item" type="button" class="scalable save display-hide"><span><span><span>Save Item</span></span></span></button>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-3 col-sm-6 supplier">
+        <input type="text" name="supplier_name" class="display-hide" placeholder="Supplier name.." onkeypress="search_supplier(event)">
+        <div id="supplier_tree" class="demo">
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 budge">
+        <input type="text" name="budge_name" class="display-hide" placeholder="Budge name.." onkeypress="search_budge(event)">
+        <div id="budge_tree" class="demo">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 information">
+        <div class="info">
+         
+        </div>
+    </div>
+</div>
+
+<div class="display-hide loadingbar">
+    <div class="contentBar">
+        <div id="block_1" class="barlittle"></div>
+        <div id="block_2" class="barlittle"></div>
+        <div id="block_3" class="barlittle"></div>
+        <div id="block_4" class="barlittle"></div>
+        <div id="block_5" class="barlittle"></div>
+    </div>
+</div>
+
+<!-- personal card -->
+
+<!--
+<div class="display-hide supplier-card">
+    <article class="material-card Brown">
+        <h2>
+            <span class="supplier-name"></span>
+            <strong>
+                <i class="fa fa-fw fa-star"></i>
+                Supplier
+            </strong>
+        </h2>
+        <div class="mc-content">
+            <div class="img-container">
+                <img class="img-responsive" src="http://u.lorenzoferrara.net/marlenesco/material-card/thumb-steve-mcqueen.jpg">
+            </div>
+            <div class="mc-description">
+                Called "The King of Cool", his "anti-hero" persona, developed at the height of the Vietnam War-era counterculture, made him a top box-office draw of the 1960s and 1970s. McQueen received an Academy Award nomination for his ...
+            </div>
+        </div>
+        <a class="mc-btn-action">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="mc-footer">
+            <h4>
+                Other
+            </h4>
+        </div>
+    </article>
+</div>
+-->
+
+<!-- add jstree css -->
+<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css'>
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/bootstrap3.3.5/css/bootstrap.min.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/jstree/css/jstree.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/jquery-toastmessage/css/jquery.toastmessage.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getDesign()->getSkinBaseUrl(array('_area'=>'adminhtml')).'../default/budge/loading-bar/style.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getDesign()->getSkinBaseUrl(array('_area'=>'adminhtml')).'../default/budge/card/style.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getDesign()->getSkinBaseUrl(array('_area'=>'adminhtml')).'../default/budge/custom.css'?>" />
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo Mage::getDesign()->getSkinBaseUrl(array('_area'=>'adminhtml')).'../default/budge/tab/style.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/normalize/5.0.0/normalize.min.css'?>" /> -->
+<!-- add jquery library -->
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/lib/jquery/jquery-1.10.2.min.js'?>" type="text/javascript"></script>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/lib/jquery/noconflict.js'?>" type="text/javascript"></script>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/bootstrap3.3.5/js/bootstrap.min.js'?>" type="text/javascript"></script>
+<!-- add jstree library -->
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/jstree/js/jstree.js'?>" type="text/javascript"></script>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/jstree/js/jstree-actions.js'?>" type="text/javascript"></script>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/jquery-toastmessage/js/jquery.toastmessage.js'?>" type="text/javascript"></script>
+
+<script type="text/javascript">
+    // Get form key
+    var formKey = "<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>";
+    // Get media url for get budge image
+    var mediaurl = "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) ?>";
+
+    var old_budges = [],
+        new_budges = [],
+        old_supplier_id = -1,
+        first_supplier_child_id;
+
+    // Element for supplier_tree, for budge_tree
+    var element_supplier = jQuery('#supplier_tree'),
+        element_budge    = jQuery('#budge_tree');
+
+    /* Get difference btween 2 array */
+    Array.prototype.diff = function (a) {
+        temp = a;
+        return this.filter(function (i) {
+            return temp.indexOf(i) === -1;
+        });
+    };
+
+    /* 
+        Get all budges by id 
+            
+    */
+    function getBudgeByid(budges, id)
+    {
+        for(i = 0 ; i < budges.length ; i++) {
+            if(budges[i].id == id)
+                return budges[i].budge;
+        }
+    }
+
+    /* 
+        Set budges by id 
+    */
+    function setBudgeByid(budges, id, budge) {
+        for(i = 0 ; i < budges.length ; i++) {
+            if(budges[i].id == id) {
+                budges[i].budge = budge.toString();
+                break;
+            }
+        }
+        return budges;
+    }
+
+    /* Get changed data for insert */
+    function difference(new_budge_data, old_budge_data) {
+        var insert = [],
+            remove = [],
+            data = [];
+        for(i = 0; i < new_budge_data.length ; i++) {
+            old_data = JSON.parse('[' + old_budge_data[i].budge + ']');
+            new_data = JSON.parse('[' + new_budge_data[i].budge + ']');
+
+            if(new_data.diff(old_data).length)
+                insert.push({
+                    id: new_budge_data[i].id,
+                    budge: new_data.diff(old_data)
+                });
+            if(old_data.diff(new_data))
+                remove.push({
+                    id: new_budge_data[i].id,
+                    budge: old_data.diff(new_data)
+                });
+        }
+        data.push(insert);
+        data.push(remove);
+        return data;
+    }
+
+
+    /* 
+        Select all budges of selected supplier,
+        when select supplier in supplier tree.
+    */
+    function selectBudge(element, budge_ids) {   
+        for(i = 0; i < budge_ids.length ; i++)
+            element.jstree("select_node", '#' + budge_ids[i]); 
+    }
+    
+    /* Seraching supplier function */
+
+    function search_supplier(event) {
+        if (event.keyCode == 13) {
+            element_supplier.jstree('search', jQuery('input[name=supplier_name]').val());
+        }
+    }
+
+    /* Seraching budge function */
+
+    function search_budge(event) {
+        if (event.keyCode == 13) {
+            element_budge.jstree('search', jQuery('input[name=budge_name]').val());
+        }
+    }
+
+
+    var loadingContent = jQuery('.loadingbar').html();
+    //jQuery('#supplier_tree').append(loadingContent);
+    
+    jQuery.ajax({
+        type: "POST",
+        url: "<?php echo Mage::helper("adminhtml")->getUrl("adminhtml/customer/getsuppliers"); ?>", 
+        data: { 
+            form_key:formKey,
+        },
+        //dataType: "json",
+        success: function(result) {
+            suppliers_data = JSON.parse(result);
+            
+            /* Get First Child id of Supplier */
+            first_supplier_child_id = suppliers_data[0].id;
+            /* make old budge data */
+            for(i = 0; i < suppliers_data.length ; i++)
+                old_budges.push(
+                    {
+                        id: suppliers_data[i].id,
+                        budge: suppliers_data[i].budge,
+                    }
+                );
+                
+            new_budges = old_budges;
+            
+            json_suppliers = [
+                {
+                    id  : -1,
+                    text : "Suppliers",
+                    type: "root",
+                    state : {
+                        selected  : false
+                    },
+                    children  : suppliers_data
+                }, 
+            ];
+            
+            element_supplier.jstree({ 
+                'core' : {
+                    'check_callback': true,
+                    data: json_suppliers
+                },
+                'plugins' : [ 'types',  'ui', 'search'],
+                'ui': {
+                    "select_limit": 1,
+                },
+                'types': {
+                    "root": {
+                        "icon" : "glyphicon glyphicon-home"
+                    },
+                    "child": {
+                        "icon" : "glyphicon glyphicon-user"
+                    },
+                    "default" : {
+                    }
+                },
+                "search" : {  
+                    "case_insensitive" : true,  
+                    "ajax" : {  
+                        "url" : "jstree.xml" 
+                    }  
+                },  
+            })
+            .on('changed.jstree', function(e, data) {
+                new_supplier_id = data.node.id;
+                //check node is root node, or not
+                if(new_supplier_id != -1) { 
+                    //get all budge ids of old selected supplier
+                    selected_budges = element_budge.jstree("get_checked");
+                    new_budges = setBudgeByid(new_budges, old_supplier_id, selected_budges);
+                            
+                    //when select other supplier
+                    if(new_supplier_id != old_supplier_id) {
+                        //get all budges of new selected supplier
+                        budge_str = getBudgeByid(new_budges, new_supplier_id);
+                        budge_array = JSON.parse('[' + budge_str + ']');
+
+                        //deselect all
+                        element_budge.jstree("deselect_all");
+
+                        //select all budges of selected supplier
+                        selectBudge(element_budge, budge_array);
+
+                        old_supplier_id = new_supplier_id;
+                    }
+
+                    //show supplier info
+                    // jQuery('.info').empty();
+                    // jQuery('.info').append(loadingContent);
+
+                    //Get supplier information
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "<?php echo Mage::helper("adminhtml")->getUrl("adminhtml/customer/getSupplierInfo"); ?>", 
+                        data: { 
+                            form_key:formKey,
+                            id: data.node.id
+                        },
+                        //dataType: "json",
+                        success: function(result) {
+                            supplier_data = JSON.parse(result);
+                            // set supplier data
+                            /* 
+                            jQuery('.supplier-name').text(supplier_data.name);
+                            supplierContent = jQuery('.supplier-card').html();
+                            jQuery('.info').empty();
+                            jQuery('.info').append(supplierContent);
+                            */
+                        }
+                    });
+                }
+            });
+
+            //collapse all
+            element_supplier.jstree('open_all');
+            
+            //jQuery('input[name=search_supplier]').removeClass('display-hide');
+            //jQuery('#budge_tree').append(loadingContent);
+            // make budge tree
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo Mage::helper("adminhtml")->getUrl("adminhtml/budge/getbudges"); ?>", 
+                data: { 
+                    form_key:formKey,
+                },
+                //dataType: "json",
+                success: function(result) {
+                    budges_data = JSON.parse(result);
+
+                    json_budges = [
+                        {
+                            id  : -1,
+                            text : "Budges",
+                            type: "root",
+                            state : {
+                                selected  : false
+                            },
+                            children  : budges_data
+                        }, 
+                    ];
+
+                    element_budge.jstree({ 
+                        'core' : {
+                            'check_callback': true,
+                            data: json_budges
+                        },
+                        'plugins' : [ 'types', 'checkbox', 'ui', 'search'],
+                        'ui': {
+                            "select_limit": 3,
+                        },
+                        'types': {
+                            "root": {
+                                "icon" : "glyphicon glyphicon-picture"
+                            },
+                            // "child": {
+                            //     "icon" : "glyphicon glyphicon-user"
+                            // },
+                            "default" : {
+                            }
+                        },
+                        //prevent checking parent by checking all children
+                        "checkbox" : {
+                            // "three_state" : false,
+                        },
+                        "search" : {  
+                            "case_insensitive" : true,  
+                                "ajax" : {  
+                                    "url" : "jstree.xml" 
+                                }  
+                        },  
+                    });
+
+                    //collapse all
+                    element_budge.jstree('open_all');
+                    
+                    /* Select First Child id of Supplier */
+                    element_supplier.jstree('select_node', '#' + first_supplier_child_id);
+                }
+            });
+
+            jQuery('.save').removeClass('display-hide');
+
+        }
+    });
+
+    /* Save Action */
+    jQuery('.save').click(function() {
+
+        // Get all budge ids of old selected supplier
+        selected_budges = element_budge.jstree("get_checked");
+        new_budges = setBudgeByid(new_budges, old_supplier_id, selected_budges);
+
+        // get changed data
+        //change = difference(new_budges, old_budges);
+
+        // get changed datafor insert changed data only.
+                
+        //changed_data_insert = change[0];
+
+        // get changed datafor insert changed data only.
+        //changed_data_remove = change[1];
+        jQuery('button.save').prop('disabled', true);
+        jQuery.ajax({
+            type: "POST",
+            url: "<?php echo Mage::helper("adminhtml")->getUrl("adminhtml/customer/set"); ?>", 
+            data: { 
+                form_key: formKey,
+                budges: new_budges
+            },
+            //dataType: "json",
+            success: function(result) {
+                jQuery('button.save').prop('disabled', false);
+                jQuery().toastmessage('showToast', {
+                    text     : 'Set budge to supplier sucessfully!',
+                    inEffectDuration:  600,
+                    stayTime : 3000,
+                    sticky   : false,
+                    position : 'top-right',
+                    type     : 'success',
+                    close    : function () {}
+                });
+            }
+        });
+    });
+    // console.log('22');
+    /*
+    jQuery('.info > .material-card > .mc-btn-action').on('click', function() {
+        console.log('123');
+        var card = jQuery(this).parent('.material-card');
+        var icon = jQuery(this).children('i');
+        icon.addClass('fa-spin-fast');
+
+        if (card.hasClass('mc-active')) {
+            card.removeClass('mc-active');
+
+            window.setTimeout(function() {
+                icon
+                    .removeClass('fa-arrow-left')
+                    .removeClass('fa-spin-fast')
+                    .addClass('fa-bars');
+
+            }, 800);
+        } else {
+            card.addClass('mc-active');
+
+            window.setTimeout(function() {
+                icon
+                    .removeClass('fa-bars')
+                    .removeClass('fa-spin-fast')
+                    .addClass('fa-arrow-left');
+
+            }, 800);
+        }
+    });
+    */
+</script>

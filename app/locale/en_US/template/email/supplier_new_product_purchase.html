@@ -1,0 +1,89 @@
+<!--@subject {{var store.getFrontendName()}}: New Order with Your Items @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <h1>You have new purchase on {{var store.getFrontendName()}}.</h1>
+                    </td>
+                    <td class="store-info">
+                        {{layout handle="order_supplier_data" order=$order}}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="order-details">
+            <h3>Order Details</h3>
+            <p>Order <span class="no-link">#{{var order.increment_id}}</span></p>
+            <p>Placed on {{var order.getCreatedAtFormated('long')}}</p>
+            <p>Please login to your <a href="{{store url="supplier"}}">Vendor Portal</a> to fulfill the order.</p>
+        </td>
+    </tr>
+    <tr class="order-information">
+        <td>
+            {{if order.getEmailCustomerNote()}}
+            <table cellspacing="0" cellpadding="0" class="message-container">
+                <tr>
+                    <td>{{var order.getEmailCustomerNote()}}</td>
+                </tr>
+            </table>
+            {{/if}}
+            {{layout handle="supplier_sales_email_order_items" order=$order vendor=$vendor}}
+            {{depend order.getIsNotVirtual()}}
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="address-details">
+                        <h6>Ship to:</h6>
+                        <p><span class="no-link">{{var order.getShippingAddress().format('html')}}</span></p>
+                    </td>
+                    <td class="method-info">
+                        <h6>Shipping method:</h6>
+                        <p>{{var order.shipping_description}}</p>
+                    </td>
+                    {{/depend}}
+                </tr>
+                <tr>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="address-details">
+                        <h6>Sold to:</h6>
+                        <p><span class="no-link">{{var order.getBillingAddress().format('html')}}</span></p>
+                    </td>
+                    <td class="method-info">
+                        <h6>Payment method:</h6>
+                        {{var payment_html}}
+                    </td>
+                    {{/depend}}
+                </tr>
+            </table>
+        </td>
+    </tr>
+    {{layout handle="supplier_sales_email_order_before_end" order=$order vendor=$vendor}}
+</table>

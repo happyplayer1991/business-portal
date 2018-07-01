@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Cminds_Supplierfrontendproductuploaderextend>
+      <version>1.5.1</version>
+    </Cminds_Supplierfrontendproductuploaderextend>
+  </modules>
+ 
+  <frontend>
+    <routers>
+      <supplierfrontendproductuploader>
+        <args>
+          <modules>
+            <Cminds_Supplierfrontendproductuploaderextend before="Cminds_Supplierfrontendproductuploader">Cminds_Supplierfrontendproductuploaderextend</Cminds_Supplierfrontendproductuploaderextend>
+          </modules>
+        </args>
+      </catalog>
+    </supplierfrontendproductuploader>
+  </frontend>
+</config>
+

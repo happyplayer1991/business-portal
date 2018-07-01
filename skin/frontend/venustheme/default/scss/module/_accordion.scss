@@ -1,0 +1,42 @@
+// Tags on product detail page show accordion at destop ( the same mobile, tablet)
+@include bp(min-width, $bp-medium + 1) {
+  	.tabs-accodion {
+     	@include accordion;
+      	@include accordionCollapse;
+    }
+}
+
+@include bp(max-width, $bp-medium) {
+    .footer {
+        .block {
+            .block-title {
+                padding: 0;
+                margin-top: 0;
+                border-top: none;
+                margin-bottom: 0;
+                background: none;
+                > strong {
+                    @include accordionDtBase('right', $c-module-border);
+                    display: block;
+                    width: 100%;
+                    cursor: pointer;
+                    border: 0;
+                    background: none!important;
+                }
+
+                &.active {
+                    > strong {
+                        @include accordionDtBase('down', $c-module-border);
+                        background: none;
+                        border: 0;
+                    }
+                }
+            }
+            .block-content {
+                padding: $box-spacing;
+                margin-top: 0;
+                border-width:0;
+            }
+        }
+    }
+}

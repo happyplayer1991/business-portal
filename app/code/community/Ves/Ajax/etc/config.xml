@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category	Venustheme
+ * @package		Ves_Ajax
+ * @author		Venustheme
+ * @copyright	Copyright 2012-2015 Venustheme
+ */
+-->
+<config>
+	<modules>
+		<Ves_Ajax>
+			<version>1.0.0</version>
+		</Ves_Ajax>
+	</modules>
+	<global>
+		<blocks>
+			<ajax>
+				<class>Ves_Ajax_Block</class>
+			</ajax>>
+		</blocks>
+		<helpers>
+			<ajax>
+				<class>Ves_Ajax_Helper</class>
+			</ajax>
+		</helpers>
+		<models>
+			<ajax>
+				<class>Ves_Ajax_Model</class>
+				<resourceModel>ajax_mysql4</resourceModel>
+			</ajax>
+			<ajax_mysql4>
+				<class>Ves_Ajax_Model_Mysql4</class>
+			</ajax_mysql4>
+		</models>
+		<resources>
+			<ajax_setup>
+				<setup>
+					<module>Ves_Ajax</module>
+					<class>Mage_Catalog_Model_Resource_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</ajax_setup>
+			<ajax_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</ajax_write>
+			<ajax_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</ajax_read>
+		</resources>
+	</global>
+	<admin>
+		<routers>
+			<ajax>
+				<use>admin</use>
+				<args>
+					<module>Ves_Ajax</module>
+					<frontName>ajax</frontName>
+				</args>
+			</ajax>
+		</routers>
+	</admin>
+	<frontend>
+		<routers>
+			<ajax>
+				<use>standard</use>
+				<args>
+					<module>Ves_Ajax</module>
+					<frontName>ajax</frontName>
+				</args>
+			</ajax>
+		</routers>
+		<translate>
+			<modules>
+				<Ves_Ajax>
+					<files>
+						<default>Ves_Ajax.csv</default>
+					</files>
+				</Ves_Ajax>
+			</modules>
+		</translate>
+		<layout>
+			<updates>
+				<ajax>
+					<file>ves_ajax.xml</file>
+				</ajax>
+			</updates>
+		</layout>
+	</frontend>
+</config>

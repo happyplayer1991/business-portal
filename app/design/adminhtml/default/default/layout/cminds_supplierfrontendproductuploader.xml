@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<layout version="1.0.0">
+    
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="setTemplate">
+                <template>supplierfrontendproductuploader/admin/items.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_order_view_items_renderer_default</block>
+                <template>supplierfrontendproductuploader/admin/items/renderer/default.phtml</template>
+            </action>
+
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tabs">
+            <action method="addTab" ifconfig="supplierfrontendproductuploader_products/supplierfrontendproductuploader_catalog_config/allow_bind_attribute">
+                <name>assigned_attribute_sets</name>
+                <block>supplierfrontendproductuploader/adminhtml_customer_edit_tab_attributesets</block>
+            </action>
+        </reference>
+    </adminhtml_customer_edit>
+</layout>

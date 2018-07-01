@@ -1,0 +1,29 @@
+<?php   
+/*------------------------------------------------------------------------
+ # VenusTheme Brand Module 
+ # ------------------------------------------------------------------------
+ # author:    VenusTheme.Com
+ # copyright: Copyright (C) 2012 http://www.venustheme.com. All Rights Reserved.
+ # @license: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ # Websites: http://www.venustheme.com
+ # Technical Support:  http://www.venustheme.com/
+-------------------------------------------------------------------------*/
+?>
+<div class="ves-brand-page">
+	<h1><?php echo $this->__( "Shop by brand: %s",  $this->getBrand()->getTitle() ); ?></h1>
+	<div class="brand-meta vesclear">
+	<?php if( $this->getBrand()->getFile() ) :?>
+	<div class="brand-image">
+		<img src="<?php echo $this->getBrand()->getFileUrl();?>" title="<?php echo $this->getBrand()->getTitle();?>"/>
+	</div>
+	<?php endif; ?>
+	<?php if( $this->getBrand()->getDescription() ) : ?>
+	<div class="brand-description">
+		<?php echo $this->getBrand()->getDescription();?>
+	</div>
+	<?php endif; ?>	
+	</div>
+<div class="brand-product vesclear">
+<?php echo $this->getChildHtml('products') ?>
+</div>
+</div>

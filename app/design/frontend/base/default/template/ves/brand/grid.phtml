@@ -1,0 +1,31 @@
+<?php 
+ /*------------------------------------------------------------------------
+  # VenusTheme Brand Module 
+  # ------------------------------------------------------------------------
+  # author:    VenusTheme.Com
+  # copyright: Copyright (C) 2012 http://www.venustheme.com. All Rights Reserved.
+  # @license: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+  # Websites: http://www.venustheme.com
+  # Technical Support:  http://www.venustheme.com/
+-------------------------------------------------------------------------*/
+?>
+<div class="ves-brandlist-page">
+	<h1><?php echo $this->__( $this->getTitleBrand() );?></h1>
+
+	<div class="brand-wrapper vesclear layout-grid">
+		<ul>
+		<?php $brands = $this->getBrands(); ?>
+		<?php foreach( $brands as $brand ): ?>
+			<li class="brand-item">
+				<a class="brand-logo" href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+					<img src="<?php echo $brand->getIconUrl();?>" alt="<?php echo $brand->getTitle();?>" />
+				</a>
+				<a class="brand-title" href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+					<span><?php echo $brand->getTitle();?></span>
+				</a>
+			</li>
+		<?php endforeach; ?>
+		</ul>
+	</div>
+	<?php echo $this->getChildHtml('brand.list.toolbar'); ?>
+</div>

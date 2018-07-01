@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+  <frontend>
+    <layout>
+      <updates>
+        <mage_mybudge module="Mage_MyBudge">
+            <file>mybudge.xml</file>
+        </mage_mybudge>
+      </updates>
+    </layout>
+    <routers>
+      <mage_mybudge>
+        <use>standard</use>
+        <args>
+          <module>Mage_MyBudge</module>
+          <frontName>mage_mybudge</frontName>
+        </args>
+      </mage_mybudge>
+    </routers>
+  </frontend>
+  <global>
+    <helpers>
+      <mage_mybudge>
+        <class>Mage_MyBudge_Helper</class>
+      </mage_mybudge>
+    </helpers>
+  </global>
+</config>

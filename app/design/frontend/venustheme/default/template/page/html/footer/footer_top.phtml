@@ -1,0 +1,20 @@
+<?php
+$ves = Mage::helper('themesettings');
+$enable_footer_top = $ves->getConfig('footer/enable_footer_top');
+$html = '';
+if(Mage::helper("themesettings")->checkModuleInstalled("Ves_BlockBuilder") && $enable_footer_top) {
+	$blockId = $ves->getConfig('footer/top_layout');
+	$blockBuilder = Mage::getModel("ves_blockbuilder/block")->load($blockId);
+	$processor = Mage::helper('cms')->getPageTemplateProcessor();
+	$html = $processor->filter($blockBuilder->getShortcode());
+}
+$footer_top_html = $this->getChildHtml();
+?>
+<?php if( $enable_footer_top && ($footer_top_html || $html)){ ?>
+<div class="footer-top">
+	<div class="footer-container">
+		<?php echo $html; ?>
+		<?php echo $footer_top_html ?>
+	</div>
+</div>
+<?php } ?>

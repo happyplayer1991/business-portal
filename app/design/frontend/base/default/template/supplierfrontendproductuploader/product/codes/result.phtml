@@ -1,0 +1,53 @@
+<?php
+$items = $this->getItems();
+?>
+<div class="col-md-12">
+    <?php if (count($items)): ?>
+        <div class='table-responsive'>
+            <table class="table table-striped">
+                <thead>
+                <th><?php echo $this->__('Product') ?></th>
+                <th><?php echo $this->__('Product Name') ;?></th>
+                <th><?php echo $this->__('Sku') ;?></th>
+                <th><?php echo $this->__('Price') ?></th>
+                <th><?php echo $this->__('Qty') ?></th>
+                <th><?php echo $this->__('Supplier Product Code') ?></th>
+                <th></th>
+                </thead>
+                <tbody>
+                <?php $_odd = ''; ?>
+                <?php foreach ($items as $item): ?>
+                    <?php $item = Mage::getModel('catalog/product')->load($item->getId()); ?>
+                    <?php $qty = (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($item)->getQty(); ?>
+                    <?php if($item->getParentItemId() == null): ?>
+                        <?php $options = $item->getTypeInstance(true)->getOrderOptions($item);?>
+                        <tr>
+                            <td><a href="<?php echo $item->getProductUrl(); ?>"><img src="<?php echo (string) Mage::helper('catalog/image')->init($item, 'thumbnail')->resize(150); ?>" alt=""/></a></td>
+                            <td><a href="<?php echo $item->getProductUrl(); ?>"><?php echo $this->escapeHtml($item->getName()) ?></a></td>
+                            <td><a href="<?php echo $item->getProductUrl(); ?>"><?php echo $this->escapeHtml($item->getSku()) ?></a></td>
+                            <td><?php echo Mage::helper('core')->currency($item->getPrice(), true, false); ?></td>
+                            <td><?php echo $qty; ?></td>
+                            <td><?php echo $this->escapeHtml($item->getSupplierProductCode()) ?></td>
+                            <td>
+                                <?php if(isset($options['attributes_info'])): ?>
+                                    <dl>
+                                        <?php foreach($options['attributes_info'] AS $attribute): ?>
+                                            <dt><strong><?php echo $attribute['label'] . ':'; ?></strong></dt>
+                                            <dd><?php echo $attribute['value']; ?></dd>
+                                        <?php endforeach; ?>
+                                    </dl>
+                                <?php endif;?>
+                            </td>
+                            <td>
+                                <a href="<?php echo $this->getUrl('supplier/codes/clone', array('product_id' => $item->getId(), 'type' => $item->getTypeId())); ?>"><?php echo $this->__('Use this product') ?></a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <p><?php echo $this->__('No products with these filters') ?></p>
+    <?php endif; ?>
+</div>

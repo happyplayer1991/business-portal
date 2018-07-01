@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <mycustomtab module="adminextend_manage" translate="title">
+            <title>Manage</title>
+            <sort_order>100</sort_order>
+            <children>
+                <manage_customers module="adminextend_manage" translate="title">
+                    <title>Customers</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/customer/index</action>
+                </manage_customers>
+                <manage_suppliers module="adminextend_manage" translate="title">
+                    <title>Suppliers</title>
+                    <sort_order>2</sort_order>
+                    <action>adminhtml/suppliers/index</action>
+                </manage_suppliers>
+                <manage_categories module="adminextend_manage" translate="title">
+                    <title>Categories</title>
+                    <sort_order>3</sort_order>
+                    <action>adminhtml/catalog_category/index</action>
+                </manage_categories>
+                <manage_products module="adminextend_manage" translate="title">
+                    <title>Products</title>
+                    <sort_order>4</sort_order>
+                    <action>adminhtml/catalog_product/index</action>
+                </manage_products>
+                <manage_notifications module="adminextend_manage" translate="title">
+                    <title>Notifications</title>
+                    <sort_order>5</sort_order>
+                    <action>adminhtml/notification/index</action>
+                </manage_notifications>
+                <manage_budges module="adminextend_manage" translate="title">
+                    <title>Budges</title>
+                    <sort_order>6</sort_order>
+                    <children>
+                        <budge translate="title">
+                            <title>Mangage</title>
+                            <action>adminhtml/budge</action>
+                        </budge>
+                        <set translate="title">
+                            <title>Set</title>
+                            <action>adminhtml/set</action>
+                        </set>
+                    </children>
+                </manage_budges>
+            </children>
+        </mycustomtab>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <custom translate="title" module="adminextend_manage">
+                        <title>My Controller</title>
+                        <sort_order>-100</sort_order>
+                        <children>
+                            <manage_customers translate="title">
+                                <title>Customers</title>
+                                <sort_order>1</sort_order>
+                            </manage_customers>
+                            <manage_suppliers translate="title">
+                                <title>Suppliers</title>
+                                <sort_order>2</sort_order>
+                            </manage_suppliers>
+                            <manage_categories translate="title">
+                                <title>Categories</title>
+                                <sort_order>3</sort_order>
+                            </manage_categories>
+                            <manage_products translate="title">
+                                <title>Products</title>
+                                <sort_order>4</sort_order>
+                            </manage_products>
+                            <manage_notifications translate="title">
+                                <title>Notifications</title>
+                                <sort_order>5</sort_order>
+                            </manage_notifications>
+                            <manage_budges translate="title">
+                                <title>Budges</title>
+                                <sort_order>6</sort_order>
+                            </manage_budges>
+                        </children>
+                    </custom>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

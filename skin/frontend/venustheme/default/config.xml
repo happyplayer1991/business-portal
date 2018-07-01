@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<theme>
+	<venustheme>
+		<name>Fashion</name>
+		<version>1.0.0</version>
+		<author>Venustheme</author>
+	</venustheme>
+	<name> Venus Shoppy - Free template</name>
+	<export>
+		<modules>
+			<ves_ajax>
+				<name>Ves_Ajax</name>
+			</ves_ajax>
+			<ves_brand>
+				<name>Ves_Brand</name>
+				<tables>
+					ves_brand/brand
+					ves_brand/brand_store
+				</tables>
+			</ves_brand>
+			<ves_megamenu>
+				<name>Ves_Megamenu</name>
+				<tables>
+					ves_megamenu/megamenu
+					ves_megamenu/megamenu_widget
+					ves_megamenu/megamenu_store
+				</tables>
+			</ves_megamenu>
+			<ves_productlist>
+				<name>Ves_ProductList</name>
+				<tables>
+					productlist/rule
+					productlist/rule_product
+					productlist/rule_store
+					productlist/rule_customer
+				</tables>
+			</ves_productlist>
+			<ves_themesettings>
+				<name>Ves_Themesettings</name>
+			</ves_themesettings>
+		</modules>
+	</export>
+</theme>

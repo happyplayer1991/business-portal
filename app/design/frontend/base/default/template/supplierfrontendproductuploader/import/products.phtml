@@ -1,0 +1,184 @@
+
+<div class="container main-container vendor-container">
+
+    <h1 class="text-center"><?php echo $this->__('Upload Products'); ?></h1>
+    <div class="row">
+        <div class="col-md-12 form-container">
+            <form name="import_csv_products" id="import_csv_products" action="<?php echo Mage::getUrl('*/*/*') ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="<?php echo time(); ?>" name="salt"/>
+                <input name="attributeSetId" id="attributeSetId" value="<?php echo $this->getSelectedAttributeSetId(); ?>" type="hidden"/>
+                <div class="col-md-12">
+                    <h4><?php echo $this->__('Select Attributes Set');?></h4>
+                    <select id="attributesetchoose" name="attributesetchoose" onchange="hiddenAttributeValue()">
+                        <option selected value="0"></option>
+                        <?php $entityType = Mage::getModel('catalog/product')->getResource()->getTypeId();
+                        $collection = Mage::getResourceModel('eav/entity_attribute_set_collection')->setEntityTypeFilter($entityType)->addFieldToFilter('available_for_supplier', 1);
+                        foreach($collection AS $attributeSet): ?>
+                            <option <?php if($attributeSet->getAttributeSetId() == $this->getSelectedAttributeSetId()) { echo 'selected="selected"';}?>  value="<?php echo $attributeSet->getAttributeSetId();?>">
+                                <?php echo $attributeSet->getAttributeSetName(); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <?php if($this->isUploadDone()){ ?>
+                <div id="choice" style="display: block;">
+                    <?php } else { ?>
+                    <div id="choice" style="display: none;">
+                        <?php } ?>
+                        <div>
+                            <div class="col-md-12">
+                                <div style="display:none;">
+                                    <ul>
+                                        <li><?php echo $this->__('1. Upload images needed for products')?></li>
+                                        <li><?php echo $this->__('2. Upload CSV. Store admin provides various options for the product.')?>
+                                            <a class="download_csv" id="download" onclick="download_csv()" href="<?php echo Mage::getUrl('supplier/import/downloadProductCsv') ?>"><?php echo $this->__('Download');?> </a><?php echo $this->__('CSV schema.')?>
+                                            <?php if(Mage::getStoreConfig('supplierfrontendproductuploader_catalog/csv_import/product_limit')) : ?>
+                                                <?php echo $this->__('You can upload %d products in a row.', (Mage::getStoreConfig('supplierfrontendproductuploader_catalog/csv_import/product_limit'))); ?>
+                                            <?php endif; ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="showInstructions"><?php echo $this->__('Show instructions'); ?></span>
+                                <?php if(ini_get('allow_url_fopen') == 0) : ?>
+                                    <div class="alert alert-danger" role="alert"><?php echo $this->__('Your server has disabled option <strong>allow_url_fopen</strong>, it can be problem to download assigned images'); ?></div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div id="report">
+                            <?php if($this->isCsvExists()) : ?>
+                            <div class="row">
+                                <div class="container-fluid">
+                                    <div class="success">
+                                        <p><?php echo $this->__('Success count : %d.', count($this->getAmountOfUploadsSucceeded())); ?></p>
+                                        <?php if(count($this->getAmountOfUploadsSucceeded()) > 0): ?>
+                                            <p><a href="javascript:void()" class="expand-report"><?php echo $this->__('Click here for full report'); ?></a></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row collapse-group" style="display: none;">
+                                <div class="container-fluid">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th><?php echo $this->__('Product ID'); ?></th>
+                                            <th><?php echo $this->__('Product Name'); ?></th>
+                                            <th><?php echo $this->__('SKU'); ?></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($this->getAmountOfUploadsSucceeded() AS $data) : ?>
+                                            <tr>
+                                                <td><?php echo $this->escapeHtml($data['product_id']); ?></td>
+                                                <td><?php echo $this->escapeHtml($data['product_name']); ?></td>
+                                                <td><?php echo $this->escapeHtml($data['sku']); ?></td>
+                                            </tr>
+                                        <?php endforeach;?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="container-fluid">
+                                    <div class="error">
+                                        <p><?php echo $this->__('Failed count : %d.', count($this->getFailed())); ?></p>
+                                        <?php if(count($this->getFailed()) > 0): ?>
+                                            <p><a href="javascript:void()" class="expand-report"><?php echo $this->__('Click here for full report'); ?></a></p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row collapse-group" style="display: none;">
+                                <div class="container-fluid">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th><?php echo $this->__('Line #'); ?></th>
+                                            <th><?php echo $this->__('Field'); ?></th>
+                                            <th><?php echo $this->__('Message'); ?></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($this->getFailed() AS $data) : ?>
+                                            <tr>
+                                                <td><?php echo $this->escapeHtml($data['line']); ?></td>
+                                                <td><?php echo $this->escapeHtml($data['attribute_code']); ?></td>
+                                                <td><?php echo $this->escapeHtml($data['message']); ?></td>
+                                            </tr>
+                                        <?php endforeach;?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                        <div class="col-md-12 form-group" style="margin-top: 15px;">
+                            <label for="upload-images" class="required control-label">
+                                <?php echo $this->__('Product Images'); ?>
+                            </label>
+                            <input type="file" id="upload-images" class="multi" name="files[]" maxlength="<?php echo $this->getMaxImagesCount(); ?>" multiple>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="file" class="control-label">
+                                <?php echo $this->__('CSV File'); ?>
+                            </label>
+                            <input type="file" name="file">
+                        </div>
+                        <div class="col-md-2 col-sm-4">
+                            <input type="submit" name="submit" class="btn btn-primary" id="submit" value="<?php echo $this->__('Start Import') ?>" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.expand-report').on('click', function(e) {
+            e.preventDefault();
+            var $this = jQuery(this);
+            var $collapse = $this.parent().parent().parent().parent().next();
+            $collapse.slideToggle();
+        });
+        jQuery('.showInstructions').on('click', function() {
+            jQuery(this).prev().slideToggle();
+        });
+
+        jQuery('#upload-images').MultiFile();
+        jQuery('#attributesetchoose').change(function(){
+            if (jQuery(this).val()=="0") {
+                jQuery('#choice').hide();
+            }
+            else {
+                jQuery('#choice').show();
+            }
+            });
+    });
+
+    function download_csv(e) {
+        var element = document.getElementById('download').getAttribute('href');
+        var url;
+        var attributesetchoose = document.getElementById('attributesetchoose');
+        event.preventDefault();
+        if (attributesetchoose.value!==0) {
+            url = element;
+            url = url + 'attributeSetId/' + attributesetchoose.value;
+            window.location = url;
+        } else {
+            alert("Choose Attribute Set");
+        }
+    }
+    function hiddenAttributeValue(event) {
+        var attributesetchoose = document.getElementById('attributesetchoose');
+        var hidden = document.getElementById('attributeSetId');
+
+        if (attributesetchoose.value!==0) {
+            hidden.value = attributesetchoose.value;
+        } else {
+            alert("Error");
+        }
+    }
+</script>

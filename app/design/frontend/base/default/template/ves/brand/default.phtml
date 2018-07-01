@@ -1,0 +1,57 @@
+<?php 
+ /*------------------------------------------------------------------------
+  # VenusTheme Brand Module 
+  # ------------------------------------------------------------------------
+  # author:    VenusTheme.Com
+  # copyright: Copyright (C) 2012 http://www.venustheme.com. All Rights Reserved.
+  # @license: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+  # Websites: http://www.venustheme.com
+  # Technical Support:  http://www.venustheme.com/
+-------------------------------------------------------------------------*/
+
+$span_large = floor(12/$grid_col_ls);
+$span_medium = floor(12/$grid_col_ms);
+$span_small = floor(12/$grid_col_ss);
+$span_mini = floor(12/$grid_col_mss);
+
+
+$layout_mode = $this->getLayoutMode();
+if("list" == $layout_mode ) {
+	$span_large = $span_medium = $span_small = $span_mini = 12;
+}
+?>
+<div class="ves-brandlist-page block">
+	<div class="block-title">
+		<h1><?php echo $this->__( $this->getTitleBrand() );?></h1>
+	</div>
+	<div class="block-content">
+		<?php
+		$i =0;$j=0;
+		$brands = $this->getBrands(); 
+		$_collectionSize = count($brands);
+		$_columnCount = !empty($grid_col_ls)?$grid_col_ls:$_collectionSize;
+		foreach( $brands as $brand ): ?>
+
+		<?php $modid = rand().time(); ?>
+		<?php if ($i++%$_columnCount==0): ?>
+		<div class="row brands-row">
+		<?php endif ?>
+			<div class="col-lg-<?php echo $span_large; ?> col-md-<?php echo $span_medium; ?> col-sm-<?php echo $span_small; ?> col-xs-<?php echo $span_mini;?> _item<?php if(($i-1)%$_columnCount==0): ?>first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> brand-col <?php if($layout_mode !='list'){ echo "col-fullwidth";} ?>">
+			
+				<div class="brand-item">
+				<a class="brand-logo" href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+					<img src="<?php echo $brand->getIconUrl();?>" alt="<?php echo $brand->getTitle();?>" />
+				</a>
+				<a class="brand-title" href="<?php echo $brand->getLink();?>" title="<?php echo $brand->getTitle();?>">
+					<span><?php echo $brand->getTitle();?></span>
+				</a>
+				</div>
+
+			</div>
+		<?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+		</div>
+		<?php endif ?>		
+		<?php endforeach; ?>
+	</div>
+	<?php echo $this->getChildHtml('brand.list.toolbar'); ?>
+</div>

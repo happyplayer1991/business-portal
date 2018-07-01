@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+	<default>
+		<reference name="head">
+			<action method="addCss" ifconfig="themesettings/general/enable_paneltool"><stylesheet>ves_themesettings/paneltool.css</stylesheet></action>
+			<block type="core/template" name="themesettings.design" template="ves/themesettings/head_theme_style.phtml"/>
+		</reference>
+		<reference name="before_body_end">
+			<block type="core/template" name="themesettings.design" template="ves/themesettings/themesettings_scripts.phtml"/>
+		</reference>
+		<reference name="footer">
+			<block type="themesettings/paneltool" ifconfig="themesettings/general/enable_paneltool" name="ves.paneltool" as="ves_paneltool" template="ves/themesettings/paneltool/paneltool.phtml"/>
+		</reference>
+	</default>
+</layout>

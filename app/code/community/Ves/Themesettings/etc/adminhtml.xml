@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Magento Theme Settings extension
+ *
+ * @category   Ves
+ * @package    Ves_Themesettings
+ * @author     venustheme.com
+ */
+-->
+<config>
+    <menu>
+        <vesextensions module="themesettings">
+            <title>VenusTheme</title>
+            <sort_order>51</sort_order>
+            <children>
+                <themesettings translate="title" module="themesettings">
+                    <title>Ves Theme Settings</title>
+                    <children>
+                        <themesettings module="themesettings">
+                            <title>Theme Settings</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/system_config/edit/section/themesettings</action>
+                        </themesettings>
+                        <themesettings_design module="themesettings">
+                            <title>Theme Design</title>
+                            <sort_order>5</sort_order>
+                            <action>adminhtml/system_config/edit/section/themesettings_design</action>
+                        </themesettings_design>
+                        <themesettings_layout module="themesettings">
+                            <title>Theme Layout</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/system_config/edit/section/themesettings_layout</action>
+                        </themesettings_layout>
+                        <themesettings_import module="themesettings">
+                            <title>Import</title>
+                            <sort_order>15</sort_order>
+                            <action>themesettings/adminhtml_install/import</action>
+                        </themesettings_import>
+                        <themesettings_export module="themesettings">
+                            <title>Export</title>
+                            <sort_order>20</sort_order>
+                            <action>themesettings/adminhtml_install/export</action>
+                        </themesettings_export>
+                    </children>
+                </themesettings>
+            </children>
+        </vesextensions>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <vesextensions module="themesettings">
+                        <title>VenusTheme</title>
+                        <sort_order>51</sort_order>
+                        <children>
+                            <themesettings translate="title" module="themesettings">
+                                <title>Ves Theme Settings</title>
+                                <children>
+                                    <themesettings module="themesettings">
+                                        <title>Theme Settings</title>
+                                        <sort_order>1</sort_order>
+                                        <action>adminhtml/system_config/edit/section/themesettings</action>
+                                    </themesettings>
+                                    <themesettings_design module="themesettings">
+                                        <title>Theme Design</title>
+                                        <sort_order>5</sort_order>
+                                        <action>adminhtml/system_config/edit/section/themesettings_design</action>
+                                    </themesettings_design>
+                                    <themesettings_layout module="themesettings">
+                                        <title>Theme Layout</title>
+                                        <sort_order>10</sort_order>
+                                        <action>adminhtml/system_config/edit/section/themesettings_layout</action>
+                                    </themesettings_layout>
+                                </children>
+                            </themesettings>
+                        </children>
+                    </vesextensions>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <themesettings module="themesettings">
+                                        <title>Theme Settings</title>
+                                        <sort_order>1</sort_order>
+                                        <action>adminhtml/system_config/edit/section/themesettings</action>
+                                    </themesettings>
+                                    <themesettings_design module="themesettings">
+                                        <title>Theme Design</title>
+                                        <sort_order>5</sort_order>
+                                        <action>adminhtml/system_config/edit/section/themesettings_design</action>
+                                    </themesettings_design>
+                                    <themesettings_layout module="themesettings">
+                                        <title>Theme Layout</title>
+                                        <sort_order>10</sort_order>
+                                        <action>adminhtml/system_config/edit/section/themesettings_layout</action>
+                                    </themesettings_layout>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

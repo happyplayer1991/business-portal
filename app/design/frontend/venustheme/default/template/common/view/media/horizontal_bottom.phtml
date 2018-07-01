@@ -1,0 +1,101 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+?>
+<div class="horizontal-bottom row no-margin">
+    <div class="product-image product-image-zoom col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+        <?php if($enable_sale_icon || $enable_new_icon){ ?>
+        <div class="icon">
+          <?php  //Sale Icon ?>
+          <?php if($enable_sale_icon) { ?>
+          <?php // Get the Special Price ?>
+          <?php $specialprice = $_product->getSpecialPrice();
+            // Get the Special Price FROM date
+          $specialPriceFromDate = $_product->getSpecialFromDate();
+            // Get the Special Price TO date
+          $specialPriceToDate = $_product->getSpecialToDate();
+            // Get Current date
+          $today =  time(); ?>
+          <?php if ($specialprice) { ?>
+          <?php if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) || $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)) {
+            ?>
+            <span class="onsale"><span><?php echo $this->__("Sale");?></span></span>
+            <?php } ?>
+            <?php } ?>
+            <?php } ?>
+            <?php // New icon ?>
+            <?php if($enable_new_icon) { ?>
+            <?php $is_new = $ves->checkProductIsNew( $_product ); ?>
+            <?php if($is_new) { ?>
+            <span class="new-icon"><span><?php echo $this->__("New");?></span></span>
+            <?php } ?>
+            <?php } ?>
+        </div>
+        <?php } ?>
+        <div class="product-image-gallery">
+            <a href="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" id="image-main"  class="gallery-image visible" data-zoom-image="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>">
+                <img itemprop="image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image'); ?>" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>"/>
+            </a>
+            <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+            <?php if ($this->isGalleryImageVisible($_image)): ?>
+                <a href="<?php echo $this->getGalleryImageUrl($_image); ?>" id="image-<?php echo $i; ?>" class="gallery-image"  data-fancybox-group="gallery" data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>">
+                    <img itemprop="image" src="<?php echo $this->getGalleryImageUrl($_image); ?>" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>"/>
+                </a>
+            <?php endif; ?>
+            <?php $i++; endforeach; ?>
+        </div>
+    </div>
+
+    <?php if (count($this->getGalleryImages()) > 0): ?>
+        <div class="more-views col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+            <a href="#" class="prev"><i class="fa fa-angle-left"></i></a>
+            <div class="carousel">
+                <!-- <h2><?php //echo $this->__('More Views') ?></h2> -->
+                <ul id="product_image_gallery_carousel_<?php echo $id; ?>">
+                    <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+                    <?php if ($this->isGalleryImageVisible($_image)): ?>
+                        <li class="item product-image-thumbs">
+                            <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
+                                <img itemprop="image" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($thumb_width, $thumb_height); ?>"
+                                width="<?php echo $thumb_width; ?>" height="<?php echo $thumb_height;?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                    <?php $i++; endforeach; ?>
+                </ul>
+            </div>
+            <a href="#" class="next"><i class="fa fa-angle-right"></i></a>
+            <div class="clear"></div>
+        </div>
+    <?php endif; ?>
+</div>

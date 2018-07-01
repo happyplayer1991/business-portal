@@ -1,0 +1,122 @@
+<?php
+/**
+ * Add supplier block
+ */
+?>
+
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+    $productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+    $productUrl = $_helper->productAttribute($_product, $_product->getProductUrl(), 'product_url');
+    $productImage = $_product->getImageUrl();
+
+    $supplier_id = $_product->getCreatorId(); 
+    $supplier = Mage::getModel('customer/customer')->load($supplier_id);
+
+    /**
+     * first name, last name, email
+     */
+    $firstName = $supplier->getFirstname();
+    $lastName = $supplier->getLastname();
+    $email = $supplier->getEmail();
+    //getting default billing address
+    $supplierBillingAddressId = $supplier->getDefaultBilling();
+    $defaultBillingAddress = Mage::getModel('customer/address')->load($supplierBillingAddressId);
+    //$defaultBillingAddress = $defaultBillingAddress->getData(); //return as array
+
+    /*
+    //getting default shipping address
+    $supplierShippingAddressId = $supplier->getDefaultShipping();
+    $defaultShippingAddress = Mage::getModel('customer/address')->load($supplierShippingAddressId); //address as object
+    $defaultShippingAddress = $defaultShippingAddress->getData(); //return as array
+    */
+    
+    $address = $defaultBillingAddress;
+
+    $company = $address->getCompany();
+    $country = $address->getCountry();
+    $city = $address->getCity();
+    $streets = $address->getStreet();
+    $telephone = $address->getTelephone();
+
+    $mapdata = array();
+    $streetflag = false;
+    $warning  = "";
+    foreach($streets as $street) {
+        if(!empty($street)) {
+            $street = $street." ".$city." ".$country; 
+            $address = str_replace(" ", "+", $street);
+            $url = "http://maps.google.com/maps/api/geocode/json?address=$address&sensor=false";
+
+            $json = file_get_contents($url);
+            $json = json_decode($json);
+
+            if(!empty($json->{'results'})) {
+                $Latitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+                $Longitude = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+
+                $array = array(
+                    'address' => $street,
+                    'latitude' => $Latitude,
+                    'longitude' => $Longitude
+                );
+                array_push($mapdata, $array);
+                $streetflag = true;
+            } else {
+                $warning = "Supplier has Wrong Address!!!";
+            }
+        }
+    }
+    $media = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+?>
+<div class="supplierinfo">
+    <?php foreach($mapdata as $data) { ?>
+        <input type="hidden" name="supplieraddress[]" data-address="<?php echo $data['address'] ?>" data-latitude="<?php echo $data['latitude'] ?>" data-longitude="<?php echo $data['longitude'] ?>">
+    <?php } ?>
+    <div id="info">
+        <div style="width: 40%">
+            <h2><i class="fa fa-book"></i></h2>
+            
+            <?php if(!empty($firstName) || !empty($lastName)): ?>
+                <p>Name: <?php echo $firstName." ".$lastName ?> </p>
+            <?php endif; ?>
+            <?php if(!empty($email)): ?>
+                <p>Email: <?php echo $email ?> </p>
+            <?php endif; ?>
+            <?php if(!empty($company)): ?>
+                <p>Company: <?php echo $company ?> </p>
+            <?php endif; ?>
+
+            <?php if(!empty($country)): ?>
+                <p>Country: <?php echo $country ?> </p>
+            <?php endif; ?>
+
+            <?php if(!empty($city)): ?>
+                <p>City: <?php echo $city ?> </p>
+            <?php endif; ?>
+
+            <?php if($streetflag): ?>
+                <p>Street: 
+                    <?php 
+                        foreach($streets as $street) {
+                            echo $street."<br/>"; 
+                        }
+                    ?> 
+                </p>
+            <?php endif; ?>
+            <?php if(!empty($telephone)): ?>
+            <p>Telephone : <?php echo $telephone ?> </p>
+            <?php endif; ?>
+        </div>
+
+        <div style="width: 60%">
+            <?php if(!empty($warning)):?>
+                <p class="wrongaddress"><?php echo $warning ?></p>
+            <?php endif;?>
+            <?php if(count($mapdata)>0) :?>
+                <div id="map"></div>
+            <?php endif;?>
+        </div>
+    </div>
+</div>

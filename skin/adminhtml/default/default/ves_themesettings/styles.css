@@ -1,0 +1,242 @@
+.entry-edit fieldset.collapseable{
+	position: relative;
+}
+
+.fieldset-hidden{
+	visibility: visible;
+	margin-top: -10px;
+	float: left;
+}
+.product-editor{
+	float: left;
+	padding: 0;
+	width: 280px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	margin-top: 20px;
+	position: absolute;
+	display: none;
+	top: 0;
+}
+
+.product-editor a{
+	text-decoration: none;
+}
+
+.product-editor .product-image{
+	width: 100%;
+	height: 240px;
+	background: #ccc;
+}
+
+.product-editor .price-box .special-price .price-label {
+	display: none;
+}
+
+.product-editor .product-image i {
+	width: 100px;
+	font-size: 100px;
+	color: #838383;
+	display: block;
+	margin: 0 auto;
+	padding-top: 51px;
+}
+
+.product-editor .onsale{
+	background-color: #CC2500;
+	float: right;
+	padding: .6em 13px;
+	z-index: 9;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.2em;
+	text-transform: lowercase;
+	margin: 0;
+}
+
+.product-editor .new-icon{
+	background-color: #648ec7;
+	float: right;
+	padding: .6em 13px;
+	z-index: 9;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.2em;
+	text-transform: lowercase;
+	margin: 0;
+}
+
+.product-editor .quickview {
+	-webkit-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+	padding: 0 3px 3px;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	text-align: center;
+	width: 100%;
+
+	background: #fe5252;
+	display: inline-block;
+}
+
+.product-editor .product-block{
+	position: relative;
+}
+
+.product-editor .product-info .product-name a {
+	color: #333333;
+	font-weight: 400;
+}
+
+.product-name:hover{
+	cursor: pointer;
+}
+
+.product-editor .product-block {
+	text-align: center;
+}
+
+.product-editor .price-box .special-price {
+	color: #fe5252;
+	padding-left: 1em;
+}
+
+.product-editor .product-info .actions {
+	min-height: auto;
+	padding-top: 0;
+	margin-top: 0;
+	top: -70px;
+	bottom: auto;
+	z-index: 10;
+}
+
+.product-editor .btn-cart, .product-editor .quickview
+{
+	background: #fe5252;
+	display: inline-block;
+	padding: 7px 15px;
+	border: 0;
+	color: #FFFFFF;
+	font-size: 13px;
+	font-weight: normal;
+	font-family: "Roboto", sans-serif;
+	line-height: 19px;
+	text-align: center;
+	text-transform: uppercase;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.ratings .rating-box {
+	width: 65px;
+	height: 13px;
+	background-repeat: repeat-x;
+	background-position: 0 -615px;
+	overflow: hidden;
+}
+
+.product-block {
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.product-block .image .product-image .hover-image {
+	left: 0;
+	-webkit-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+}
+
+.rtl .product-block .image .product-image .hover-image {
+	right: 0;
+	left: auto;
+}
+
+.product-block .image .quickview {
+	-webkit-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+	padding: 0 3px 3px;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	text-align: center;
+	width: 100%;
+}
+
+.product-block .image .icon {
+	right: 10px;
+}
+
+.rtl .product-block .image .icon {
+	left: 10px;
+	right: auto;
+}
+
+.product-block .product-info {
+	padding-bottom: 0 !important;
+	min-height: auto !important;
+}
+
+.product-block .product-info .product-name {
+	margin-top: 20px;
+}
+
+.product-block .product-info .product-name a {
+	color: #333333;
+	font-weight: 400;
+}
+
+.product-block .product-info .actions {
+	min-height: auto;
+	padding-top: 0;
+	margin-top: 0;
+	top: -70px;
+	bottom: auto;
+	z-index: 10;
+}
+
+.product-block .product-info .actions .add-to-links {
+	margin: 0;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+.product-block .product-info .actions .add-to-links li {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+
+.product-block .product-info .actions .add-to-links li a {
+	background: #DDDDDD !important;
+	color: #636363 !important;
+}
+
+.product-block .product-info .actions .add-to-links li a:hover, .product-block .product-info .actions .add-to-links li a:active, .product-block .product-info .actions .add-to-links li a:focus {
+	background: #fe3939 !important;
+	color: #fff !important;
+}
+
+.product-block .product-info .actions .add-to-links li a span {
+	display: none;
+}
+
+.products-grid .product-block {
+	text-align: center;
+}
+
+
+.products-grid .product-block .rating-links {
+	display: none;
+}

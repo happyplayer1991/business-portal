@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Magento Whatsappshare extension
+ *
+ * @category   Magecomp
+ * @package    Magecomp_Whatsappshare
+ * @author     Magecomp
+ */
+-->
+<config>
+    <modules>
+        <Magecomp_Whatsappshare>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magecomp_Whatsappshare>
+    </modules>
+</config> 

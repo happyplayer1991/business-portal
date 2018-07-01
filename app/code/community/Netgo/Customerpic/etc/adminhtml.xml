@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!-- 
+/***************************************
+ *** Customer Photo Crop Extension ***
+ ***************************************
+ *
+ * @copyright   Copyright (c) 2015
+ * @company     NetAttingo Technologies
+ * @package     Netgo_Customerpic
+ * @author 		Vipin
+ * @dev			77vips@gmail.com
+ *
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <netgo_customerpic translate="title" module="netgo_customerpic">
+                                        <title>Customerpic</title>
+                                    </netgo_customerpic>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <customer>
+                        <children>
+                            <netgo_customerpic translate="title" module="netgo_customerpic">
+                                <title>Customerpic</title>
+                                <children>
+                                    <customerpic translate="title" module="netgo_customerpic">
+                                        <title>Customerpic</title>
+                                        <sort_order>0</sort_order>
+                                    </customerpic>
+                                </children>
+                            </netgo_customerpic>                        </children>
+                    </customer>
+
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <customer>
+            <children>
+                <netgo_customerpic translate="title" module="netgo_customerpic">
+                    <title>Customerpic</title>
+                    <sort_order>55</sort_order>
+                    <children>
+                        <customerpic translate="title" module="netgo_customerpic">
+                            <title>Customerpic</title>
+                            <action>adminhtml/customerpic_customerpic</action>
+                            <sort_order>0</sort_order>
+                        </customerpic>
+                    </children>
+                </netgo_customerpic>            </children>
+        </customer>
+
+    </menu>
+</config>

@@ -1,0 +1,195 @@
+<?php /** @var Cminds_Supplierfrontendproductuploader_Helper_Data $helper */ ?>
+<?php $helper = Mage::helper('supplierfrontendproductuploader'); ?>
+<?php $customAttributes = $helper->getRegistrationAttributes(); ?>
+<div class="container vendor-container">
+    <div class="col-main">
+        <ul class="messages">
+            <?php $messages = Mage::getSingleton('customer/session')->getMessages(true); ?>
+            <?php foreach ($messages->getItems('error') AS $msg): ?>
+                <li class="error-msg">
+                    <ul>
+                        <li><span><?php echo $msg->getCode(); ?></span></li>
+                    </ul>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <div class="page-title">
+            <h1><?php echo $this->__("Register a Supplier"); ?></h1>
+        </div>
+        <form action="<?php echo Mage::getUrl('supplier/register/createpost') ?>" method="post"
+              class="form-horizontal scaffold-form" id="registerForm" accept-charset="utf-8">
+            <div class="form-list">
+                <div class="field">
+                    <label for="firstname" class="control-label required">
+                        <?php echo $this->__('First Name'); ?><em>*</em>
+                    </label>
+                    <div class="input-box">
+                        <input name="group_id" type="hidden"
+                               value="<?php echo Mage::getStoreConfig('supplierfrontendproductuploader_catalog/login/register_customer_group') ?>"
+                               id="group_id" class="input-text required-entry">
+                        <input name="firstname" type="text" value="" id="firstname" class="input-text required-entry">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="lastname" class="control-label required">
+                        <?php echo $this->__('Last Name'); ?><em class="text-error">*</em>
+                    </label>
+                    <div class="input-box"><input name="lastname" type="text" value="" id="lastname"
+                                                  class="input-text required-entry">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="email" class="control-label required">
+                        <?php echo $this->__('Email Address'); ?><em class="text-error">*</em>
+                    </label>
+                    <div class="input-box"><input name="email" type="text" value="" id="email"
+                                                  class="input-text validate-email"></div>
+                </div>
+                <?php foreach ($customAttributes as $attributeCode) : ?>
+                    <?php if (!$attributeCode) continue; ?>
+                    <?php $attribute = Mage::getModel('customer/customer')->getResource()->getAttribute($attributeCode); ?>
+                    <?php if (!$attribute) : ?>
+                        <?php continue; ?>
+                    <?php endif; ?>
+                    <?php $attribute = $attribute->getFrontend()->getAttribute(); ?>
+                    <?php if ($attribute->getBackendType() !== 'text') :?>
+                        <?php continue; ?>
+                    <?php endif; ?>
+                    <label for="<?php echo $this->escapeHtml($attributeCode); ?>" class="control-label required">
+                        <?php echo $attribute->getFrontendLabel(); ?><em class="text-error">*</em>
+                    </label>
+                    <?php if ($attribute->getFrontendInput() === 'textarea') : ?>
+                        <div class="input-box">
+                            <textarea cols=10 name="<?php echo $this->escapeHtml($attributeCode); ?>" id="<?php echo $this->escapeHtml($attributeCode); ?>" class="input-text required-entry"></textarea>
+                        </div>
+                    <?php else: ?>
+                        <div class="input-box">
+                            <input name="<?php echo $this->escapeHtml($attributeCode); ?>" type="text" id="<?php echo $this->escapeHtml($attributeCode); ?>" class="input-text required-entry">
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <div class="field">
+                    <label for="city" class="control-label required">
+                        <?php echo $this->__('Password'); ?><em class="text-error">*</em>
+                    </label>
+                    <div class="input-box"><input name="password" type="password" value="password" id="password"
+                                                  class="input-text required-entry validate-password"></div>
+                </div>
+
+                <div class="field">
+                    <label for="country" class="control-label required">
+                        <?php echo $this->__('Retype Password'); ?><em class="text-error">*</em>
+                    </label>
+                    <div class="input-box"><input name="confirmation" type="password" value="" id="confirmation"
+                                                  class="input-text required-entry required-entry validate-cpassword">
+                    </div>
+                </div>
+                <?php if ($helper->forceTermsToRegister()) : ?>
+                    <div class="field">
+                        <div class="input-box">
+                            <input name="terms" type="checkbox" id="terms"
+                                   class="input-checkbox required-entry">
+                        </div>
+                        <label for="terms" class="control-label required">
+                            <?php echo $this->__('I agree to the <a href="%s" target="_blank">terms and conditions</a> of service', $helper->getTermsPageUrl()); ?>
+                            <em class="text-error">*</em>
+                        </label>
+                    </div>
+                <?php endif; ?>
+
+               <div class="field">
+                    <?php
+                        $attribute = Mage::getModel('eav/config')->getAttribute('customer','categories');
+                    ?>
+                    <label for="categories" class="control-label">
+                        <?php echo $this->__('Category'); ?>
+                    </label>
+                    <div class="input-box">
+                        <select class="select2_categories" name="categories[]" multiple>
+                            <?php
+                                $categories = $attribute->getSource()->getAllCategories();
+                                foreach($categories as $key => $category) :?>
+                                    <optgroup label="<?php echo $category[0]['name'] ?>">
+                                        <?php $category = array_slice($category, 1) ?>
+                                        <?php foreach($category as $key_ => $sub_category) { ?>
+                                            <option value="<?php echo $sub_category['id'] ?>"><?php echo $sub_category['name'] ?></option>
+                                        <?php } ?>
+                                    </optgroup>
+                            <?php endforeach; ?>                            
+                        </select>
+                    </div>
+                    <?php 
+                        $categories_array = $attribute->getSource()->getCategoriesArray();
+                        foreach($categories_array as $category):
+                    ?>
+                        <input type="hidden" name="allcategories[]" class="allcategories" value="<?php echo $category ?>">
+                    <?php endforeach;?>
+                    <!-- select2 tag : add new category -->
+                    <input type="hidden" name="addcategories" class="addcategories" value="">
+                </div>
+                
+                <div class="field">
+                    <div class="check-all">
+                        <label>
+                            <input type="checkbox" name="check-all-categories" class="check-all-categories" > <span class="label-text">Check All</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions buttons-set">
+                    <button type="submit"
+                            class="button btn btn-large btn-primary"><span><span><?php echo $this->__('Register'); ?></span></span></button>
+                    <p class="required"><?php echo $this->__('* Required Fields'); ?></p>
+                </div>
+            </div>
+        </form>
+    </div> <!-- .span8 -->
+</div>
+
+<!-- remodal modal -->
+<div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <!-- <h1 id="suggest_modal1Title" style="font-weight: bold; font-size: 20px">Suggest Category</h1> -->
+    <h1>Suggest Category</h1>
+    <!-- <p class="addcategorytext">Please <span class="addcategorytext">input</span> simple word and type <span class="addcategorytext">enter</span> to suggest new category</p> -->
+    <!-- <p>*please input new category name of which you want to suggest and press enter</p> -->
+    <input type="hidden" class="select2_addcategory" value="" style="width: 300px;">
+    <!-- <div class="a">
+        <input type="text" class="addcategory" style="width: 300px; margin: 10px auto 5px;">
+        <button type="button" class="btn btn-primary">Link</button>
+    </div> -->
+  </div>
+  <br>
+  <button data-remodal-action="confirm" class="hello remodal-confirm">Suggest</button>
+  <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+</div>
+
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/select2/select2.css'?>" />
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/base/default/css/custom.css'?>" />
+
+<!-- remodal css -->
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/remodal/remodal.css'?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/remodal/remodal-default-theme.css'?>" />
+
+<!-- sweetalert css -->
+<link rel="stylesheet" type="text/css" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/sweetalert2/sweetalert2-6.4.1.css'?>" />
+
+
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/select2/select2.min.js'?>" type="text/javascript"></script>
+
+<!-- remodal js -->
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/remodal/remodal.js'?>" type="text/javascript"></script>
+
+<!-- sweetalert js -->
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'js/sweetalert2/sweetalert2-6.4.1.js'?>" type="text/javascript"></script>
+
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN).'frontend/base/default/js/registeruser.js'?>" type="text/javascript"></script>
+
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('registerForm');
+    //]]>
+</script>

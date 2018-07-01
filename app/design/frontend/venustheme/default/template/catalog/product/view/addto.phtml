@@ -1,0 +1,90 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+$_product = $this->getProduct();
+$ves = $this->helper('themesettings');
+$show_addtolinks = $ves->getConfig('product_page/show_addtolinks');
+$_wishlistSubmitUrl = $this->helper('wishlist')->getAddUrl($_product);
+?>
+
+<?php
+// Wishlist Design
+$wishlist_format = $ves->getCfgDesign('icons/wishlist_format');
+$wishlist_text = $ves->getCfgDesign('icons/wishlist_text');
+$wishlist_class = $ves->getCfgDesign('icons/wishlist_class');
+?>
+<?php
+$wishlistText = '<span>'.$wishlist_text.'</span>';
+$wishlistIcon = '&nbsp;<i class="fa '.$wishlist_class.'"></i>&nbsp;';
+?>
+<?php $wishlistHtml = ''; ?>
+<?php if((!$wishlist_format || $wishlist_format == 'text') && $wishlist_text){ // Only Text ?>
+<?php $wishlistHtml = $wishlistText; ?>
+<?php }elseif($wishlist_format == 'icon'){ // Icon, Text ?>
+<?php $wishlistHtml = $wishlistIcon; ?>
+<?php }elseif($wishlist_format == 'icon-text'){ // Icon, Text ?>
+<?php $wishlistHtml = $wishlistIcon.$wishlistText; ?>
+<?php }elseif($wishlist_format == 'text-icon'){ // Text, Icon ?>
+<?php $wishlistHtml = $wishlistText.$wishlistIcon; ?>
+<?php } ?>
+
+
+<?php
+// Compare Design
+$compare_format = $ves->getCfgDesign('icons/compare_format');
+$compare_text = $ves->getCfgDesign('icons/compare_text');
+$compare_class = $ves->getCfgDesign('icons/compare_class');
+$compareText = '<span>'.$compare_text.'</span>';
+$compareIcon = '&nbsp;<i class="fa '.$compare_class.'"></i>&nbsp;';
+?>
+<?php $compareHtml = ''; ?>
+<?php if((!$compare_format || $compare_format == 'text') && $compare_text){ // Only Text ?>
+<?php $compareHtml = $compareText; ?>
+<?php }elseif($compare_format == 'icon'){ // Icon, Text ?>
+<?php $compareHtml = $compareIcon; ?>
+<?php }elseif($compare_format == 'icon-text'){ // Icon, Text ?>
+<?php $compareHtml = $compareIcon.$compareText; ?>
+<?php }elseif($compare_format == 'text-icon'){ // Text, Icon ?>
+<?php $compareHtml = $compareText.$compareIcon; ?>
+<?php } ?>
+
+<?php if($show_addtolinks){ ?>
+<ul class="add-to-links">
+	<?php if ($this->helper('wishlist')->isAllow()) : ?>
+		<li><a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $wishlistHtml ?></a></li>
+	<?php endif; ?>
+	<?php
+	$_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);
+	?>
+	<?php if($_compareUrl) : ?>
+		<li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare">
+			<?php echo $compareHtml; ?>
+		</a></li>
+	<?php endif; ?>
+</ul>
+<?php } ?>

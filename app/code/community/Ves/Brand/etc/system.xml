@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<ves translate="label" module="ves_brand">
+			<label>Venus Theme</label>
+			<sort_order>211</sort_order>
+		</ves>
+	</tabs>
+	<sections>
+		<ves_brand>
+			<label>Ves Brand</label>
+			<tab>ves</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>10</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<general_setting translate="label">
+					<label>General Setting</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1000</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<last_update translate="label">
+							<label>Current Update Time</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>ves_brand/system_config_form_field_notification</frontend_model>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</last_update>
+						<show translate="label" module="core">
+							<label>Enabled</label>
+							<sort_order>10</sort_order>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<backend_model>ves_brand/system_config_backend_brand_cache</backend_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</show>
+
+						<route translate="label">
+							<label>Route</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>12</sort_order>
+							<comment>Configure Brand Link, for example: http://domain.com/YOUR_ROUTER</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</route>
+
+						<extension translate="label">
+                            <label>Extension</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>23</sort_order>
+                            <comment><![CDATA[Add Your extension at end of Link, for example: http://domain.com/your_route/YOUR_CATEGORY_ALIAS.<strong>YOUR_EXTENSION</strong>. For example: html]]></comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </extension>
+						
+						<cmsblock translate="label">
+							<label>Select Static Block</label>
+							<frontend_type>select</frontend_type>
+							<source_model>ves_brand/system_config_source_listCms</source_model>
+							<sort_order>20</sort_order>
+							<comment>Choose cms block for pretext</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</cmsblock>
+						<pretext translate="label">
+							<label>Pretext</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>24</sort_order>
+							<comment>Empty for hide. You put html code such A, H2,H3,H4...</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><cmsblock>0</cmsblock></depends>
+						</pretext>
+						<listing_layout translate="label">
+							<label>Layout Of Brands List Page</label>
+							<frontend_type>select</frontend_type>
+							<source_model>ves_brand/system_config_source_listLayouts</source_model>
+							<sort_order>25</sort_order>
+							<comment>Choose Template for your module</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</listing_layout>
+						<list_limit translate="label">
+							<label>Limit Items On Listing Page</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<comment>Limit Brand Items Show On Brands Listing Page</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</list_limit>
+						<spacer_1 translate="label">
+                            <label>CONFIG FOR GRID LAYOUT</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>ves_brand/system_config_form_field_spacer</frontend_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </spacer_1>
+                        <grid_col_ls translate="label" module="core">
+                            <label>Columns in Large Screen</label>
+                            <comment>Choose Number column will show in grid mode</comment>
+                            <sort_order>45</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ves_brand/system_config_source_listcolumns</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </grid_col_ls>
+                        <grid_col_ms translate="label" module="core">
+                            <label>Columns In Medium Screen</label>
+                            <comment>Choose Number column will show in grid mode</comment>
+                            <sort_order>55</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ves_brand/system_config_source_listcolumns</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </grid_col_ms>
+                        <grid_col_ss translate="label" module="core">
+                            <label>Columns In Small Screen</label>
+                            <comment>Choose Number column will show in grid mode</comment>
+                            <sort_order>65</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ves_brand/system_config_source_listcolumns</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </grid_col_ss>
+                        <grid_col_mss translate="label" module="core">
+                            <label>Columns In Mini Small Screen</label>
+                            <comment>Choose Number column will show in grid mode</comment>
+                            <sort_order>75</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ves_brand/system_config_source_listcolumns</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </grid_col_mss>
+
+
+						<spacer_2 translate="label">
+							<label>Set Width and Height for Images</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>ves_brand/system_config_form_field_spacer</frontend_model>
+							<sort_order>85</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</spacer_2> 
+						<brand_imagesize translate="label">
+							<label>Image Brand Size, it is used in scroller module</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>95</sort_order>
+							<comment>Formart WidthxHeight, for example: 600x250</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</brand_imagesize> 
+						<enable_icon translate="label" module="core">
+							<label>Enable Brand Icon</label>
+							<sort_order>100</sort_order>
+							<comment>Enable Icon In Product Page</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_icon>
+					</fields>
+				</general_setting>
+				
+				<module_setting>
+					<label>Modules Setting</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2003</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+
+						<filter_group translate="label" module="core">
+							<label>Brand Group</label>
+							<sort_order>16</sort_order>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>ves_brand/system_config_source_listGroup</source_model>
+							<comment>Choose Brand Group to get brands to show on frontend.</comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</filter_group>
+
+						<spacer_1000 translate="label">
+							<label>Brand Navigator Module</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>ves_brand/system_config_form_field_spacer</frontend_model>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</spacer_1000> 
+						<enable_brandnavmodule translate="label" module="core">
+							<label>Enable Navigator Module</label>
+							<sort_order>102</sort_order>
+							<comment>Show related post by tag</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_brandnavmodule>
+						<brandnav_title translate="label" module="core">
+							<label>Brand Title</label>
+							<sort_order>103</sort_order>
+							<comment>Whethere to show Brand Categories Block</comment>
+							<frontend_type>text</frontend_type>
+							
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</brandnav_title>
+						<brandnav_limit translate="label" module="core">
+							<label>Limit Items</label>
+							<sort_order>103</sort_order>
+							<comment>Maximum brands show on the module block</comment>
+							<frontend_type>text</frontend_type>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</brandnav_limit>
+						<isdropdown translate="label" module="core">
+							<label>Is Dropdown </label>
+							<sort_order>103</sort_order>
+							<comment>Display dropdown or UL list </comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</isdropdown>
+						
+						
+						<spacer_2000 translate="label">
+							<label>Brand Scroller Module</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>ves_brand/system_config_form_field_spacer</frontend_model>
+							<sort_order>199</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</spacer_2000> 
+						
+						
+						<enable_scrollmodule translate="label" module="core">
+							<label>Enable Brand Scroller Module</label>
+							<sort_order>200</sort_order>
+							<comment>Whether to enable the module</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<backend_model>ves_brand/system_config_backend_brand_cache</backend_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_scrollmodule>
+						<scrollmod_title translate="label" module="core">
+							<label>Module Title</label>
+							<sort_order>201</sort_order>
+							<comment>Title of scroll module</comment>
+							<frontend_type>text</frontend_type>
+							<backend_model>ves_brand/system_config_backend_brand_cache</backend_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</scrollmod_title>
+						
+						
+						<itemvisiable translate="label" module="core">
+							<label>Items Visiable</label>
+							<sort_order>205</sort_order>
+							<comment>Maximum brand show in module</comment>
+							<frontend_type>text</frontend_type>
+							<backend_model>ves_brand/system_config_backend_brand_cache</backend_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</itemvisiable>
+						
+						<columns translate="label" module="core">
+							<label>Columns</label>
+							<sort_order>210</sort_order>
+							<comment>Number columns on carousel mode</comment>
+							<frontend_type>text</frontend_type>
+							<backend_model>ves_brand/system_config_backend_brand_cache</backend_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</columns>
+
+						<max_items>
+							<label>Max items on a page</label>
+							<frontend_type>text</frontend_type>
+							<backend_model>ves_brand/system_config_backend_brand_cache</backend_model>
+							<sort_order>220</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_items>
+					</fields>
+					
+				</module_setting>
+
+				<carousel_setting>
+					<label>Owl Carousel Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>5555</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable_owl_carousel>
+							<label>Use OWL Carousel</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_owl_carousel>
+						<rtl>
+							<label>Enable Right To Left</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</rtl>
+						<show_navigator>
+							<label>Enable Button Navigation</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</show_navigator>
+						<loop>
+							<label>Enable Loop Carousel</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</loop>
+						<mouse_drag>
+							<label>Enable Mouse Drag</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</mouse_drag>
+						<touch_drag>
+							<label>Enable Touch Drag</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</touch_drag>
+						<slide_by>
+							<label>Slide By</label>
+							<frontend_type>text</frontend_type>
+							<comment>Number Items will slide on a time. Default: 1</comment>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</slide_by>
+						<margin_item>
+							<label>Margin Each Items</label>
+							<frontend_type>text</frontend_type>
+							<comment>Default 0</comment>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</margin_item>
+
+						<default_items>
+							<label>Number Columns On Page (Default)</label>
+							<comment>Show number items when screen size between 1199px and 980px</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</default_items>
+
+						<mobile_items>
+							<label>Number Columns On Page (Phones)</label>
+							<comment>Show number items when screen size bellow 480px</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</mobile_items>
+
+						<tablet_small_items>
+							<label>Number Columns On Page (Phones to Small tablets)</label>
+							<comment>Show number items when screen size between 641px and 480px</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>105</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</tablet_small_items>
+
+						<tablet_items>
+							<label>Number Columns On Page (Phones to tablets)</label>
+							<comment>Show number items when screen size between 768px and 641px</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</tablet_items>
+
+						<portrait_items>
+							<label>Number Columns On Page (Portrait tablets)</label>
+							<comment>Show number items when screen size between 979px and 769px</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</portrait_items>
+
+						<large_items>
+							<label>Number Columns On Page (Large display)</label>
+							<comment>Show number items when screen size 1200px and up</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>130</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</large_items>
+
+						<custom_items>
+							<label>Custom Number Items with screen size</label>
+							<comment>For example: [320, 1], [360, 1], [480, 1], [568, 2], [600, 2], [640, 2], [768, 2], [900, 3], [960, 3], [1024, 3] empty to disable</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>135</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</custom_items>
+
+						<auto_play>
+							<label>Auto Play</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>140</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</auto_play>
+						
+						<interval>
+							<label>Speed</label>
+							<comment>Determines the duration of the transition in milliseconds.If less than 10, the number is interpreted as a speed (pixels/millisecond).This is probably desirable when scrolling items with variable sizes</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>250</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</interval>
+						
+					</fields>
+				</carousel_setting>	
+				<!-- Information -->
+				<advanded_parameter>
+					<label>Information - Support</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>6003</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields> 
+						<module_information translate="label">
+							<label>Set Module Visable On Pages, Position</label>
+							<frontend_type>label</frontend_type>
+							<frontend_model>ves_brand/system_config_form_field_information</frontend_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</module_information>                        
+					</fields>
+				</advanded_parameter>	
+			</groups>
+		</ves_brand>
+	</sections>    
+</config>

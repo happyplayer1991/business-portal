@@ -1,0 +1,490 @@
+<?php /** @var Cminds_Supplierfrontendproductuploader_Block_Product_Create $this */ ?>
+<?php $categories = $this->getCategories(); ?>
+<?php $attributes = $this->getAttributes(); ?>
+<?php $product = $this->getProductObject(); ?>
+<?php $data = Mage::getSingleton("supplierfrontendproductuploader/session")->getProductData(); ?>
+<?php Mage::getSingleton("supplierfrontendproductuploader/session")->clear(); ?>
+<?php $this->setProduct($product); ?>
+<?php $selectedCategories = isset($data['category']) ? $data['category'] : array(); ?>
+<?php $this->setSelectedCategories($selectedCategories); ?>
+<?php $mediaGallery = (isset($data['image'])) ? $data['image'] : array(); ?>
+<?php $helper = Mage::helper('supplierfrontendproductuploader'); ?>
+<div class="container main-container vendor-container">
+    <h1 class="text-center"><?php echo $this->__('Add Product'); ?></h1>
+    <div class="row">
+        <div class="col-md-12 form-container">
+            <form name="product_create_form"
+                  id="product_create_form"
+                  action="<?php echo $this->getFormAction() ?>"
+                  method="post"
+                  enctype="multipart/form-data">
+                <input type="hidden"
+                       name="attribute_set_id"
+                       value="<?php echo $this->getAttributeSetId() ?>"
+                />
+                <input type="hidden"
+                       name="type"
+                       value="<?php echo $this->getProductTypeId(); ?>"
+                />
+                <input type="hidden" name="created_using_code" value="0"/>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="name">
+                                    <?php echo $this->getLabel('name', 'Name', false); ?>
+                                    <span class="required">*</span>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="name" name="name" class="input-text form-control required-entry"
+                                       value="<?php echo(isset($data['name']) ? $data['name'] : ''); ?>"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="short_description">
+                                    <?php echo $this->getLabel(
+                                        'short_description',
+                                        $this->__('Short Description'),
+                                        false);
+                                    ?>
+                                    <span class="required">*</span>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <textarea id="short_description" name="short_description"
+                                          class="input-text form-control required-entry form-control wysiwyg"
+                                          rows="15"><?php echo(isset($data['short_description']) ? $data['short_description'] : ''); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="description">
+                                    <?php echo $this->getLabel('description', $this->__('Detailed Description'), false); ?>
+                                    <span class="required">*</span>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <textarea id="description" name="description"
+                                          class="input-text form-control required-entry wysiwyg"
+                                          rows="15"><?php echo(isset($data['description']) ? $data['description'] : ''); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <legend><?php echo $this->__("Pricing"); ?></legend>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="price">
+                                    <?php echo $this->getLabel('price', $this->__('Price'), false); ?>
+                                    <span class="required">*</span>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="price" name="price"
+                                       value="<?php echo(isset($data['price']) ? $data['price'] : ''); ?>"
+                                       class="input-text form-control required-entry validate-number validate-greater-than-zero"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="special_price">
+                                    <?php echo $this->getLabel('special_price', $this->__('Special Price'), false); ?>:
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="special_price" name="special_price"
+                                       value="<?php echo(isset($data['special_price']) ? $data['special_price'] : ''); ?>"
+                                       class="input-text form-control validate-number"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="special_price_from_date">
+                                    <?php echo $this->getLabel('special_price_from_date', $this->__('Special Price From'), false); ?>
+                                    :
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="special_price_from_date" name="special_price_from_date"
+                                       value="<?php echo(isset($data['special_price_from_date']) ? $data['special_price_from_date'] : ''); ?>"
+                                       class="input-text form-control datepicker"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 label-container">
+                                <label for="special_price_to_date">
+                                    <?php echo $this->getLabel('special_price_to_date', $this->__('Special Price To'), false); ?>
+                                    :
+                                </label>
+                            </div>
+                            <div class="col-md-12 input-container">
+                                <input type="text" id="special_price_to_date" name="special_price_to_date"
+                                       value="<?php echo(isset($data['special_price_to_date']) ? $data['special_price_to_date'] : ''); ?>"
+                                       class="input-text form-control datepicker"/>
+                            </div>
+                        </div>
+                        <?php if ($this->canAddSku()): ?>
+
+                            <div class="col-md-12">
+                                <legend><?php echo $this->__("SKU Configuration"); ?></legend>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="sku">
+                                        <?php echo $this->getLabel('sku', 'SKU', false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="sku" name="sku"
+                                           value="<?php echo(isset($data['sku']) ? $data['sku'] : ''); ?>"
+                                           class="input-text form-control  required-entry"/>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($this->canShowWeightField()) : ?>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="weight">
+                                        <?php echo $this->getLabel('weight', $this->__('Product Weight'), false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="weight" name="weight"
+                                           value="<?php echo(isset($data['weight']) ? $data['weight'] : ''); ?>"
+                                           class="input-text form-control required-entry validate-zero-or-greater validate-number-range number-range-0-99999999.9999"/>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($this->canManageStock()): ?>
+                            <div class="col-md-12">
+                                <legend><?php echo $this->__("Inventory"); ?></legend>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="manage_stock">
+                                        <?php echo $this->getLabel('manage_stock', $this->__('Manage Stock'), false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <select name="manage_stock"
+                                            id="manage_stock"
+                                            class="input-text form-control ">
+                                        <option value="1"><?php echo $this->__("Yes"); ?></option>
+                                        <option value="0"><?php echo $this->__("No"); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="in_stock">
+                                        <?php echo $this->getLabel('in_stock', $this->__('Is In Stock'), false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <select name="in_stock"
+                                            id="in_stock"
+                                            class="input-text form-control ">
+                                        <option value="1"><?php echo $this->__("Yes"); ?></option>
+                                        <option value="0"><?php echo $this->__("No"); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="qty">
+                                        <?php echo $this->getLabel('qty', $this->__('QTY Available'), false); ?>
+                                        <span class="required">*</span>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="qty" name="qty"
+                                       value="<?php echo(isset($data['qty']) ? $data['qty'] : ''); ?>"
+                                       class="input-text form-control required-entry validate-number validate-greater-than-zero"/>
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="inventory_min_qty">
+                                        <?php echo $this->getLabel('inventory_min_qty', 'Qty for Item\'s Status to Become Out of Stock', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="inventory_min_qty" name="inventory_min_qty"
+                                           value="<?php echo(isset($data['inventory_min_qty']) ? $data['inventory_min_qty'] : 0); ?>"
+                                           class="input-text form-control required-entry" />
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="is_qty_decimal">
+                                        <?php echo $this->getLabel('is_qty_decimal', 'Qty Uses Decimals', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+
+                                    <select name="is_qty_decimal"
+                                            id="is_qty_decimal"
+                                            class="input-text form-control ">
+                                        <option value="1"><?php echo $this->__("Yes"); ?></option>
+                                        <option value="0"><?php echo $this->__("No"); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="is_decimal_divided">
+                                        <?php echo $this->getLabel('is_decimal_divided', 'Can be Divided into Multiple Boxes for Shipping', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <select name="is_decimal_divided"
+                                            id="is_decimal_divided"
+                                            class="input-text form-control">
+                                        <option value="1"><?php echo $this->__("Yes"); ?></option>
+                                        <option value="0"><?php echo $this->__("No"); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="backorders">
+                                        <?php echo $this->getLabel('backorders', 'Backorders', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <select id="backorders" name="backorders" class="select">
+                                        <option value="0" selected="selected">No Backorders</option>
+                                        <option value="1">Allow Qty Below 0</option>
+                                        <option value="2">Allow Qty Below 0 and Notify Customer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group inventory_management">
+                                <div class="col-md-12 label-container">
+                                    <label for="notify_stock_qty">
+                                        <?php echo $this->getLabel('notify_stock_qty', 'Notify for Quantity Below', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="notify_stock_qty" name="notify_stock_qty"
+                                           value="0"
+                                           class="input-text form-control required-entry" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="enable_qty_increments">
+                                        <?php echo $this->getLabel('enable_qty_increments', 'Enable Qty Increments', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <select name="enable_qty_increments"
+                                            id="enable_qty_increments"
+                                            class="input-text form-control ">
+                                        <option value="1"><?php echo $this->__("Yes"); ?></option>
+                                        <option value="0"><?php echo $this->__("No"); ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($this->canSetMinQty()): ?>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="inventory_max_sale_qty">
+                                        <?php echo $this->getLabel('inventory_max_sale_qty', 'Maximum Qty Allowed in Shopping Cart', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="inventory_max_sale_qty" name="inventory_max_sale_qty"
+                                           value="<?php echo(isset($data['inventory_max_sale_qty']) ? $data['inventory_max_sale_qty'] : 9999); ?>"
+                                           class="input-text form-control required-entry" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="inventory_min_sale_qty">
+                                        <?php echo $this->getLabel('inventory_min_sale_qty', 'Minimum Qty Allowed in Shopping Cart', false); ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <input type="text" id="inventory_min_sale_qty" name="inventory_min_sale_qty"
+                                           value="<?php echo(isset($data['inventory_min_sale_qty']) ? $data['inventory_min_sale_qty'] : 1); ?>"
+                                           class="input-text form-control required-entry" />
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php foreach ($attributes AS $attribute): ?>
+                            <?php if($attribute['code'] == 'supplier_product_code' && !Mage::helper('supplierfrontendproductuploader')->isProductCodeEnabled()) continue; ?>
+                            <?php $attributeObj = Mage::getSingleton('eav/config')->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attribute['code']); ?>
+                            <?php if ($attributeObj->getData('available_for_supplier') == 0) {
+                                continue;
+                            } ?>
+
+                            <?php $attributeFrontend = $attributeObj->getFrontend(); ?>
+                            <?php $isRequired = $attributeFrontend->getAttribute()->getIsRequired(); ?>
+                            <div class="form-group">
+                                <div class="col-md-12 label-container">
+                                    <label for="product_name">
+                                        <?php echo $this->getLabel($attributeObj); ?>
+                                        <?php if ($isRequired == 1): ?><span class="required">*</span> <?php endif; ?>:
+                                    </label>
+                                </div>
+                                <div class="col-md-12 input-container">
+                                    <?php echo $this->getAttributeHtml($attributeObj, $data); ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="col-md-4 col-sm-5 col-sm-offset-1 col-md-offset-1 right sidebar">
+                        <div class="form-group">
+                            <div class="col-md-12 photo-content">
+                                <h5><?php echo $this->__('Product Images'); ?></h5>
+                                <span
+                                    class="file_upload_span btn btn-primary"><?php echo $this->__('Select and Upload Image') ?></span>
+                                <input type="file" name="file_upload" id="file_upload" multiple/>
+                                <input type="hidden" class="image hidden" name="main_photo" id="main_photo"
+                                       value="<?php echo isset($data['main_photo']) ? $data['main_photo'] : ''; ?>"/>
+
+                                <div class="col-md-8 photos">
+                                    <ul class="photo panel-body">
+                                        <?php foreach ($mediaGallery AS $img) : ?>
+                                            <li class="thumbnail<?php echo (isset($data['main_photo']) && $data['main_photo'] == $img) ? ' main' : '' ?>">
+                                                <img
+                                                    src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>upload/resized<?php echo $img; ?>"
+                                                    alt="" data-name="<?php echo $img; ?>"/>
+                                                <span class="remove"><i class="glyphicon glyphicon-remove"></i></span>
+                                                <span class="default"><i class="glyphicon glyphicon-home"></i></span>
+                                                <input type="hidden" class="image hidden" name="image[]"
+                                                       value="<?php echo $img; ?>"/></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if(!$this->isAssigned()) : ?>
+                            <ul class="category-list">
+                                <h5><?php echo $this->__('Product Categories'); ?></h5>
+                                <?php echo $this->getCategoriesListHtml(); ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-sm-offset-4 col-md-offset-5 btn-save-fix">
+                        <input type="hidden" class="validate-ckeditor"/>
+                        <input type="hidden" class="validate-categories"/>
+                        <input type="submit" name="submit" class="btn btn-primary save-button"
+                               value="<?php echo $this->__('Save Product') ?>"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //< ![CDATA[
+    var customForm = new VarienForm('product_create_form');
+    Validation.add('validate-categories','Please select Category',function(){
+        if(jQuery('li.checkbox-group.required :checkbox:checked').length > 0) {
+            return true;
+        }
+        return false;
+    });
+    //]]>
+    jQuery(document).ready(function ($) {
+        var limit = <?php echo $this->getMaxImagesCount() ?>;
+        var photos = 0;
+        jQuery('.datepicker').datepicker();
+        jQuery('input[id=file_upload]'). change(function(e) {
+            photos = this.files.length;
+        });
+
+        jQuery('#file_upload').fileupload({
+            url: '<?php echo Mage::getUrl('supplier/product/upload') ?>',
+            dataType: 'json',
+            done: function (e, data) {
+                if (data.result.success) {
+                    $('.photo.panel-body').append('<li class="thumbnail"><img src="' + data.result.url + '" alt="" data-name="' + data.result.name + '"/><span class="remove"><i class="glyphicon glyphicon-remove" title="Remove This Picture"></i></span><span class="default"><i class="glyphicon glyphicon-home" title="Set As Main Picture"></i></span><input type="hidden" class="image hidden" name="image[]" value="' + data.result.name + '" /></li>');
+                } else {
+                    alert(data.result.message);
+                }
+            }
+        })
+            .prop('disabled', !jQuery.support.fileInput)
+            .parent().addClass(jQuery.support.fileInput ? undefined : 'disabled')
+            .on('fileuploadadd', function (e, data) {
+                if (jQuery('.thumbnail:visible').length + photos > limit) {
+                    alert('The upload limit has been reached');
+                    return false;
+                }
+            });
+
+        jQuery(document).on('click', 'li span.remove', function ($) {
+            var img = jQuery(this).prev();
+            var imgName = jQuery(img).attr('data-name');
+
+            $j('input.image.hidden').each(function (el) {
+                if ($j(this).val() == imgName) {
+                    $j(this).val('');
+                }
+            });
+            $j(this).parent().fadeOut();
+
+        });
+
+        CKEDITOR.replace( 'description' );
+        CKEDITOR.replace( 'short_description' );
+
+        jQuery(document).on('click', 'li span.default', function ($) {
+            var img = jQuery(this).prev().prev();
+            var imgName = jQuery(img).attr('data-name');
+            var mainPhotoInput = jQuery('#main_photo');
+            mainPhotoInput.val(imgName);
+
+            if (jQuery('li.thumbnail.main').length) {
+                jQuery('li.thumbnail.main').removeClass('main');
+            }
+
+            img.parent().addClass('main');
+        });
+
+        jQuery(".save-button").click(function(e){
+            CKEDITOR.instances.description.updateElement();
+            CKEDITOR.instances.short_description.updateElement();
+        });
+
+        jQuery("#manage_stock").change(function(){
+            var inventoryFields = jQuery(".inventory_management");
+            if(jQuery(this).val() == 1) {
+                inventoryFields.show();
+                inventoryFields
+                    .find("input")
+                    .removeAttr("disabled");
+            } else {
+                inventoryFields.hide();
+                inventoryFields
+                    .find("input")
+                    .attr("disabled", "disabled")
+            }
+        });
+
+        Validation.add('validate-ckeditor','Please fill description fields',function(){
+            if (!CKEDITOR.instances.description._.data
+                || !CKEDITOR.instances.short_description._.data
+            ) {
+                return false;
+            }
+
+            return true;
+        });
+
+    });
+</script>

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Manage_Budge>
+            <version>0.1.0</version>
+        </Manage_Budge>
+    </modules>
+    <frontend>
+        <routers>
+            <budge>
+                <use>standard</use>
+                <args>
+                    <module>Manage_Budge</module>
+                    <frontName>budge</frontName>
+                </args>
+            </budge>
+        </routers>
+        <layout>
+            <updates>
+                <budge>
+                    <!-- <file>budge.xml</file> -->
+                </budge>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <!-- Includes our controller, so when we add the adminhtml menu item below, it is found! -->
+            <adminhtml>
+                    <args>
+                        <modules>
+                            <manage_budge before="Mage_Adminhtml">Manage_Budge_Adminhtml</manage_budge>
+                        </modules>
+                    </args>
+                </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <!--
+            <budge module="budge">
+                <title>Budge</title>
+                <sort_order>71</sort_order>              
+                <children>
+                    <items module="budge">
+                        <title>Manage Budges</title>
+                        <sort_order>0</sort_order>
+                        <action>adminhtml/budge</action>
+                    </items>
+                    <items1 module="budge">
+                        <title>Set Budges</title>
+                        <sort_order>1</sort_order>
+                        <action>adminhtml/set</action>
+                    </items1>
+                </children>
+            </budge>
+            -->
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <budge>
+                            <title>Budge Module</title>
+                            <sort_order>200</sort_order>
+                        </budge>
+                    </children>
+                </admin>
+            </resources>  
+        </acl>
+        <layout>
+            <updates>
+                <budge>
+                    <file>budge.xml</file>
+                </budge>
+            </updates>
+        </layout>
+    </adminhtml>    
+    <global>
+        <models>
+            <budge>
+                <class>Manage_Budge_Model</class>
+                <resourceModel>budge_mysql4</resourceModel>
+            </budge>
+            <budge_mysql4>
+                <class>Manage_Budge_Model_Mysql4</class>
+                <entities>
+                    <budge>
+                        <table>budge</table>
+                    </budge>
+                </entities>
+            </budge_mysql4>
+        </models>
+        <resources>
+            <budge_setup>
+                <setup>
+                    <module>Manage_Budge</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </budge_setup>
+            <budge_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </budge_write>
+            <budge_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </budge_read>
+        </resources>
+        <blocks>
+            <budge>
+                <class>Manage_Budge_Block</class>
+            </budge>
+        </blocks>
+        <helpers>
+            <budge>
+                <class>Manage_Budge_Helper</class>
+            </budge>
+        </helpers>
+    </global>
+</config> 

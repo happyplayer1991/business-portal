@@ -1,0 +1,132 @@
+<?php 
+/*Owl Carousel Setting*/
+$auto_play_mode = (int)$this->getCarouselConfig("auto_play");
+$interval = (int)$this->getCarouselConfig("interval", 500);
+$page_speed = (int)$this->getCarouselConfig("page_speed", 800);
+$rewind_speed = (int)$this->getCarouselConfig("rewind_speed", 1000);
+$lazy_load_image = $this->getCarouselConfig("lazy_load_image", 0);
+$loop = (int)$this->getCarouselConfig("loop", 1);
+$slide_by = (int)$this->getCarouselConfig("slide_by", 1);
+$margin_item = $this->getCarouselConfig("margin_item", 0);
+$show_nav = (int)$this->getCarouselConfig("show_navigator", 1);
+$rtl = (int)$this->getCarouselConfig("rtl", 0);
+$mouse_drag = (int)$this->getCarouselConfig("mouse_drag", 1);
+$touch_drag = (int)$this->getCarouselConfig("touch_drag", 1);
+$mobile_items = (int)$this->getCarouselConfig("mobile_items", 1);
+$tablet_items = (int)$this->getCarouselConfig("tablet_items", 2);
+$tablet_small_items = (int)$this->getCarouselConfig("tablet_small_items", 2);
+$portrait_items = (int)$this->getCarouselConfig("portrait_items", 3);
+$large_items = (int)$this->getCarouselConfig("large_items", 5);
+$custom_items = $this->getCarouselConfig("custom_items", "");
+$enable_pagination = (int)$this->getCarouselConfig("show_pagination", 1);
+
+$carousel_responsive = (int)$this->getCarouselConfig("carousel_responsive", 1);
+
+
+$itemsperpage = (int)$this->getConfig("max_items") ;
+$itemsperpage = !empty($itemsperpage)?$itemsperpage:6;
+$columns = (int)$this->getConfig("columns");
+$columns = !empty($columns)?$columns:6;
+$default_items = $columns;
+$c = $this->getGeneralConfig( 'brand_imagesize', "" );
+$tmp = explode( "x", $c );
+$thumb_width = $thumb_height = "";
+if( count($tmp) > 0 && (int)$tmp[0] ){
+	$thumb_width = (int)$tmp[0];
+	$thumb_height = (int)$tmp[1];
+}
+$id = rand(1,100).rand(1,time()); 
+$span =  12/$columns;
+$total = count($brands);
+$i = 1;
+$k = 1;
+$title = $this->getConfig("scrollmod_title");
+	// check max item on page
+if ($itemsperpage < $columns) {
+	$itemsperpage = $columns;
+}
+
+?>
+<div id="ves-brandcarousel-<?php echo $id?>" class="block ves-brandcarousel">
+	<?php if($title) { ?>
+	<div class="block-title">
+		<strong>
+			<span>
+				<?php echo $title; ?>
+			</span>
+		</strong>
+		<?php if( ($pretext = $this->getConfig("pretext")) && !$cms ) { ?>
+		<div class="pretext"><?php echo $pretext;?></div>
+		<?php } elseif(isset($cms) && $cms != '') {
+			?>
+			<div class="pretext"><?php echo $cms;?></div>
+			<?php
+		} ?>
+	</div>
+	<?php } ?>
+	<div class="block-content">
+		
+		<div id="vesbrandowlcarousel-<?php echo $id;?>" class="owl-carousel vescarousel">
+
+			<?php if($brands) { ?>
+			<?php foreach ($brands as  $brand) {?>		
+			<div class="item <?php if(($i-1) % $columns == 0){echo "first";}  if($i%$columns == 0){echo "last";} ?>">
+				<div class="item-inner">
+					<?php $brand_link = $brand->getLink(); ?>
+					<?php
+					$image = "";
+					if($thumb_width && $thumb_height) {
+						$image = Mage::helper('ves_brand')->resize($brand->getFile(), $thumb_width, $thumb_height);
+					} else {
+						$image = $brand->getImageUrl("l");
+					}
+					?>
+					<?php if ($brand_link) { ?>
+					<a href="<?php echo $brand_link; ?>"><img src="<?php echo $image; ?>" alt="<?php echo $brand->getTitle(); ?>" class="lazyOwl img-responsive" /></a>
+					<?php } else { ?>
+					<img src="<?php echo $image; ?>" alt="<?php echo $brand->getTitle(); ?>" class="lazyOwl img-responsive" />
+					<?php } ?>
+				</div>
+			</div>
+			<?php $i++;$k++; }  ?>
+			<?php } //end if?>
+		</div> <!--end vesbrandcarousel -->  
+		<?php  if ($this->getConfig("show_more")) { ?>
+		<div class="brand-showmore"><a class="btn" role="button" href="<?php echo $this->getMoreViewLink(); ?>"><?php echo $this->__("Show More Brand");?></a></div>
+		<?php } ?>
+	</div> <!--end block-content -->
+</div> <!--end ves-brandcarousel -->
+<?php if( (int)$total > 1 ){ ?>
+<script type="text/javascript">
+	jQuery(window).load(function() {
+		var owl = jQuery('#vesbrandowlcarousel-<?php echo $id;?>');
+		owl.owlCarousel({
+			autoPlay: <?php echo $auto_play_mode?'true':'false';?>,
+			slideSpeed: <?php echo $interval?(int)$interval:'500';?>,
+			paginationSpeed: <?php echo $page_speed?(int)$page_speed:'800'; ?>,
+			rewindSpeed: <?php echo $rewind_speed?(int)$rewind_speed:'1000'; ?>,
+			autoplayHoverPause: true,
+			<?php if($lazy_load_image) { ?>
+				lazyLoad:true,
+				<?php } ?>
+				navigationText: ["<span class='fa fa-angle-left'></span>","<span class='fa fa-angle-right'></span>"],
+				slideBy: <?php echo (isset($slide_by) && $slide_by)?(int)$slide_by:1; ?>,
+				loop: <?php echo $loop == 1?'true':'false'; ?>,
+				margin: <?php echo $margin_item?(int)$margin_item:'0'; ?>,
+				navigation: <?php echo $show_nav == 1?'true':'false'; ?>,
+				rtl: <?php echo $rtl == 1?'true':'false'; ?>,
+				mouseDrag: <?php echo $mouse_drag == 1?'true':'false'; ?>,
+				touchDrag: <?php echo $touch_drag == 1?'true':'false'; ?>,
+				autoWidth: false,
+				responsive: <?php echo $carousel_responsive == 1?'true':'false'; ?>,
+				items: <?php echo $default_items?(int)$default_items:4; ?>,
+            itemsDesktop : [1199,<?php echo $default_items?(int)$default_items:4; ?>], //4 items between 1199px and 980px
+            itemsDesktopSmall : [979,<?php echo $portrait_items?(int)$portrait_items:3; ?>], //3 items betweem 979px and 769px
+            itemsTablet: [768, <?php echo $tablet_items?(int)$tablet_items:2; ?>], //2 items between 768px and 641px
+            itemsTabletSmall : [640, <?php echo $tablet_small_items?(int)$tablet_small_items:2; ?>], //2 items between 641px and 480px
+            itemsMobile : [479, <?php echo $mobile_items?(int)$mobile_items:1; ?>], // itemsMobile disabled - inherit from itemsTablet option
+            itemsCustom: <?php echo (isset($custom_items) && $custom_items)?'['.$custom_items.']':'false';?> // custom numbers item view on screen
+        });
+});
+</script>
+<?php } ?>

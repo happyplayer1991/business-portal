@@ -1,0 +1,58 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2015 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+$ves = Mage::helper('themesettings');
+$scroll_top = $ves->getConfig('footer/scroll_top');
+$enable_coppyright = $ves->getConfig('footer/enable_coppyright');
+$enable_custom_coppyright = $ves->getConfig('footer/enable_custom_coppyright');
+$custom_coppyright = $ves->getConfig('footer/custom_coppyright');
+$processor = Mage::helper('cms')->getPageTemplateProcessor();
+?>
+<div class="footer">
+    <?php echo $this->getChildHtml() ?>
+    
+    <?php if(trim($enable_coppyright)){ ?>
+    <div class="ves-copyright">
+        <div class="wrap-container">
+            <div class="row">
+                <?php if($enable_custom_coppyright ){ ?>
+                <?php echo $processor->filter($custom_coppyright); ?>
+                <?php }else{ ?>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="copyright"><?php echo $this->getCopyright() ?></div>
+                </div>
+                <div class="ves-paypal col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <a href="http://www.venustheme.com" title="venustheme">Paypal</a>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+    
+    <?php if($scroll_top){ ?>
+    <div id="top"><a class="scrollup" href="#"><i class="fa fa-angle-up"></i><?php echo $this->__('Top');?></a></div>
+    <?php } ?>
+</div>

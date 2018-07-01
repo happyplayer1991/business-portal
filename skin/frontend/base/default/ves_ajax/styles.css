@@ -1,0 +1,17 @@
+.ajaxcartpro_progress{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -22px 0 0 -22px;
+  background: url(images/fancybox_loading.gif) center center no-repeat #000;
+  width: 44px;
+  height: 44px;
+  z-index: 9999;
+  opacity: 0.9;
+  border-radius: 6px;
+}
+#multiproduct-loader .ajaxcartpro_progress{
+  position: inherit;
+  margin: 0px;
+  display: inline-block;
+}

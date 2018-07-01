@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <budge_adminhtml_budge_index>
+        <reference name="content">
+            <block type="budge/adminhtml_budge" name="budge"/>
+        </reference>
+    </budge_adminhtml_budge_index>
+</layout>

@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Magento Whatsappshare extension
+ *
+ * @category   Magecomp
+ * @package    Magecomp_Whatsappshare
+ * @author     Magecomp
+ */
+-->
+<config>
+    <modules>
+        <Magecomp_Whatsappshare>
+            <version>1.0.1</version>
+			<name>WhatsApp Share</name>
+        </Magecomp_Whatsappshare>
+    </modules>
+    <frontend>
+        <routers>
+            <whatsappshare>
+                <use>standard</use>
+                <args>
+                    <module>Magecomp_Whatsappshare</module>
+					<frontName>whatsappshare</frontName>
+                </args>
+            </whatsappshare>
+        </routers>
+        <layout>
+            <updates>
+                <whatsappshare>
+                    <file>whatsappshare.xml</file>
+                </whatsappshare>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <whatsappshare after="Mage_Adminhtml">Magecomp_Whatsappshare_Adminhtml</whatsappshare>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+	
+    <adminhtml>	
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<whatsappshare translate="title" module="whatsappshare">
+											<title>Whatsapp Share</title>
+										</whatsappshare>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<whatsappshare>
+					<file>whatsappshare.xml</file>
+				</whatsappshare>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+		<blocks>
+            <whatsappshare>
+                <class>Magecomp_Whatsappshare_Block</class>
+            </whatsappshare>
+        </blocks>
+        <helpers>
+            <whatsappshare>
+                <class>Magecomp_Whatsappshare_Helper</class>
+            </whatsappshare>
+        </helpers>
+        <models>
+            <whatsappshare>
+                <class>Magecomp_Whatsappshare_Model</class>
+            </whatsappshare>
+        </models>
+        <resources>
+            <whatsappshare_setup>
+                <setup>
+                    <module>Magecomp_Whatsappshare</module>
+					<class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </whatsappshare_setup>
+            <whatsappshare_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </whatsappshare_write>
+            <whatsappshare_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </whatsappshare_read>
+        </resources>
+    </global>
+	<default>
+		<whatsappshare>
+			<whatsappshare_bitly>                
+				<format>txt</format>         
+			</whatsappshare_bitly>      
+		</whatsappshare>
+	</default>
+</config>

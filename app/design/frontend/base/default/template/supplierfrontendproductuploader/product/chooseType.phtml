@@ -1,0 +1,128 @@
+<?php $bindSetsToSupplier = $this->getAttributesBind() ?>
+<?php $helper = Mage::helper('supplierfrontendproductuploader'); ?>
+<div class="container-fluid main-container vendor-container">
+    <div class="row">
+    	<div class="col-md-12">
+			<h1><?php echo $this->__("Create Product Settings"); ?></h1>
+		</div>
+	</div>
+	<?php if($helper->isProductCodeEnabled()): ?>
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+				<label class="radio-inline">
+					<input type="radio" name="optradio" id="new-product-radio" checked>
+                    <?php echo $helper->__('New Product'); ?>
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="optradio" id="product-code-radio">
+                    <?php echo $helper->__('Use Existing Product'); ?>
+				</label>
+			</div>
+		</div>
+	<?php endif; ?>
+	<div id="create-new-product">
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-4">
+				<form class="form-horizontal" id="choose_type_form" action='' method="POST">
+					<div class="control-group">
+						<label class="control-label" for="attribute_set_id"><?php echo $this->__("Attribute Set"); ?></label>
+						<div class="controls">
+							<select class="required-entry" name="attribute_set_id" id="attribute_set_id">
+								<?php if (Mage::helper('supplierfrontendproductuploader')->bindAttributeSets()) : ?>
+									<?php $attributes = Mage::getModel('eav/entity_attribute_set')->getCollection() ?>
+									<?php foreach($attributes as $set) : ?>
+										<?php if(in_array($set->getId(), $bindSetsToSupplier) || $set->getAvailableForSupplier() == 1):   ?>
+											<option value="<?php echo $set->getId(); ?>"><?php echo $this->escapeHtml($set->getAttributeSetName()); ?></option>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								<?php else: ?>
+									<?php foreach($this->getAvailableAttributeSets() as $set) : ?>
+										<option value="<?php echo $set->getId(); ?>"><?php echo $this->escapeHtml($set->getAttributeSetName()); ?></option>
+									<?php endforeach; ?>
+								<?php endif ?>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="type"><?php echo $this->__("Product Type"); ?></label>
+						<div class="controls">
+							<select class="" name="type" id="type">
+								<?php foreach($this->getProductTypes() AS $type) : ?>
+									<option value="<?php echo $type['value']; ?>"><?php echo $this->__($type['label']) ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<input class="btn btn-primary save-button" type="submit" value="<?php echo $this->__("Continue")?>"/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="use-product-code" style="display: none">
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<span><?php echo $this->__('You can search among all products that have a supplier code'); ?></span>
+				<form class="form-horizontal" id="choose_type_form_product_code" action='<?php echo $this->getUrl('supplier/codes/clone'); ?>' method="POST">
+					<div class="control-group">
+						<div class="col-sm-3">
+							<input name="name" id="phrase-name" type="text" placeholder="<?php echo $this->__("Search by Name");?>" value="<?php echo $this->getRequest()->getParam('name'); ?>" class="form-control input-text">
+						</div>
+						<div class="col-sm-3">
+							<input name="name" id="phrase-sku" type="text" placeholder="<?php echo $this->__("Search by Sku");?>" value="<?php echo $this->getRequest()->getParam('name'); ?>" class="form-control input-text">
+						</div>
+						<div class="col-sm-3">
+							<input name="name" id="phrase-suppliercode" type="text" placeholder="<?php echo $this->__("Search by Supplier Code");?>" value="<?php echo $this->getRequest()->getParam('name'); ?>" class="form-control input-text">
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<input type="submit" name="submit" class="btn btn-primary btn-small" value="<?php echo $this->__('Filter and Search') ?>" />
+					</div>
+					<div class="results"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="slideshow-container"><div class="slideshow"></div></div>
+<script type="text/javascript">
+	//< ![CDATA[
+	new VarienForm('choose_type_form');
+	var form = new VarienForm('choose_type_form_product_code');
+	jQuery(document).ready(function(){
+		jQuery("#choose_type_form_product_code").submit(function(e){
+			if(!jQuery('.checkbox-select-product:checked', '#choose_type_form_product_code').val()) {
+				if(form.validator.validate()) {
+					jQuery('.btn-primary').val("<?php echo $this->__('Looking for a product...');?>");
+					jQuery.ajax({
+						url: '<?php echo $this->getUrl('supplier/codes/find'); ?>',
+						data: {
+							n: jQuery("#phrase-name").val(),
+							s: jQuery("#phrase-sku").val(),
+							p: jQuery("#phrase-suppliercode").val()
+						},
+						success: function (response) {
+							jQuery('.btn-primary').val("Filter and Search");
+							jQuery('.results').html(response);
+						}
+					});
+				}
+				e.preventDefault();
+			}
+		});
+
+		jQuery('input[type="radio"]').click(function() {
+			if(jQuery(this).attr('id') == 'new-product-radio') {
+				jQuery('#create-new-product').show();
+				jQuery('#use-product-code').hide();
+			} else {
+				jQuery('#create-new-product').hide();
+				jQuery('#use-product-code').show();
+			}
+		});
+	});
+	//]]>
+</script>

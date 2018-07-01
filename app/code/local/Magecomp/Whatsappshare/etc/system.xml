@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Magento Whatsappshare extension
+ *
+ * @category   Magecomp
+ * @package    Magecomp_Whatsappshare
+ * @author     Magecomp
+ */
+-->
+<config>
+	<tabs>
+        <magecomp translate="label">
+            <label><![CDATA[<img src="https://www.magecomp.com/media/images/magecomp--extension.png" alt="MAGECOMP" height="25" style="vertical-align:middle;"/>]]></label>
+            <sort_order>20</sort_order>
+        </magecomp>
+    </tabs>
+	<sections>
+       	<whatsappshare translate="label" module="whatsappshare">
+       		<label>WhatsApp Share</label>
+       		<tab>magecomp</tab>
+			<frontend_type>text</frontend_type>
+       		<sort_order>10</sort_order>
+       		<show_in_default>1</show_in_default>
+       		<show_in_website>1</show_in_website>
+       		<show_in_store>1</show_in_store>
+			<groups>
+				<license_status_group translate="label">
+					<label>WhatsApp Share</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<status translate="label">
+							<label>WhatsApp Share</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</status>
+						<category_specific translate="label">
+							<label>Enable WhatsApp Share On Categories</label>
+							<frontend_type>select</frontend_type>
+							<source_model>whatsappshare/system_config_source_category</source_model>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</category_specific>
+						<onlymobile translate="label">
+                            <label>Enable only in Mobile</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment>Show only on mobile device</comment>
+                        </onlymobile>
+					</fields>
+				</license_status_group>
+				<whatsappshare_options>
+					<label>Sharing Options</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<size translate="label">
+							<label>Button Size</label>
+							<frontend_type>select</frontend_type>
+							<source_model>whatsappshare/system_config_source_size</source_model>
+							<sort_order>21</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</size>
+						<custmessage translate="label">
+							<label>Custom Message to Share</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>22</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</custmessage>
+						<product_name_enable translate="label">
+							<label>Product Name</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>23</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_name_enable>
+						<product_name translate="label">
+							<label>Product Name Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>24</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><product_name_enable>1</product_name_enable></depends>
+						</product_name>
+						<product_desc_enable translate="label">
+							<label>Product Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>25</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_desc_enable>
+						<product_desc translate="label">
+							<label>Product Description Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>26</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><product_desc_enable>1</product_desc_enable></depends>
+						</product_desc>
+						<product_desc_length translate="label">
+							<label>Description Max. Length</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>27</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><product_desc_enable>1</product_desc_enable></depends>
+						</product_desc_length>
+						<product_price_enable translate="label">
+							<label>Product Price</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>28</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_price_enable>
+						<product_price translate="label">
+							<label>Product Price Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>29</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><product_price_enable>1</product_price_enable></depends>
+						</product_price>
+						<product_special_price_enable translate="label">
+							<label>Product Special Price</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_special_price_enable>
+						<product_special_price translate="label">
+							<label>Product Special Price Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>31</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><product_special_price_enable>1</product_special_price_enable></depends>								
+						</product_special_price>
+						<product_discount_enable translate="label">
+							<label>Product Discount</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>32</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</product_discount_enable>
+						<product_discount translate="label">
+							<label>Product Discount Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>33</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><product_discount_enable>1</product_discount_enable></depends>																
+						</product_discount>
+						<codeenable translate="label">
+							<label>Coupon Code</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>34</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</codeenable>
+						<coupancode_label translate="label">
+							<label>Coupon Code Label</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>35</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><codeenable>1</codeenable></depends>																
+						</coupancode_label>
+						<coupancode translate="label">
+							<label>Coupan Code</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>36</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><codeenable>1</codeenable></depends>																
+						</coupancode>
+						<discount_per translate="label">
+							<label>Discount in %</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>37</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><codeenable>1</codeenable></depends>																
+						</discount_per>
+						<message translate="label">
+							<label>Discount Message</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>38</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><codeenable>1</codeenable></depends>
+							<comment>{{coupancode}}','{{discountper}}</comment>																
+						</message>
+						<utmurl translate="label">
+							<label>URL with UTM code</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>39</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</utmurl>
+					</fields>
+				</whatsappshare_options>
+				<whatsappshare_bitly>
+					<label>Short URL Sharing Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label">
+							<label>Bilty Short URLs</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<sort_order>31</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<loginname translate="label">
+							<label>Bitly Login Name</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>32</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>																
+						</loginname>
+						<apikey translate="label">
+							<label>Bitly API Key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>33</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>																
+						</apikey>
+						<format translate="label">
+							<label>Bitly Format</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>34</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends><enable>1</enable></depends>																
+						</format>
+					</fields>
+				</whatsappshare_bitly>
+			</groups>
+		</whatsappshare>
+	</sections>
+</config>
