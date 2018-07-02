@@ -38,28 +38,32 @@
     <ul<?php if($this->getName()): ?> id="<?php echo $this->getName() ?>"<?php endif;?>>
         <?php foreach($_links as $_link): ?>
             <?php if ($_link instanceof Mage_Core_Block_Abstract):?>
+                <!-- Prevent wishlist
                 <?php echo $_link->toHtml() ?>
-            <?php else: ?>
-                <li<?php if($_link->getIsFirst()||$_link->getIsLast()): ?> class="<?php if($_link->getIsFirst()): ?>first<?php endif; ?><?php if($_link->getIsLast()): ?> last<?php endif; ?>"<?php endif; ?> <?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?>
-                    <a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>>
-                        <?php
-                            $label = $_link->getLabel();
-                        ?>
-                        <?php if(stripos($label, 'my account')!== false) : ?>
-                            <i class="fa fa-user"></i>
-                        <?php elseif(stripos($label, 'my wishlist')!== false) : ?>
-                            <i class="fa fa-heart"></i>
-                        <?php elseif(stripos($label, 'log in')!== false) : ?>
-                            <i class="fa fa-sign-in"></i>
-                        <?php elseif(stripos($label, 'register')!== false) : ?>
-                            <i class="fa fa-users"></i>
-                        <?php elseif(stripos($label, 'log out')!== false) : ?>
-                            <i class="fa fa-sign-out"></i>
-                        <?php endif; ?>
-                        <?php echo $label ?>
-                    </a>
-                    <?php echo $_link->getAfterText() ?>
-                </li>
+                -->
+            <?php else: 
+                $label = $_link->getLabel();
+                if(Mage::getSingleton('customer/session')->isLoggedIn()) :
+                else :
+                    $flag = 0;
+                    if(stripos($label, 'log in')!== false) :
+                        $flag = 1;
+                    endif;
+                    if($flag) :
+            ?> 
+                        <li<?php if($_link->getIsFirst()||$_link->getIsLast()): ?> class="<?php if($_link->getIsFirst()): ?>first<?php endif; ?><?php if($_link->getIsLast()): ?> last<?php endif; ?>"<?php endif; ?> <?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?>
+                            <a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>>
+                            <?php if($flag == 1) :?>
+                                <i class="fa fa-sign-in"></i>
+                                <?php echo $label ?>
+                            <?php endif; ?>
+                            </a>
+                            <?php echo $_link->getAfterText() ?>
+                        </li>
+            <?php 
+                    endif; 
+                endif;
+            ?>
             <?php endif;?>
         <?php endforeach; ?>
     </ul>
