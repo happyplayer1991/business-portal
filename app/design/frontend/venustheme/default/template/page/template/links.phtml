@@ -43,28 +43,33 @@
                 -->
             <?php else: 
                 $label = $_link->getLabel();
-                if(Mage::getSingleton('customer/session')->isLoggedIn()) :
-                else :
-                    $flag = 0;
-                    if(stripos($label, 'log in')!== false) :
-                        $flag = 1;
-                    endif;
-                    if($flag) :
-            ?> 
-                        <li<?php if($_link->getIsFirst()||$_link->getIsLast()): ?> class="<?php if($_link->getIsFirst()): ?>first<?php endif; ?><?php if($_link->getIsLast()): ?> last<?php endif; ?>"<?php endif; ?> <?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?>
-                            <a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>>
-                            <?php if($flag == 1) :?>
-                                <i class="fa fa-sign-in"></i>
-                                <?php echo $label ?>
-                            <?php endif; ?>
-                            </a>
-                            <?php echo $_link->getAfterText() ?>
-                        </li>
-            <?php 
-                    endif; 
+                $flag = 0;
+                $icon = '';
+                if(stripos($label, 'log in')!== false) :
+                    $flag = 1;
                 endif;
+                if(stripos($label, 'log out')!== false) :
+                    $flag = 2;
+                endif;
+                if(stripos($label, 'my account')!== false) :
+                    $flag = 3;
+                endif;
+                $icon = ($flag == 1) ? "<i class='fa fa-sign-in'></i>" : ( ($flag == 2) ? "<i class='fa fa-sign-in'></i>" : "<i class='fa fa-user'></i>");
+                $loggedin = (Mage::getSingleton('customer/session')->isLoggedIn()) ? true : false;
+                if( ( $loggedin && (($flag == 2) || ($flag == 3)) ) ||
+                    ( !$loggedin && ($flag == 1) ) ):
+            ?> 
+                <li<?php if($_link->getIsFirst()||$_link->getIsLast()): ?> class="<?php if($_link->getIsFirst()): ?>first<?php endif; ?><?php if($_link->getIsLast()): ?> last<?php endif; ?>"<?php endif; ?> <?php echo $_link->getLiParams() ?>><?php echo $_link->getBeforeText() ?>
+                    <a href="<?php echo $_link->getUrl() ?>" title="<?php echo $_link->getTitle() ?>" <?php echo $_link->getAParams() ?>>
+                        <?= $icon ?>
+                        <?= $label ?>
+                    </a>
+                    <?php echo $_link->getAfterText() ?>
+                </li>
+            <?php 
+                endif;
+                 endif; 
             ?>
-            <?php endif;?>
         <?php endforeach; ?>
     </ul>
 </div>
