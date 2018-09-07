@@ -129,7 +129,7 @@ $accountIcon = '<i class="fa '.$account_class.'"></i>';
                         <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
                             <?php 
                                 $_helper = Mage::helper('netgo_customerpic');
-                                //$img = '';
+                                $img = '';
                                 if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                                     $customer = Mage::getSingleton('customer/session')->getCustomer();
                                     $customerData = Mage::getModel('customer/customer')->load($customer->getId())->getData();
