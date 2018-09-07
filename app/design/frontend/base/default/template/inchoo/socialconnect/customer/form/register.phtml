@@ -33,7 +33,8 @@
 ?>
 <div class="account-create">
     <div class="page-title">
-        <h1><?php echo $this->__('Create an Account') ?></h1>
+        <!-- <h1><?php echo $this->__('Create an Account') ?></h1> -->
+        <h1><?php echo 'Register A CUSTOMER' ?></h1>
     </div>
     <?php echo $this->getChildHtml('form_fields_before')?>
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
@@ -43,7 +44,7 @@
         <div class="fieldset">
             <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
             <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
-            <h2 class="legend"><?php echo $this->__('Personal Information') ?></h2>
+            <!-- <h2 class="legend"><?php echo $this->__('Personal Information') ?></h2> -->
             <ul class="form-list">
                 <li class="fields">
                     <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
@@ -54,16 +55,6 @@
                         <input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text validate-email required-entry" />
                     </div>
                 </li>
-                <?php if ($this->isNewsletterEnabled()): ?>
-                <li class="control">
-                    <div class="input-box">
-                        <input type="checkbox" name="is_subscribed" title="<?php echo $this->__('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" />
-                    </div>
-                    <label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
-                    <?php /* Extensions placeholder */ ?>
-                    <?php echo $this->getChildHtml('customer.form.register.newsletter')?>
-                </li>
-                <?php endif ?>
             <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
             <?php if ($_dob->isEnabled()): ?>
                 <li><?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?></li>
@@ -154,7 +145,7 @@
         </div>
     <?php endif; ?>
         <div class="fieldset">
-            <h2 class="legend"><?php echo $this->__('Login Information') ?></h2>
+            <!-- <h2 class="legend"><?php echo $this->__('Login Information') ?></h2> -->
             <ul class="form-list">
                 <li class="fields">
                     <div class="field">
@@ -170,16 +161,39 @@
                         </div>
                     </div>
                 </li>
+
+                <?php if ($this->isNewsletterEnabled()): ?>
+                <li>
+
+                    <div class="field">
+                    <!-- <div class="input-box"> -->
+                        <!-- <input type="checkbox" name="is_subscribed" title="<?php echo $this->__('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" /> -->
+
+                        <label for="is_subscribed">
+                            <input type="checkbox" name="is_subscribed" title="<?php echo $this->__('Sign Up for Newsletter') ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?>  class="checkbox" > <span class="label-text"><?php echo $this->__('Sign Up for Newsletter') ?></span>
+                        </label>
+                    </div>
+
+                    <!-- </div> -->
+                    <!-- <label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label> -->
+                    <?php /* Extensions placeholder */ ?>
+                    <?php echo $this->getChildHtml('customer.form.register.newsletter')?>
+                </li>
+                <?php endif ?>
+
                 <?php echo $this->getChildHtml('form.additional.info'); ?>
             </ul>
         </div>
         
         <?php echo $this->getChildHtml('inchoo_socialconnect_register'); ?>
         
-        <div class="buttons-set">
-            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <!-- <div class="buttons-set"> -->
+        <div class="fieldset">
+            <!-- <p class="required"><?php echo $this->__('* Required Fields') ?></p> -->
+            <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button customer-register"><span><span><?php echo 'Register Customer'; ?></span></span></button>
+
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-            <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+            
         </div>
     </form>
     <script type="text/javascript">

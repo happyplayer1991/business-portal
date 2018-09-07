@@ -224,3 +224,17 @@ div.mybudge img.budge-icon {
 div.mybudge div.description {
 	margin-left: 21px;
 }
+
+/*
+ ==============================
+ 	Register Page
+ ==============================
+ */
+
+.supplier-register, .customer-register{
+	margin-bottom: 10px;
+}
+
+.customer-account-create .fieldset, .customer-account-create .buttons-set {
+     margin-left: 0 ; 
+}

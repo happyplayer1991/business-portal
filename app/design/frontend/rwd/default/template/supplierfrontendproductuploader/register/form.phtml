@@ -45,7 +45,7 @@
                         <?php echo $this->__('Email Address'); ?><em class="text-error">*</em>
                     </label>
                     <div class="input-box"><input name="email" type="text" value="" id="email"
-                                                  class="input-text validate-email"></div>
+                                                  class="input-text required-entry validate-email"></div>
                 </div>
                 <?php foreach ($customAttributes as $attributeCode) : ?>
                     <?php if (!$attributeCode) continue; ?>
@@ -138,10 +138,13 @@
                     </div>
                 </div>
 
-                <div class="form-actions buttons-set">
-                    <button type="submit"
-                            class="button btn btn-large btn-primary"><span><span><?php echo $this->__('Register'); ?></span></span></button>
-                    <p class="required"><?php echo $this->__('* Required Fields'); ?></p>
+                <!-- <div class="form-actions buttons-set"> -->
+                <div class="form-actions">                    
+                    <button type="submit" class="button btn btn-large btn-primary supplier-register"><span><span><?php echo 'Register Supplier'; ?></span></span></button>
+
+                    <p class="back-link"><a href="javascript:history.back()" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+
+                    <!-- <p class="required"><?php echo $this->__('* Required Fields'); ?></p> -->
                 </div>
             </div>
         </form>
