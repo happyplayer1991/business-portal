@@ -35,7 +35,20 @@
                 <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
                 <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
                 <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
-				<action method="addLink" translate="label" module="netgo_customerpic"><name>Upload Profile Photo</name><path>netgo/customerpic</path><label>Upload Profile Photo</label></action>
+
+                <action method="addLink" translate="label" module="sales"><name>orders</name><path>sales/order/history/</path><label>My Orders</label></action>
+                <action method="addLink" translate="label"><name>billing_agreements</name><path>sales/billing_agreement/</path><label>Billing Agreements</label></action>
+                <action method="addLink" translate="label"><name>recurring_profiles</name><path>sales/recurring_profile/</path><label>Recurring Profiles</label></action>
+                <action method="addLink" translate="label" module="review"><name>reviews</name><path>review/customer</path><label>My Product Reviews</label></action>
+                <action method="addLink" translate="label" module="tag"><name>tags</name><path>tag/customer/</path><label>My Tags</label></action>
+                <action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active"><name>wishlist</name><path>wishlist/</path><label>My Wishlist</label></action>
+                <action method="addLink" translate="label" module="oauth"><name>OAuth Customer Tokens</name><path>oauth/customer_token</path><label>My Applications</label></action>
+                <action method="addLink" translate="label" module="newsletter"><name>newsletter</name><path>newsletter/manage/</path><label>Newsletter Subscriptions</label></action>
+                <action method="addLink" translate="label" module="downloadable"><name>downloadable_products</name><path>downloadable/customer/products</path><label>My Downloadable Products</label></action>
+                <action method="addLink" ><name>viewinbox</name><path>mage_inbox/list/view</path><label>Inbox</label></action>
+                <action method="addLink" ><name>viewmybudge</name><path>mage_mybudge/list/view</path><label>My Budge</label></action>
+
+				<action method="addLink" translate="label" module="netgo_customerpic"><name>Upload Profile Photo</name><path>netgo/customerpic</path><label>Profile Photo</label></action>
             </block>
         </reference>
         <reference name="left">
