@@ -69,13 +69,21 @@ function crop_photo(img_width, img_height, base_url) {
 	var baseUrl = base_url;
 	jQuery('#photo_container').html('<img src="'+baseUrl+'/skin/frontend/base/default/customerpic/img/ajax-loader.gif"> Processing...');
 
-	console.log(baseUrl);
+	
 	jQuery.ajax({ 
 		url: baseUrl+'/netgo/customerpic/crop',
 		type: 'POST',
 		data: {x:x_, y:y_, w:w_, h:h_, photo_url:photo_url, targ_w:img_width, targ_h:img_height, customer_id:customer_id},
-		success:function(data){ 
-			jQuery('#photo_container').html(data+'<span class="upload_btn_img" onclick="show_popup(\'popup_upload\')"><span class="ed-txt">Edit</span></span>	');
+		success:function(result){
+			data = JSON.parse(result);
+			var image = "<img src='" + data.src + "'>";
+			image += '<span class="upload_btn_img" onclick="show_popup(\'popup_upload\')"><span class="ed-txt">Edit</span></span>';
+			jQuery('#photo_container').html(image);
+
+			//change header avatar
+			//$('.header-v2 > .skip-links > .skip-account > img').attr('src', data.src);
+			$('.header-avatar').attr('src', data.src);
+			
 		}
 	});
 }

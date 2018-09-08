@@ -19,7 +19,7 @@ $base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 	<div class="form_upload">
 		<span class="close" onclick="close_popup('popup_upload')">x</span>
 		<h2>Upload photo</h2>
-		<form action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>netgo/customerpic/upload" method="post" enctype="multipart/form-data" target="upload_frame" onsubmit="submit_photo('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>')">
+		<form action="<?php echo $base_url; ?>netgo/customerpic/upload" method="post" enctype="multipart/form-data" target="upload_frame" onsubmit="submit_photo('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>')">
 			<input type="file" name="photo" id="photo" class="file_input">
             <div id="loading_progress"></div>
 			<input type="submit" value="Upload photo" id="upload_btn">

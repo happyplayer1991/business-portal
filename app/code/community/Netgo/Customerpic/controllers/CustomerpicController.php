@@ -99,7 +99,14 @@ class Netgo_Customerpic_CustomerpicController extends Mage_Core_Controller_Front
 		//Save as customer profile picture
 		$this->saveImage($postData, $img_name);
 		
-		echo '<img src="'.$media_url.'/profile/thumbs/'.$thumb_height.'/'.$img_name.'?'.time().'">';
+		//echo '<img src="'.$media_url.'/profile/thumbs/'.$thumb_height.'/'.$img_name.'?'.time().'">';
+
+		// return json data
+
+		$result = array(
+			'src' => $media_url.'/profile/thumbs/'.$thumb_height.'/'.$img_name.'?'.time()
+		);
+		echo json_encode($result);
 		
 		imagedestroy($img_r);
 		exit;
