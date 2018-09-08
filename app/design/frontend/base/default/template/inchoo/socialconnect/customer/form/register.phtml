@@ -41,6 +41,10 @@
     <?php /* Extensions placeholder */ ?>
     <?php echo $this->getChildHtml('customer.form.register.extra')?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate">
+
+        <!-- Fix failed to register customer -->
+        <?php echo $this->getBlockHtml('formkey'); ?>
+
         <div class="fieldset">
             <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
             <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
