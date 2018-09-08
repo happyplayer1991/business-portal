@@ -52,7 +52,7 @@ function show_popup_crop(url, customer_id, img_width, img_height) {
 }
 
 //Crop_photo : 
-function crop_photo(img_width, img_height) {
+function crop_photo(img_width, img_height, base_url) {
 	var x_ = jQuery('#x').val();
 	var y_ = jQuery('#y').val();
 	var w_ = jQuery('#w').val();
@@ -65,10 +65,11 @@ function crop_photo(img_width, img_height) {
 
 	//Display the loading texte
 	var getUrl = window.location; 
-	var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+	//var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+	var baseUrl = base_url;
 	jQuery('#photo_container').html('<img src="'+baseUrl+'/skin/frontend/base/default/customerpic/img/ajax-loader.gif"> Processing...');
 
-	 
+	console.log(baseUrl);
 	jQuery.ajax({ 
 		url: baseUrl+'/netgo/customerpic/crop',
 		type: 'POST',

@@ -13,6 +13,7 @@
 $_helper = Mage::helper('netgo_customerpic');
 $thumb_width = $_helper->getThumbWidth();
 $thumb_height = $_helper->getThumbHeight();
+$base_url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
 ?>
 <div id="popup_upload">
 	<div class="form_upload">
@@ -37,7 +38,7 @@ $thumb_height = $_helper->getThumbHeight();
 			<input type="hidden" id="w" name="w" />
 			<input type="hidden" id="h" name="h" />
 			<input type="hidden" id="photo_url" name="photo_url" />
-			<input type="button" value="Crop Image" id="crop_btn" onclick="crop_photo('<?php echo $thumb_width; ?>', '<?php echo $thumb_height; ?>')" />
+			<input type="button" value="Crop Image" id="crop_btn" onclick="crop_photo('<?php echo $thumb_width; ?>', '<?php echo $thumb_height; ?>', '<?php echo $base_url; ?>')" />
 		</form>
 	</div>
 </div>
@@ -46,11 +47,12 @@ $thumb_height = $_helper->getThumbHeight();
 		<div class="profilepicbutton x1">
 			<div class="content"> 
 				<div id="photo_container" class="brw-content">
-				<span class="upload_btn-img"><img alt=""  src="<?php echo $this->getCustomerPhoto(); ?>" />
-				<span class="upload_btn_img" onclick="show_popup('popup_upload')"><span class="ed-txt">Upload</span></span>			
-				</span>  
+					<span class="upload_btn-img"><img alt=""  src="<?php echo $this->getCustomerPhoto(); ?>" />
+					<span class="upload_btn_img" onclick="show_popup('popup_upload')"><span class="ed-txt">Upload</span></span>			
+					</span>  
 				</div>
 			</div>
 		</div> 
 	</div> 
 </div>
+
