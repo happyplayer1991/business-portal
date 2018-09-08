@@ -231,10 +231,21 @@ div.mybudge div.description {
  ==============================
  */
 
-.supplier-register, .customer-register{
+.supplier-register, .customer-register {
 	margin-bottom: 10px;
 }
 
 .customer-account-create .fieldset, .customer-account-create .buttons-set {
      margin-left: 0 ; 
 }
+
+/*
+ ==============================
+ 	My account page
+ ==============================
+ */
+
+.edit-account-form .save-button, .add-address-form .save-button {
+	margin-bottom: 10px;
+}
+

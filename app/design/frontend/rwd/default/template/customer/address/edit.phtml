@@ -37,13 +37,13 @@
 </div>
 <?php endif; ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
-<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate" class="scaffold-form" enctype="multipart/form-data">
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate" class="scaffold-form add-address-form" enctype="multipart/form-data">
     <div class="fieldset">
     <?php echo $this->getBlockHtml('formkey')?>
     <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
     <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
         <h2 class="legend"><?php echo $this->__('Contact Information') ?></h2>
-        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <!-- <p class="required"><?php echo $this->__('* Required Fields') ?></p> -->
         <ul class="form-list">
             <li class="fields">
                 <?php echo $this->getNameBlockHtml() ?>
@@ -153,9 +153,9 @@
             </li>
         </ul>
     </div>
-    <div class="buttons-set">
+    <div class="fieldset">
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save Address')) ?>" class="button save-button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
         <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save Address')) ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
     </div>
 </form>
 <script type="text/javascript">
